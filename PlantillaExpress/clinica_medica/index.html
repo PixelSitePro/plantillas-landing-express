@@ -344,6 +344,58 @@
                 padding-bottom: 20px;
             }
         }
+
+                /* Ajustes para la caja contenedora de horarios */
+        .schedule-box {
+            background-color: #fdf2f2; /* Fondo tenue guinda/pastel idéntico a tu ejemplo */
+            border-radius: 16px;
+            padding: 30px 40px;
+            box-sizing: border-box;
+        }
+        
+        /* Forzar que los elementos de la lista se comporten como filas limpias */
+        .schedule-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .schedule-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 16px;
+        }
+        
+        /* Línea divisoria de puntos (excepto en el último horario) */
+        .schedule-list li:not(:last-child) {
+            border-bottom: 1px dashed #cbd5e1; /* Línea discontinua suave */
+        }
+        
+        /* Estilos de texto independientes */
+        .schedule-list li span:first-child {
+            color: #334155; /* Color del Día */
+            font-weight: 500;
+        }
+        
+        .schedule-list li span:last-child {
+            color: #0f172a; /* Color de las Horas */
+            font-weight: 600;
+        }
+        
+        /* Clase automatizada por JS cuando detecta la palabra 'Cerrado' */
+        .schedule-list li span.destacado {
+            color: #be123c !important; /* Rojo elegante para cierres o formación */
+            font-weight: 700 !important;
+        }
+        
+        /* Optimización móvil */
+        @media (max-width: 600px) {
+            .schedule-box { padding: 20px; }
+            .schedule-list li { font-size: 14px; padding: 15px 0; }
+        }
     </style>
 </head>
 
@@ -491,6 +543,42 @@
                 menu.style.cssText = "display:flex; position:absolute; top:70px; left:0; width:100%; background:white; flex-direction:column; padding:20px; box-shadow: 0 10px 10px rgba(0,0,0,0.1); z-index: 1000;";
             }
         }
+
+                document.addEventListener("DOMContentLoaded", () => {
+            const container = document.getElementById("scheduleListContainer");
+            if (!container) return;
+        
+            // 1. Extraemos el string plano inyectado por el KV (ej: "Lunes a Viernes: 07:00 AM... | Sábados: ...")
+            const rawData = container.getAttribute("data-raw-horario") || "";
+            
+            // 2. Limpiamos el contenedor para evitar duplicados
+            container.innerHTML = "";
+        
+            // 3. Dividimos el texto usando el pipe "|" como separador
+            const lineas = rawData.split("|");
+        
+            lineas.forEach(linea => {
+                if (!linea.trim()) return;
+        
+                // Separamos el Día de la Hora buscando los primeros dos puntos ":"
+                const partes = linea.split(":");
+                const diaText = partes[0] ? partes[0].trim() : "";
+                const horaText = partes.slice(1).join(":").trim();
+        
+                // Si el texto de las horas contiene la palabra 'Cerrado', le inyectamos la clase destacada
+                const claseDestacado = horaText.toLowerCase().includes("cerrado") ? "class='destacado'" : "";
+        
+                // Insertamos el nodo limpio al listado original de tu plantilla
+                const itemHTML = `
+                    <li>
+                        <span>${diaText}</span>
+                        <span ${claseDestacado}>${horaText}</span>
+                    </li>
+                `;
+                
+                container.insertAdjacentHTML("beforeend", itemHTML);
+            });
+        });
     </script>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
