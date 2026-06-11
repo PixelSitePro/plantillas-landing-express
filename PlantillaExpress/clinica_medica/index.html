@@ -443,7 +443,7 @@
 
         <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 10px;">
             <p style="font-size: 0.9rem; font-weight: 600; color: var(--secondary);">¿Deseas información adicional?</p>
-            <a href="https://wa.me/${CLIENTE_WHATSAPP}?text=Hola,%20solicito%20m%C3%A1s%20informaci%C3%B3n%20acerca%20de%20sus%20servicios." id="whatsapp-link" target="_blank" style="background: var(--primary); color: white; width: 100%; max-width: 300px; padding: 12px; border-radius: 8px; text-decoration: none; font-weight: 700; text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
+            <a href="https://wa.me/${CLIENTE_WHATSAPP}?text=Hola,%20solicito%20m%C3%A1s%20informaci%C3%B3n%20acerca%20de%20sus%20servicios." id="whatsapp-link" target="_blank" rel="noopener" style="background: var(--primary); color: white; width: 100%; max-width: 300px; padding: 12px; border-radius: 8px; text-decoration: none; font-weight: 700; text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
                 <span>💬</span> CONTACTO POR WHATSAPP
             </a>
         </div>
@@ -460,7 +460,7 @@
                 <div class="doctor-info">
                     <h3>${CLIENTE_SERVICIOS_S1_TITULO}</h3>
                     <p>${CLIENTE_SERVICIOS_S1_DESC}</p>
-                    <a href="https://wa.me/${CLIENTE_WHATSAPP}?text=Hola,%20solicito%20m%C3%A1s%20informaci%C3%B3n%20sobre%20el%20servicio%20de%20${CLIENTE_SERVICIOS_S1_TEXT_WA}" target="_blank" class="btn-agendar">
+                    <a href="https://wa.me/${CLIENTE_WHATSAPP}?text=Hola,%20solicito%20m%C3%A1s%20informaci%C3%B3n%20sobre%20el%20servicio%20de%20${CLIENTE_SERVICIOS_S1_TEXT_WA}" target="_blank" rel="noopener" class="btn-agendar">
                         <i class="fab fa-whatsapp" style="font-size: 1.4rem;"></i> Reservar Cita
                     </a>
                 </div>
@@ -472,7 +472,7 @@
                 <div class="doctor-info">
                     <h3>${CLIENTE_SERVICIOS_S2_TITULO}</h3>
                     <p>${CLIENTE_SERVICIOS_S2_DESC}</p>
-                    <a href="https://wa.me/${CLIENTE_WHATSAPP}?text=Hola,%20solicito%20m%C3%A1s%20informaci%C3%B3n%20sobre%20el%20servicio%20de%20${CLIENTE_SERVICIOS_S2_TEXT_WA}" target="_blank" class="btn-agendar">
+                    <a href="https://wa.me/${CLIENTE_WHATSAPP}?text=Hola,%20solicito%20m%C3%A1s%20informaci%C3%B3n%20sobre%20el%20servicio%20de%20${CLIENTE_SERVICIOS_S2_TEXT_WA}" target="_blank" rel="noopener" class="btn-agendar">
                         <i class="fab fa-whatsapp" style="font-size: 1.4rem;"></i> Reservar Cita
                     </a>
                 </div>
@@ -484,7 +484,7 @@
                 <div class="doctor-info">
                     <h3>${CLIENTE_SERVICIOS_S3_TITULO}</h3>
                     <p>${CLIENTE_SERVICIOS_S3_DESC}</p>
-                    <a href="https://wa.me/${CLIENTE_WHATSAPP}?text=Hola,%20solicito%20m%C3%A1s%20informaci%C3%B3n%20sobre%20el%20servicio%20de%20${CLIENTE_SERVICIOS_S3_TEXT_WA}" target="_blank" class="btn-agendar">
+                    <a href="https://wa.me/${CLIENTE_WHATSAPP}?text=Hola,%20solicito%20m%C3%A1s%20informaci%C3%B3n%20sobre%20el%20servicio%20de%20${CLIENTE_SERVICIOS_S3_TEXT_WA}" target="_blank" rel="noopener" class="btn-agendar">
                         <i class="fab fa-whatsapp" style="font-size: 1.4rem;"></i> Reservar Cita
                     </a>
                 </div>
@@ -523,7 +523,7 @@
         <div class="social-links-container">
             <p>Síguenos en nuestras redes:</p>
             <div id="social-icons" class="social-icons">
-                <a href="https://wa.me/${CLIENTE_WHATSAPP}" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://wa.me/${CLIENTE_WHATSAPP}" target="_blank" rel="noopener" ><i class="fab fa-whatsapp"></i></a>
                 <a href="tel:${CLIENTE_WHATSAPP}"><i class="fas fa-phone"></i></a>
             </div>
         </div>
@@ -534,8 +534,10 @@
     </footer>
 
 <script>
+        // Control de apertura y cierre del menú móvil adaptado
         function toggleMobileMenu() {
             const menu = document.getElementById('main-menu');
+            if (!menu) return;
             const isFlex = menu.style.display === 'flex';
             if (isFlex) {
                 menu.style.display = 'none';
@@ -552,42 +554,48 @@
             // 1. Extraemos el string plano inyectado por el KV
             let rawData = container.getAttribute("data-raw-horario") || "";
             
-            // 2. Respaldo de seguridad: si la variable viene vacía, inyectamos el formato base para que no quede en blanco
+            // 2. Respaldo de seguridad: si la variable viene vacía o por defecto, usamos el formato de respaldo
             if (!rawData || rawData.trim() === "" || rawData.includes("CLIENTE_HORARIO")) {
-                rawData = "Lunes - Viernes: 07:00 AM - 07:00 PM | Sábados: 08:00 AM - 02:00 PM | Domingos: Urgencias 24/7";
+                rawData = "Lunes a Viernes: 07:00 AM - 07:00 PM | Sábados: 08:00 AM - 02:00 PM | Domingo: Urgencias";
             }
             
-            // 3. Limpiamos el contenedor
+            // 3. Limpiamos por completo el contenedor antes de renderizar
             container.innerHTML = "";
         
-            // 4. Dividimos el texto usando el pipe "|" como separador
+            // 4. Dividimos el string usando el pipe "|" como separador de días
             const lineas = rawData.split("|");
         
             lineas.forEach(linea => {
                 if (!linea.trim()) return;
         
-                // Separamos el Día de la Hora buscando los primeros dos puntos ":"
+                // Separamos el Día del Horario usando los primeros dos puntos ":"
                 const partes = linea.split(":");
                 const diaText = partes[0] ? partes[0].trim() : "Horario";
                 
-                // Si la línea no tiene ":", tomamos todo el texto como el valor
+                // Si la línea no tiene ":", tomamos todo el bloque como el valor de hora
                 const horaText = partes.length > 1 ? partes.slice(1).join(":").trim() : linea.trim();
         
-                // Convertimos a minúsculas para evaluar las palabras clave sin importar cómo las escriba el usuario
+                // Convertimos a minúsculas para evaluar las palabras clave de alerta de forma segura
                 const textoMinuscula = horaText.toLowerCase();
                 
-                // Si contiene 'cerrado' o 'urgencias', le inyectamos la clase destacada para pintar en rojo
-                const claseDestacado = (textoMinuscula.includes("cerrado") || textoMinuscula.includes("urgencias")) ? "class='destacado'" : "";
+                // 5. BLINDAJE ULTRA CONTRA XSS: Creamos los elementos HTML estructurados directamente en memoria
+                const li = document.createElement("li");
+                const spanDia = document.createElement("span");
+                const spanHora = document.createElement("span");
         
-                // Insertamos el nodo al listado original
-                const itemHTML = `
-                    <li>
-                        <span>${diaText}</span>
-                        <span ${claseDestacado}>${horaText}</span>
-                    </li>
-                `;
-                
-                container.insertAdjacentHTML("beforeend", itemHTML);
+                // Asignamos estrictamente el valor como TEXTO PLANO (Cualquier etiqueta HTML maliciosa inyectada se anula automáticamente)
+                spanDia.textContent = diaText;
+                spanHora.textContent = horaText;
+        
+                // 6. Inyección estética dinámica: Si detecta 'cerrado' o 'urgencias', añadimos la clase CSS destacada
+                if (textoMinuscula.includes("cerrado") || textoMinuscula.includes("urgencias")) {
+                    spanHora.classList.add("destacado");
+                }
+        
+                // 7. Ensamblamos los elementos hijos dentro del elemento de lista e insertamos al contenedor raíz
+                li.appendChild(spanDia);
+                li.appendChild(spanHora);
+                container.appendChild(li);
             });
         });
     </script>
