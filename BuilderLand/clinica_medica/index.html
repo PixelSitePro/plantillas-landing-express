@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Constructor Express - GDHSystem</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD&locale=es_HN"></script>
+
+    <style>
+        :root { --accent: #006874; --dark: #0f172a; --gray: #64748b; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { display: flex; height: 100vh; font-family: 'Inter', sans-serif; overflow: hidden; background: var(--dark); }
+
+        /* PANEL DE EDICIÓN */
+        #editor-panel {
+            width: 420px; background: #ffffff; border-right: 1px solid #e2e8f0;
+            padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px;
+            z-index: 10; box-shadow: 10px 0 20px rgba(0,0,0,0.2);
+        }
+        .section-title { font-size: 0.75rem; font-weight: 800; color: var(--accent); text-transform: uppercase; border-bottom: 2px solid #f1f5f9; padding-bottom: 5px; margin-top: 10px; }
+        .input-group { display: flex; flex-direction: column; gap: 3px; }
+        label { font-size: 0.65rem; font-weight: 700; color: #1e1b4b; text-transform: uppercase; }
+        input, textarea { padding: 8px; border: 2px solid #f1f5f9; border-radius: 8px; font-size: 0.85rem; font-family: inherit; outline: none; }
+        input:focus { border-color: var(--accent); }
+        
+        .service-item { background: #f0f9ff; padding: 10px; border-radius: 10px; margin-bottom: 5px; border: 1px solid #e0f2fe; }
+        
+        /* VISTA PREVIA */
+        #preview-container { flex-grow: 1; padding: 15px; background: #0f172a; display: flex; flex-direction: column; }
+        iframe { width: 100%; height: 100%; background: white; border: none; border-radius: 15px; box-shadow: 0 0 40px rgba(0,0,0,0.5); }
+
+        .btn-main { background: var(--accent); color: white; padding: 18px; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
+        .btn-main:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 104, 116, 0.3); }
+
+        /* MODAL DE PAGO */
+        #payment-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.95); z-index: 2000; align-items: center; justify-content: center; }
+        .modal-content { background: white; padding: 35px; border-radius: 25px; width: 500px; text-align: center; position: relative; }
+        .close-modal { position: absolute; top: 20px; right: 20px; font-size: 1.5rem; cursor: pointer; border: none; background: none; color: var(--gray); }
+    </style>
+</head>
+<body>
+
+<div id="editor-panel">
+    <h2 style="color: var(--accent); text-align:center; font-weight: 800;">EXPRESS BUILDER</h2>
+    
+    <div class="section-title">Información de la Clínica</div>
+    <div class="input-group"><label>Nombre de la Clínica</label><input type="text" id="edit-nombre" value="GDH Health" oninput="updatePreview()"></div>
+    <div class="input-group"><label>Eslogan Principal</label><textarea id="edit-hero" rows="2" oninput="updatePreview()">Cuidamos de ti y de los que más amas, todos los días.</textarea></div>
+    <div class="input-group"><label>Teléfono de Urgencias</label><input type="text" id="edit-tel" value="+504 9926-5960" oninput="updatePreview()"></div>
+
+    <div class="section-title">Especialistas</div>
+    <div class="service-item">
+        <label>Especialista 1</label>
+        <input type="text" id="s1-nom" value="Dr. Benjamin Clark" oninput="updatePreview()" style="width:100%; margin-bottom:5px;">
+        <input type="text" id="s1-esp" value="Cirujano General" oninput="updatePreview()" style="width:100%;">
+    </div>
+    <div class="service-item">
+        <label>Especialista 2</label>
+        <input type="text" id="s2-nom" value="Dr. Daniel Kim" oninput="updatePreview()" style="width:100%; margin-bottom:5px;">
+        <input type="text" id="s2-esp" value="Oftalmólogo" oninput="updatePreview()" style="width:100%;">
+    </div>
+    <div class="service-item">
+        <label>Especialista 3</label>
+        <input type="text" id="s3-nom" value="Dra. Sophia Miller" oninput="updatePreview()" style="width:100%; margin-bottom:5px;">
+        <input type="text" id="s3-esp" value="Medicina Familiar" oninput="updatePreview()" style="width:100%;">
+    </div>
+
+    <div class="section-title">Horarios de Atención</div>
+    <div class="input-group"><label>Lun a Vie:</label><input type="text" id="h-semana" value="8:00 AM - 6:00 PM" oninput="updatePreview()"></div>
+    <div class="input-group"><label>Sábado:</label><input type="text" id="h-sabado" value="9:00 AM - 2:00 PM" oninput="updatePreview()"></div>
+    <div class="input-group"><label>Domingo:</label><input type="text" id="h-domingo" value="Solo Urgencias" oninput="updatePreview()"></div>
+
+    <div class="section-title">Ubicación</div>
+    <div class="input-group"><label>Colonia / Calle</label><input type="text" id="u-calle" value="Col. Alameda, Calle principal" oninput="updatePreview()"></div>
+    <div class="input-group"><label>Ciudad / Estado</label><input type="text" id="u-ciudad" value="Tegucigalpa, FM" oninput="updatePreview()"></div>
+    <div class="input-group"><label>País</label><input type="text" id="u-pais" value="Honduras" oninput="updatePreview()"></div>
+
+    <div class="section-title">Redes Sociales (Links)</div>
+    <div class="input-group"><label>Facebook</label><input type="text" id="rs-fb" value="https://facebook.com/clinica" oninput="updatePreview()"></div>
+    <div class="input-group"><label>Instagram</label><input type="text" id="rs-ig" value="https://instagram.com/clinica" oninput="updatePreview()"></div>
+    <div class="input-group"><label>WhatsApp</label><input type="text" id="rs-wa" value="https://wa.me/50499265960" oninput="updatePreview()"></div>
+    
+    <div class="section-title">Identidad Visual</div>
+    <div class="input-group">
+        <label>Color Principal</label>
+        <div style="display: flex; align-items: center; gap: 12px; background: #f8fafc; padding: 12px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 10px;">
+            <input type="color" id="edit-color" value="#006874" oninput="updatePreview()" style="width: 45px; height: 45px; border:none; cursor:pointer; background:none;">
+            <div id="color-swatch" style="width: 28px; height: 28px; border-radius: 50%; border: 3px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.1);"></div>
+            <span id="color-hex" style="font-size: 0.85rem; font-weight: 800; color: #1e1b4b;">#006874</span>
+        </div>
+        
+        <label>Color Accent</label>
+        <div style="display: flex; align-items: center; gap: 12px; background: #f8fafc; padding: 12px; border-radius: 12px; border: 1px solid #e2e8f0;">
+            <input type="color" id="edit-accent" value="#d4e157" oninput="updatePreview()" style="width: 45px; height: 45px; border:none; cursor:pointer; background:none;">
+            <div id="accent-swatch" style="width: 28px; height: 28px; border-radius: 50%; border: 3px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.1);"></div>
+            <span id="accent-hex" style="font-size: 0.85rem; font-weight: 800; color: #1e1b4b;">#D4E157</span>
+        </div>
+    </div>
+
+    <button class="btn-main" onclick="openPayment()" style="margin-top:15px;">
+        <i class="fas fa-check-circle"></i> Finalizar y Pagar Diseño
+    </button>
+</div>
+
+<div id="preview-container">
+    <iframe id="live-preview"></iframe>
+</div>
+
+<div id="payment-modal">
+    <div class="modal-content">
+        <button class="close-modal" onclick="closePayment()">&times;</button>
+        <h3 style="color: #1e1b4b; margin-bottom: 10px;">Confirmar Pedido</h3>
+        <p style="font-size:0.85rem; color:var(--gray); margin-bottom: 20px;">Pago único por diseño médico profesional:<br><b style="font-size:1.2rem; color:#1e1b4b;">$20.00 USD</b></p>
+        
+        <div id="paypal-button-container"></div>
+
+        <button class="btn-main" style="width:100%; background:#25d366; margin-top:20px; font-size: 0.8rem;" onclick="sendToWhatsApp()">
+            YA PAGUÉ, ENVIAR COMPROBANTE 💬
+        </button>
+    </div>
+</div>
+
+<script>
+    function openPayment() { 
+        document.getElementById('payment-modal').style.display = 'flex';
+        renderPayPalButtons();
+    }
+    function closePayment() { document.getElementById('payment-modal').style.display = 'none'; }
+
+    function renderPayPalButtons() {
+        if (document.getElementById('paypal-button-container').innerHTML !== "") return;
+        paypal.Buttons({
+            style: { layout: 'vertical', color: 'blue', shape: 'rect', label: 'pay' },
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: { value: '20.00' },
+                        description: "Diseño Web Médico: " + document.getElementById('edit-nombre').value
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    sendToWhatsApp();
+                });
+            }
+        }).render('#paypal-button-container');
+    }
+
+function updatePreview() {
+    const iframe = document.getElementById('live-preview');
+    const doc = iframe.contentDocument || iframe.contentWindow.document;
+
+    const d = {
+        nom: document.getElementById('edit-nombre').value,
+        tel: document.getElementById('edit-tel').value,
+        hero: document.getElementById('edit-hero').value,
+        hSem: document.getElementById('h-semana').value,
+        hSab: document.getElementById('h-sabado').value,
+        hDom: document.getElementById('h-domingo').value,
+        uCalle: document.getElementById('u-calle').value,
+        uCiudad: document.getElementById('u-ciudad').value,
+        uPais: document.getElementById('u-pais').value,
+        fb: document.getElementById('rs-fb').value,
+        ig: document.getElementById('rs-ig').value,
+        wa: document.getElementById('rs-wa').value,
+        color: document.getElementById('edit-color').value,
+        accent: document.getElementById('edit-accent').value,
+        s1n: document.getElementById('s1-nom').value, s1e: document.getElementById('s1-esp').value,
+        s2n: document.getElementById('s2-nom').value, s2e: document.getElementById('s2-esp').value,
+        s3n: document.getElementById('s3-nom').value, s3e: document.getElementById('s3-esp').value
+    };
+
+    document.getElementById('color-swatch').style.background = d.color;
+    document.getElementById('color-hex').innerText = d.color.toUpperCase();
+    document.getElementById('accent-swatch').style.background = d.accent;
+    document.getElementById('accent-hex').innerText = d.accent.toUpperCase();
+
+    if (!doc.getElementById('main-body')) {
+        const template = `
+        <!DOCTYPE html>
+        <html lang="es">
+        <head>
+            <meta charset="UTF-8">
+            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+            <style id="dynamic-styles">
+                :root { --primary: ${d.color}; --secondary: #002b31; --accent: ${d.accent}; --text-main: #334155; --bg-light: #f8fafc; }
+                body { margin: 0; font-family: 'Inter', sans-serif; color: var(--text-main); line-height: 1.6; background: var(--bg-light); }
+                header { background: white; padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.05); position: sticky; top:0; z-index:100; }
+                .logo { font-weight: 700; color: var(--secondary); text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
+                nav a { text-decoration: none; color: var(--text-main); font-weight: 600; font-size: 0.85rem; margin-left: 20px; transition: 0.3s; cursor: pointer; }
+                nav a:hover { color: var(--primary); }
+                
+                /* HERO MEJORADO SEGÚN CAPTURA */
+                .hero { background-color: var(--primary); color: white; padding: 60px 8%; display: flex; align-items: center; justify-content: space-between; gap: 40px; min-height: 400px; }
+                .hero-text { flex: 1; text-align: left; }
+                .hero-text span { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; opacity: 0.9; display: block; margin-bottom: 15px; font-weight: 400; }
+                .hero-text h1 { font-size: 3.2rem; font-weight: 800; line-height: 1.1; margin: 0; }
+                .hero-img-container { flex: 1; display: flex; justify-content: flex-end; }
+                .hero-img-container img { width: 100%; max-width: 550px; border-radius: 35px; box-shadow: 0 25px 50px rgba(0,0,0,0.25); object-fit: cover; }
+
+                .action-container { width: 85%; margin: -40px auto 40px; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: flex; justify-content: space-around; align-items: center; border-top: 5px solid var(--accent); position: relative; z-index: 5; }
+                .section { padding: 50px 8%; text-align: center; }
+                .doctors-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-top: 30px; }
+                .doctor-card { background: white; border-radius: 25px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; }
+                .doctor-card img { width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--primary); margin: 25px auto 15px; object-fit: cover; display: block; }
+                .doctor-info h3 { color: var(--primary); font-size: 1.2rem; margin-bottom: 5px; }
+                .btn-agendar { background: var(--accent); color: var(--secondary); padding: 12px; border-radius: 10px; text-decoration: none; font-weight: 700; display: block; font-size: 0.85rem; margin-top: 15px; cursor: pointer; }
+                
+                .grid-info { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px; text-align: left; }
+                .info-box { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+                .social-preview { display: flex; gap: 30px; justify-content: center; margin-top: 30px; }
+                .social-preview a { color: var(--primary); font-size: 2.8rem; transition: 0.3s; }
+                .social-preview a:hover { color: var(--accent); transform: scale(1.1); }
+                footer { background: var(--secondary); color: white; padding: 40px; text-align: center; font-size: 0.8rem; }
+            </style>
+        </head>
+        <body id="main-body">
+            <header>
+                <div class="logo"><i class="fas fa-hand-holding-medical" style="color:var(--primary);"></i> <span id="p-nom">${d.nom}</span></div>
+                <nav><a>INICIO</a><a>SERVICIOS</a><a>HORARIOS</a><a>UBICACIÓN</a></nav>
+            </header>
+            
+            <section class="hero" id="p-hero-bg">
+                <div class="hero-text">
+                    <span>Atención Médica Integral</span>
+                    <h1 id="p-hero-text">${d.hero}</h1>
+                </div>
+                <div class="hero-img-container">
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=1000" alt="Médico">
+                </div>
+            </section>
+
+            <div class="action-container"><div style="text-align:left;"><h4 style="color:red; font-size:0.8rem;">URGENCIAS 24/7</h4><p id="p-tel" style="font-weight:800;">${d.tel}</p></div><a style="background:var(--primary); color:white; padding:12px 25px; border-radius:8px; text-decoration:none; font-weight:700;">RESERVAR CITA</a></div>
+            
+            <section class="section">
+                <h2>Nuestros Especialistas</h2>
+                <div class="doctors-grid">
+                    <div class="doctor-card"><img src="https://i.pravatar.cc/150?u=1"><div class="doctor-info"><h3 id="p-s1n">${d.s1n}</h3><p id="p-s1e">${d.s1e}</p><a class="btn-agendar">AGENDAR</a></div></div>
+                    <div class="doctor-card"><img src="https://i.pravatar.cc/150?u=2"><div class="doctor-info"><h3 id="p-s2n">${d.s2n}</h3><p id="p-s2e">${d.s2e}</p><a class="btn-agendar">AGENDAR</a></div></div>
+                    <div class="doctor-card"><img src="https://i.pravatar.cc/150?u=3"><div class="doctor-info"><h3 id="p-s3n">${d.s3n}</h3><p id="p-s3e">${d.s3e}</p><a class="btn-agendar">AGENDAR</a></div></div>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="grid-info">
+                    <div class="info-box"><h3 style="color:var(--primary);"><i class="fas fa-clock"></i> Horarios</h3><p><b>Lun - Vie:</b> <span id="p-hSem">${d.hSem}</span></p><p><b>Sábado:</b> <span id="p-hSab">${d.hSab}</span></p><p><b>Domingo:</b> <span id="p-hDom">${d.hDom}</span></p></div>
+                    <div class="info-box"><h3 style="color:var(--primary);"><i class="fas fa-map-marker-alt"></i> Ubicación</h3><p id="p-uCalle">${d.uCalle}</p><p id="p-uCiudad">${d.uCiudad}</p><p><b id="p-uPais">${d.uPais}</b></p></div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Conecta con Nosotros</h2>
+                <div class="social-preview">
+                    <a id="p-fb" href="${d.fb}" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a id="p-ig" href="${d.ig}" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a id="p-wa" href="${d.wa}" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </section>
+
+            <footer><p>Copyright &copy; 2026 <b id="p-nom-f">${d.nom}</b> | Diseñado por GDHSystem</p></footer>
+        </body>
+        </html>`;
+        iframe.srcdoc = template;
+    } else {
+        doc.getElementById('p-nom').innerText = d.nom;
+        doc.getElementById('p-nom-f').innerText = d.nom;
+        doc.getElementById('p-hero-text').innerText = d.hero;
+        doc.getElementById('p-hero-bg').style.backgroundColor = d.color;
+        doc.getElementById('p-tel').innerText = d.tel;
+        doc.getElementById('p-hSem').innerText = d.hSem;
+        doc.getElementById('p-hSab').innerText = d.hSab;
+        doc.getElementById('p-hDom').innerText = d.hDom;
+        doc.getElementById('p-uCalle').innerText = d.uCalle;
+        doc.getElementById('p-uCiudad').innerText = d.uCiudad;
+        doc.getElementById('p-uPais').innerText = d.uPais;
+        doc.getElementById('p-s1n').innerText = d.s1n; doc.getElementById('p-s1e').innerText = d.s1e;
+        doc.getElementById('p-s2n').innerText = d.s2n; doc.getElementById('p-s2e').innerText = d.s2e;
+        doc.getElementById('p-s3n').innerText = d.s3n; doc.getElementById('p-s3e').innerText = d.s3e;
+        doc.getElementById('p-fb').href = d.fb; doc.getElementById('p-ig').href = d.ig; doc.getElementById('p-wa').href = d.wa;
+        doc.documentElement.style.setProperty('--primary', d.color);
+        doc.documentElement.style.setProperty('--accent', d.accent);
+    }
+}
+
+function sendToWhatsApp() {
+    const datosConfig = {
+        clinica: document.getElementById('edit-nombre').value,
+        tel: document.getElementById('edit-tel').value,
+        eslogan: document.getElementById('edit-hero').value,
+        colores: { principal: document.getElementById('edit-color').value, accent: document.getElementById('edit-accent').value },
+        pago: "EXITOSO_PAYPAL"
+    };
+    const msg = `HOLA GDHSYSTEM, ACABO DE PAGAR EL DISEÑO MÉDICO.\n\nDATOS TÉCNICOS:\n\`\`\`json\n${JSON.stringify(datosConfig, null, 2)}\n\`\`\``;
+    window.open(`https://api.whatsapp.com/send?phone=50499265960&text=${encodeURIComponent(msg)}`, '_blank');
+    closePayment();
+}
+updatePreview();
+</script>
+</body>
+</html>
