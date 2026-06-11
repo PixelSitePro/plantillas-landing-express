@@ -446,12 +446,8 @@
         </div>
         <div class="info-container">
             <div class="schedule-box" style="width: 100%;">
-                <ul class="schedule-list">
-                    <li>
-                        <span>Horario General</span> 
-                        <span style="color: var(--primary); font-weight: bold;">${CLIENTE_HORARIO}</span>
-                    </li>
-                </ul>
+                <ul id="scheduleListContainer" class="schedule-list" data-raw-horario="${CLIENTE_HORARIO}">
+                    </ul>
             </div>
         </div>
     </section>
