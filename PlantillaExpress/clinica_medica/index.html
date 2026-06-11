@@ -532,7 +532,7 @@
         <p>Copyright © 2026 <strong>${CLIENTE_NOMBRE}</strong> | Creado por <a href="https://pixelsitepro.com" style="color:var(--accent); text-decoration: none; font-weight: bold;">PixelSitePro</a></p>
     </footer>
 
-    <script>
+   <script>
         function toggleMobileMenu() {
             const menu = document.getElementById('main-menu');
             const isFlex = menu.style.display === 'flex';
@@ -544,17 +544,22 @@
             }
         }
 
-                document.addEventListener("DOMContentLoaded", () => {
+        document.addEventListener("DOMContentLoaded", () => {
             const container = document.getElementById("scheduleListContainer");
             if (!container) return;
         
-            // 1. Extraemos el string plano inyectado por el KV (ej: "Lunes a Viernes: 07:00 AM... | Sábados: ...")
-            const rawData = container.getAttribute("data-raw-horario") || "";
+            // 1. Extraemos el string plano inyectado por el KV
+            let rawData = container.getAttribute("data-raw-horario") || "";
             
-            // 2. Limpiamos el contenedor para evitar duplicados
+            // 2. Respaldo de seguridad: si la variable de Cloudflare viene vacía o literal, le asignamos un string por defecto
+            if (!rawData || rawData.trim() === "" || rawData.includes("CLIENTE_HORARIO")) {
+                rawData = "Martes - Viernes: 09:00 AM - 07:00 PM | Sábados: 08:00 AM - 02:00 PM | Lunes: Cerrado por Formación";
+            }
+            
+            // 3. Limpiamos el contenedor
             container.innerHTML = "";
         
-            // 3. Dividimos el texto usando el pipe "|" como separador
+            // 4. Dividimos el texto usando el pipe "|" como separador
             const lineas = rawData.split("|");
         
             lineas.forEach(linea => {
@@ -562,8 +567,10 @@
         
                 // Separamos el Día de la Hora buscando los primeros dos puntos ":"
                 const partes = linea.split(":");
-                const diaText = partes[0] ? partes[0].trim() : "";
-                const horaText = partes.slice(1).join(":").trim();
+                const diaText = partes[0] ? partes[0].trim() : "Horario";
+                
+                // Si no hay dos puntos, tomamos la línea completa como el valor
+                const horaText = partes.length > 1 ? partes.slice(1).join(":").trim() : linea.trim();
         
                 // Si el texto de las horas contiene la palabra 'Cerrado', le inyectamos la clase destacada
                 const claseDestacado = horaText.toLowerCase().includes("cerrado") ? "class='destacado'" : "";
