@@ -200,20 +200,46 @@
             margin-bottom: 20px;
         }
 
-        .btn-agendar {
-            background: var(--accent);
-            color: var(--secondary) !important;
-            padding: 12px;
-            border-radius: 12px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-weight: 700;
-            width: 90%;
-            margin: 0 auto 25px;
-        }
+/* Estilo Moderno para el Botón de WhatsApp */
+.btn-agendar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--accent);
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: 50px; /* Bordes redondeados modernos */
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+    cursor: pointer;
+}
+
+/* Efecto Hover para interactividad */
+.btn-agendar:hover {
+    background-color: #128C7E; /* Verde más oscuro al pasar el mouse */
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(37, 211, 102, 0.3);
+    color: #ffffff;
+}
+
+/* Ajustes adicionales para consistencia en la card */
+.doctor-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Opcional: Asegurar que el icono se vea bien */
+.btn-agendar i {
+    font-size: 1.2rem;
+}
 
         .card-footer-color {
             background: var(--primary);
