@@ -1,1 +1,216 @@
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GDH Tours | Tu Aventura Tropical</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #0073b7;
+            --secondary-orange: #f37321;
+            --white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --bg-dark: #0f172a;
+        }
+
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background-color: var(--bg-dark); color: var(--white); scroll-behavior: smooth; }
+
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; background: rgba(0,0,0,0.3); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 1000; }
+        .nav-links a { margin-left: 20px; text-decoration: none; color: var(--white); font-weight: 500; cursor: pointer; }
+        .btn-trabaja { background: var(--primary-blue); color: var(--white) !important; padding: 8px 15px; border-radius: 20px; transition: 0.3s; }
+        .btn-trabaja:hover { background: var(--secondary-orange); }
+
+        /* Hamburguesa */
+        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; }
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .nav-links { 
+                display: none; position: absolute; top: 100%; left: 0; width: 100%; 
+                background: rgba(0,0,0,0.9); flex-direction: column; padding: 20px 0; text-align: center;
+            }
+            .nav-links.active { display: flex; }
+            .nav-links a { margin: 10px 0; }
+        }
+
+        .nav-links a { position: relative; padding-bottom: 5px; }
+        .nav-links a:not(.btn-trabaja):hover { color: var(--secondary-orange); }
+        .nav-links a:not(.btn-trabaja)::after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 0;
+            background-color: var(--secondary-orange); transition: width 0.3s ease;
+        }
+        .nav-links a:not(.btn-trabaja):hover::after { width: 100%; }
+
+        .hero { 
+            height: 70vh; position: relative; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; color: var(--white); text-align: center; overflow: hidden;
+        }
+        .hero-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+        .hero-content { position: relative; z-index: 1; background: rgba(0,0,0,0.4); padding: 20px; border-radius: 10px; }
+        .hero-content:hover { transform: scale(1.05); border: 1.0px; border-color: var(--primary-blue); transition: 0.3s ease }
+
+        .stats-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; padding: 4rem 5%; }
+        .stat-card { text-align: center; padding: 25px; border-radius: 15px; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); transition: 0.3s; }
+        .stat-card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.15); border-color: var(--primary-blue); }
+        .stat-card i { font-size: 2rem; color: var(--primary-blue); margin-bottom: 10px; }
+        .stat-card h3 { margin: 5px 0; }
+        .stat-card p { font-size: 0.8rem; color: #aaa; margin: 0; }
+
+        .quote-section { padding: 4rem 5%; text-align: center; }
+        .quote-form { 
+            background: var(--glass-bg); backdrop-filter: blur(15px); border: 1px solid var(--glass-border); 
+            padding: 25px; border-radius: 20px; display: inline-flex; gap: 10px; flex-wrap: wrap; 
+            justify-content: center; max-width: 900px; transition: 0.3s ease 
+        }
+        .quote-form input { border: 1px solid var(--glass-border); padding: 12px; border-radius: 10px; width: 180px; background: rgba(0,0,0,0.2); color: white; }
+        .quote-form:hover { transform: scale(1.05); border: 1.0px; border-color: var(--primary-blue); }
+        .btn-quote { background: var(--secondary-orange); color: var(--white); border: none; padding: 12px 25px; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .btn-quote:hover { background: var(--primary-blue); }
+
+        .container { padding: 4rem 5%; }
+        .section-title { text-align: center; font-size: 2rem; margin-bottom: 0.5rem; }
+        .section-desc { text-align: center; color: #94a3b8; margin-bottom: 2rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+
+        #grid-ofertas, #grid-destinos { scroll-margin-top: 205px; }
+
+        .location-section { padding: 4rem 5%; text-align: center; }
+        .glass-box { background: var(--glass-bg); backdrop-filter: blur(15px); border: 1px solid var(--glass-border); padding: 25px; border-radius: 20px; max-width: 900px; margin: 0 auto; }
+
+        .social-section { padding: 3rem 5%; text-align: center; }
+        .social-container { display: flex; justify-content: center; gap: 30px; margin-top: 20px; }
+        .social-icon { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); font-size: 1.5rem; color: var(--white); transition: 0.3s; text-decoration: none; }
+        .social-icon:hover { background: var(--secondary-orange); transform: scale(1.1); }
+
+        footer { background: #000; color: var(--white); padding: 2rem 5%; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo"><strong>GDH Tours</strong></div>
+        <div class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="nav-links">
+            <a onclick="document.querySelector('.hero').scrollIntoView()">Inicio</a>
+            <a onclick="document.querySelector('.quote-section').scrollIntoView()">Planificar</a>
+            <a onclick="document.getElementById('grid-ofertas').scrollIntoView()">Destacadas</a>
+            <a onclick="document.getElementById('grid-destinos').scrollIntoView()">Populares</a>
+            <a onclick="document.querySelector('.location-section').scrollIntoView()">Ubicación</a>
+            <a onclick="document.querySelector('.social-section').scrollIntoView()" class="btn-trabaja">Contacto</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <img src="https://images.unsplash.com/photo-1662911136928-1068ba7be9e6?q=80&w=1631&auto=format&fit=crop" alt="Fondo" class="hero-img">
+        <div class="hero-content">
+            <h1>Destinos Exclusivos para tu próximo viaje</h1>
+            <p style="color: var(--secondary-orange); font-size: 1.2rem; font-weight: 500">Tu viaje Comienza Aquí</p>
+        </div>
+    </header>
+
+    <section class="stats-section">
+        <div class="stat-card"><i class="fas fa-briefcase"></i><h3>5+</h3><p>Años en el Mercado</p></div>
+        <div class="stat-card"><i class="fas fa-users"></i><h3>2,000+</h3><p>Clientes satisfechos</p></div>
+        <div class="stat-card"><i class="fas fa-shield-alt"></i><h3>100%</h3><p>Viajes Certificados</p></div>
+        <div class="stat-card"><i class="fas fa-check-circle"></i><h3>100%</h3><p>Garantía de satisfacción</p></div>
+    </section>
+
+    <section class="quote-section">
+        <h2 class="section-title">Ayúdame a programar el viaje</h2>
+        <p class="section-desc">Completa tus datos y recibe una cotización personalizada hoy mismo.</p>
+        <form class="quote-form">
+            <input type="text" placeholder="Nombre" required>
+            <input type="email" placeholder="Email" required>
+            <input type="text" placeholder="Destino">
+            <input type="date" title="Fecha del viaje">
+            <input type="number" placeholder="Días del viaje" min="1">
+            <input type="number" placeholder="Personas" min="1">
+            <button type="submit" class="btn-quote">Solicitar Cotización</button>
+        </form>
+    </section>
+
+    <main class="container">
+        <h2 class="section-title">Ofertas Destacadas</h2>
+        <p class="section-desc">Descubre nuestros paquetes promocionales más populares.</p>
+        <div class="grid" id="grid-ofertas"></div>
+
+        <h2 class="section-title" style="margin-top:4rem;">Destinos Populares</h2>
+        <p class="section-desc">Explora los lugares más visitados por nuestros viajeros.</p>
+        <div class="grid" id="grid-destinos"></div>
+    </main>
+
+    <section class="location-section">
+        <h2 class="section-title">Nuestra Ubicación</h2>
+        <p class="section-desc">Visítanos en nuestras oficinas centrales.</p>
+        <div class="glass-box">
+            <p style="margin-bottom: 20px;">Edificio Interamericana, Tegucigalpa, Honduras.</p>
+            <div style="border-radius: 15px; overflow: hidden; border: 2px solid var(--glass-border);">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d291.967882896736!2d-86.56751950207924!3d14.030912959045502!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1ses!2shn!4v1781482179038!5m2!1ses!2shn" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <section class="social-section">
+        <h2 class="section-title">Síguenos en Redes Sociales</h2>
+        <p class="section-desc">Únete a nuestra comunidad para más consejos de viaje.</p>
+        <div class="social-container">
+            <a href="https://www.facebook.com/profile.php?id=61590424569640&locale=es_LA" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/pixel.sitepro/" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@pixel_site_pro" target="_blank" class="social-icon"><i class="fab fa-tiktok"></i></a>
+            <a href="https://wa.me/50498611270" target="_blank" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 GDH Tours. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        const ofertas = [
+            { titulo: "Madrid", descripcion: "6 días, Hotel, Tours lugares destacados", precio: "$915", img: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4" },
+            { titulo: "Suiza", descripcion: "6 días, Hotel, Tours lugares destacados", precio: "$1,500", img: "https://images.unsplash.com/photo-1594069758873-e79e9075eb7d?q=80&w=1470&auto=format&fit=crop" },
+            { titulo: "Colombia", descripcion: "6 días, Hotel, Tours lugares destacados", precio: "$399", img: "https://plus.unsplash.com/premium_photo-1733266875086-64729a97b8d2?q=80&w=735&auto=format&fit=crop" }
+        ];
+
+        const destinos = [
+            { titulo: "Roatán", descripcion: "Playas cristalinas y arrecifes coralinos", precio: "Consultar", img: "https://images.unsplash.com/photo-1594477580457-c1231e900153?q=80&w=1412&auto=format&fit=crop" },
+            { titulo: "Utila", descripcion: "El mejor destino para buceo en el mundo", precio: "Consultar", img: "https://images.unsplash.com/photo-1656988086378-118f9cfe3a4c?q=80&w=1470&auto=format&fit=crop" },
+            { titulo: "Copán", descripcion: "Historia maya y cultura ancestral", precio: "Consultar", img: "https://images.unsplash.com/photo-1591551963955-9487b4973e84?q=80&w=1470&auto=format&fit=crop" }
+        ];
+
+        function render(id, data) {
+            document.getElementById(id).innerHTML = data.map(item => {
+                const mensaje = encodeURIComponent(`Hola, me gustaría más información sobre el paquete: ${item.titulo}`);
+                const urlWhatsApp = `https://wa.me/50498611270?text=${mensaje}`;
+
+                return `
+                <div class="card-item" style="background:rgba(255,255,255,0.05); backdrop-filter:blur(10px); border:1px solid var(--glass-border); border-radius:15px; overflow:hidden; transition:0.3s;">
+                    <img src="${item.img}" style="width:100%; height:200px; object-fit:cover;">
+                    <div style="padding:1.5rem;">
+                        <h3>${item.titulo}</h3>
+                        <p style="font-size: 0.9rem; color: #ccc;">${item.descripcion}</p>
+                        <p>Desde: <strong>${item.precio}</strong></p>
+                        <button class="btn-card" onclick="window.open('${urlWhatsApp}', '_blank')" style="background:var(--secondary-orange); color:white; border:none; padding:10px; width:100%; border-radius:5px; cursor:pointer; transition:0.3s;">Contactar</button>
+                    </div>
+                </div>`;
+            }).join('');
+
+            document.querySelectorAll('.card-item').forEach(card => {
+                card.onmouseover = () => card.style.background = 'rgba(255,255,255,0.15)';
+                card.onmouseout = () => card.style.background = 'rgba(255,255,255,0.05)';
+            });
+            document.querySelectorAll('.btn-card').forEach(btn => {
+                btn.onmouseover = () => btn.style.background = 'var(--primary-blue)';
+                btn.onmouseout = () => btn.style.background = 'var(--secondary-orange)';
+            });
+        }
+
+        render('grid-ofertas', ofertas);
+        render('grid-destinos', destinos);
+    </script>
+</body>
+</html>
