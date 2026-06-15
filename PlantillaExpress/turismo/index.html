@@ -95,12 +95,12 @@
             <i class="fas fa-bars"></i>
         </div>
         <div class="nav-links">
-            <a onclick="document.querySelector('.hero').scrollIntoView()">Inicio</a>
-            <a onclick="document.querySelector('.quote-section').scrollIntoView()">Planificar</a>
-            <a onclick="document.getElementById('grid-ofertas').scrollIntoView()">Destacadas</a>
-            <a onclick="document.getElementById('grid-destinos').scrollIntoView()">Populares</a>
-            <a onclick="document.querySelector('.location-section').scrollIntoView()">Ubicación</a>
-            <a onclick="document.querySelector('.social-section').scrollIntoView()" class="btn-trabaja">Contacto</a>
+            <a onclick="cerrarMenu(); document.querySelector('.hero').scrollIntoView()">Inicio</a>
+            <a onclick="cerrarMenu(); document.querySelector('.quote-section').scrollIntoView()">Planificar</a>
+            <a onclick="cerrarMenu(); document.getElementById('grid-ofertas').scrollIntoView()">Destacadas</a>
+            <a onclick="cerrarMenu(); document.getElementById('grid-destinos').scrollIntoView()">Populares</a>
+            <a onclick="cerrarMenu(); document.querySelector('.location-section').scrollIntoView()">Ubicación</a>
+            <a onclick="cerrarMenu(); document.querySelector('.social-section').scrollIntoView()" class="btn-trabaja">Contacto</a>
         </div>
     </nav>
 
@@ -211,6 +211,14 @@
 
         render('grid-ofertas', ofertas);
         render('grid-destinos', destinos);
+
+        function cerrarMenu() {
+    const navLinks = document.querySelector('.nav-links');
+    if (navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+    }
+}
+        
     </script>
 </body>
 </html>
