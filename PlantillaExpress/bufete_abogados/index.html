@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Asesoría legal experta en GDH Law Firm. Defendemos tus derechos con ética y profesionalismo.">
+    <meta name="author" content="GDHSystem">
+
+    <title>GDH Law Firm - Soluciones Legales</title>
+
+    <link rel="icon" id="favicon" href="">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #c5a059;
+            --secondary: #0f172a;
+            --accent: #e2e8f0;       
+            --text-main: #334155;
+            --bg-light: #f1f5f9;
+            --bg-body: #ffffff;
+            --txt-urgencias: #991b1b; 
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        body { color: var(--text-main); background: var(--bg-body); line-height: 1.6; scroll-behavior: smooth; }
+
+        header {
+            background: var(--bg-body); padding: 15px 8%; display: flex;
+            justify-content: space-between; align-items: center; position: sticky;
+            top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        .logo { font-weight: 700; color: var(--secondary); font-size: 1.4rem; display: flex; align-items: center; gap: 10px; text-transform: uppercase; }
+        
+        /* Ajuste para que el logo no se oculte si tarda en cargar */
+        #main-logo { height: 40px; width: auto; object-fit: contain; }
+
+        nav ul { display: flex; list-style: none; gap: 20px; align-items: center; }
+        nav a { text-decoration: none; color: var(--secondary); font-size: 0.85rem; font-weight: 600; transition: 0.3s; }
+        nav a:hover { color: var(--primary); }
+        
+        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .menu-toggle span { width: 25px; height: 3px; background: var(--secondary); }
+
+        .hero {
+            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), 
+                        url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=1200');
+            background-size: cover; background-position: center; color: white;
+            padding: 100px 8%; display: flex; align-items: center; justify-content: center; min-height: 450px; text-align: center;
+        }
+        .hero-text h1 { font-size: 3rem; margin-bottom: 20px; line-height: 1.2; }
+
+        .action-container {
+            width: 80%; margin: -60px auto 50px; background: var(--bg-body);
+            padding: 25px; border-radius: 12px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            display: grid; grid-template-columns: 1fr 1fr; align-items: center;
+            gap: 20px; border-bottom: 5px solid var(--primary); position: relative; z-index: 10;
+        }
+
+        section { padding: 80px 8%; }
+        .section-title { text-align: center; margin-bottom: 50px; }
+        .section-title h2 { color: var(--secondary); font-size: 2.5rem; }
+        
+     .doctors-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(250px, 320px)); /* Máximo 320px por foto */
+    gap: 30px; 
+    justify-content: center; /* Centra las fotos si hay pocas */
+}        .doctor-card {
+            background: var(--bg-body); border-radius: 8px; overflow: hidden; 
+            transition: 0.3s ease; border: 1px solid #eee; text-align: center;
+        }
+        .doctor-card:hover { transform: translateY(-10px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .doctor-card img { 
+    width: 100%; 
+    height: 350px; /* Volvemos a una altura fija controlada */
+    object-fit: cover; 
+    object-position: top;
+    border-bottom: 3px solid var(--primary); /* Línea dorada decorativa */
+}        .doctor-info { padding: 15px; }
+        .doctor-info h3 { color: var(--secondary); margin-bottom: 5px; }
+        .doctor-info p { color: var(--primary); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 15px; }
+        
+        .btn-agendar {
+            background: var(--secondary); color: white !important; padding: 12px;
+            border-radius: 4px; text-decoration: none; display: flex; 
+            align-items: center; justify-content: center; gap: 10px; font-weight: 600;
+        }
+
+        .info-container { max-width: 800px; margin: 0 auto; background: var(--bg-light); border-radius: 8px; padding: 30px; }
+        .schedule-list { list-style: none; }
+        .schedule-list li { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e2e8f0; }
+        .map-responsive { width: 100%; height: 300px; border-radius: 8px; border: none; margin-top: 20px; }
+
+        #contacto { background: var(--secondary); color: white; text-align: center; }
+        .social-icons { display: flex; gap: 15px; justify-content: center; margin-top: 20px; }
+        .social-icons a { color: var(--primary); font-size: 1.5rem; transition: 0.3s; }
+        .social-icons a:hover { transform: scale(1.2); }
+        footer { background: #0a0f1a; color: #94a3b8; padding: 30px; text-align: center; font-size: 0.85rem; }
+
+        @media (max-width: 768px) {
+            .action-container { grid-template-columns: 1fr; width: 90%; }
+            nav ul { display: none; }
+            .menu-toggle { display: flex; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">
+            <img id="main-logo" src="" alt="Logo">
+            <span class="clinic-name-placeholder">Cargando...</span>
+        </div>
+        <nav>
+            <ul id="main-menu">
+                <li><a href="#inicio">INICIO</a></li>
+                <li><a href="#servicios">ABOGADOS</a></li>
+                <li><a href="#horarios">HORARIOS</a></li>
+                <li><a href="#ubicacion">UBICACIÓN</a></li>
+                <li><a href="#contacto">REDES</a></li>
+            </ul>
+            <div class="menu-toggle" onclick="toggleMobileMenu()">
+                <span></span><span></span><span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero" id="inicio">
+        <div class="hero-text" data-aos="fade-up">
+            <p style="letter-spacing: 3px; color: var(--primary); font-weight: 700; margin-bottom: 10px;">CONSULTORÍA JURÍDICA</p>
+            <h1>Excelencia Legal para proteger sus intereses.</h1>
+        </div>
+    </section>
+
+    <div class="action-container">
+        <div style="display: flex; align-items: center; gap: 15px; border-right: 1px solid #eee; padding-right: 15px;">
+            <div style="background: #fff7ed; padding: 15px; border-radius: 50%; color: var(--primary); font-size: 1.5rem;">⚖️</div>
+            <div>
+                <h4 style="color: var(--secondary); font-size: 1rem; font-weight: 700;">ATENCIÓN INMEDIATA</h4>
+                <a href="#" class="clinic-tel-link clinic-tel-text" style="color: var(--primary); font-weight: 800; text-decoration: none;">TELÉFONO</a>
+            </div>
+        </div>
+        <div style="text-align: center;">
+            <p style="margin-bottom: 10px; font-weight: 600; font-size: 0.9rem;">¿Necesita una consulta especializada?</p>
+            <a href="#" id="whatsapp-link" target="_blank" style="background: var(--primary); color: white; padding: 12px 25px; border-radius: 4px; text-decoration: none; font-weight: 700; display: inline-block; width: 100%;">
+                SOLICITAR ASESORÍA
+            </a>
+        </div>
+    </div>
+
+    <section id="servicios">
+        <div class="section-title">
+            <h2>Nuestra Firma</h2>
+            <p>Especialistas dedicados a su defensa</p>
+        </div>
+        <div class="doctors-grid" id="doctors-container"></div>
+    </section>
+
+    <section id="horarios" style="background: white;">
+        <div class="section-title"><h2>Disponibilidad</h2></div>
+        <div class="info-container">
+            <ul class="schedule-list" id="schedule-container"></ul>
+        </div>
+    </section>
+
+    <section id="ubicacion">
+        <div class="section-title"><h2>Ubicación</h2></div>
+        <div style="text-align: center;">
+            <p>📍 Centro Corporativo GDH, Edificio Central, Ciudad Financiera</p>
+            <iframe id="mapa-clinica" class="map-responsive" src="" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </section>
+
+    <section id="contacto">
+        <div class="section-title"><h2 style="color: white;">Contacto Directo</h2></div>
+        <div id="social-icons" class="social-icons"></div>
+    </section>
+
+    <footer>
+        <p>Copyright © 2026 <span class="clinic-name-placeholder">Nombre</span> | <a href="#" style="color:var(--primary); text-decoration: none;">GDHSystem</a></p>
+    </footer>
+
+    <script>
+        const CONFIG = {
+            nombre: "GDH Law Firm",
+            // URL Directa para que el logo cargue siempre:
+            logo: "logo.png", 
+            telefono: "+504 9926-5960",
+            mapaURL: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1162.4320770301897!2d-86.56741954435691!3d14.03080863718718!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f6e698782afdaa3%3A0xc98dca56b3658e4d!2sParque%20Centenario!5e1!3m2!1ses!2shn!4v1770520582965!5m2!1ses!2shn",
+            horarios: [
+                { dias: "Lunes a Viernes", horas: "08:00 AM - 05:00 PM" },
+                { dias: "Sábados", horas: "09:00 AM - 12:00 PM" },
+                { dias: "Urgencias Legales", horas: "Atención 24/7", especial: true }
+            ],
+            redes: {
+                facebook: "https://facebook.com/",
+                instagram: "https://instagram.com/"
+            }
+        };
+
+        const ABOGADOS = [
+            { name: "Abg. Ricardo Sosa", spec: "Derecho Penal y Civil", img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=400&h=500" },
+            { name: "Abg. Julia Méndez", spec: "Derecho Corporativo", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400&h=500" },
+            { name: "Abg. Roberto Paz", spec: "Derecho Laboral", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400&h=500" }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // SINCRONIZACIÓN DE LOGO Y FAVICON
+            const mainLogo = document.getElementById('main-logo');
+            if (mainLogo) mainLogo.src = CONFIG.logo;
+            
+            const favIcon = document.getElementById('favicon');
+            if (favIcon) favIcon.href = CONFIG.logo;
+
+            // TEXTOS Y TELÉFONOS
+            document.querySelectorAll('.clinic-name-placeholder').forEach(el => el.innerText = CONFIG.nombre);
+            document.querySelectorAll('.clinic-tel-text').forEach(el => el.innerText = CONFIG.telefono);
+            document.querySelectorAll('.clinic-tel-link').forEach(el => el.href = `tel:${CONFIG.telefono.replace(/\s+/g, '')}`);
+            
+            const waNumber = CONFIG.telefono.replace(/[^0-9]/g, '');
+            document.getElementById('whatsapp-link').href = `https://wa.me/${waNumber}`;
+            document.getElementById('mapa-clinica').src = CONFIG.mapaURL;
+
+            // CARGAR ABOGADOS
+            const docContainer = document.getElementById('doctors-container');
+            ABOGADOS.forEach(adv => {
+                const msg = encodeURIComponent(`Hola, solicito una asesoría con ${adv.name} por un caso de ${adv.spec}.`);
+                docContainer.innerHTML += `
+                    <div class="doctor-card" data-aos="fade-up">
+                        <img src="${adv.img}" alt="${adv.name}">
+                        <div class="doctor-info">
+                            <h3>${adv.name}</h3>
+                            <p>${adv.spec}</p>
+                            <a href="https://wa.me/${waNumber}?text=${msg}" target="_blank" class="btn-agendar">
+                                AGENDAR CONSULTA
+                            </a>
+                        </div>
+                    </div>`;
+            });
+
+            // CARGAR HORARIOS
+            const scheduleContainer = document.getElementById('schedule-container');
+            CONFIG.horarios.forEach(item => {
+                const style = item.especial ? `style="color: var(--txt-urgencias); font-weight: bold;"` : "";
+                scheduleContainer.innerHTML += `<li><span>${item.dias}</span><span ${style}>${item.horas}</span></li>`;
+            });
+
+            // REDES SOCIALES
+            const socialContainer = document.getElementById('social-icons');
+            if(CONFIG.redes.facebook) socialContainer.innerHTML += `<a href="${CONFIG.redes.facebook}" target="_blank"><i class="fab fa-facebook-f"></i></a>`;
+            if(CONFIG.redes.instagram) socialContainer.innerHTML += `<a href="${CONFIG.redes.instagram}" target="_blank"><i class="fab fa-instagram"></i></a>`;
+        });
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('main-menu');
+            if(menu.style.display === 'flex') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'flex';
+                menu.style.cssText = "display:flex; position:absolute; top:70px; left:0; width:100%; background:white; flex-direction:column; padding:20px; box-shadow: 0 10px 10px rgba(0,0,0,0.1);";
+            }
+        }
+    </script>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init({ duration: 1000, once: true });</script>
+</body>
+</html>
