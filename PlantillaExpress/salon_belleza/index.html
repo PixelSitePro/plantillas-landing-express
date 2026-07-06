@@ -1,36 +1,48 @@
 <!DOCTYPE html>
 <html lang="es">
-
-	
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Resalta tu belleza en Bella Glamour Salon. Expertos en color, corte y cuidado personal.">
-    <meta name="author" content="GDHSystem">
-
-    <title>Bella Glamour Salon - Expertos en Belleza</title>
-
-    <link rel="icon" id="favicon" href="https://img.icons8.com/fluency/48/scissors.png">
+    <meta name="description" content="${CLIENTE_META_DESCRIPCION}">
+    <meta name="author" content="PixelStar">
+    <link rel="canonical" href="https://${CLIENTE_DOMINIO}">
+    <meta property="og:title" content="${CLIENTE_NOMBRE}">
+    <meta property="og:description" content="${CLIENTE_META_DESCRIPCION}">
+    <meta property="og:image" content="${CLIENTE_LOGO}">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="${CLIENTE_NOMBRE}">
+    <meta name="twitter:description" content="${CLIENTE_META_DESCRIPCION}">
+    <meta name="twitter:image" content="${CLIENTE_LOGO}">
+    <title>${CLIENTE_NOMBRE}</title>
+    <link rel="icon" id="favicon" href="${CLIENTE_LOGO}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-	
     <style>
-        /* 1. CONFIGURACIÓN Y COLORES (Estilo Moderno y Competitivo) */
+        /* 1. CONFIGURACIÓN Y VARIABLES DINÁMICAS INYECTADAS POR KV */
         :root {
-            --primary: #be185d;      /* Rosa Elegante */
-            --secondary: #1e1b4b;    /* Azul Navy Profundo */
-            --accent: #fbcfe8;       /* Rosa Suave para resaltes */
-            --text-main: #374151;    
-            --bg-light: #fff1f2;     /* Fondo sutil */
+            --primary: ${CLIENTE_COLOR_PRIMARIO};
+            --secondary: ${CLIENTE_COLOR_SECUNDARIO};
+            --accent: #f48fb1;
+            --text-main: #334155;
+            --bg-light: #fff5f7;
             --bg-body: #ffffff;
-            --txt-urgencias: #be185d; 
+            --txt-urgencias: #db2777;
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { color: var(--text-main); background: var(--bg-body); line-height: 1.6; scroll-behavior: smooth; }
-
-        /* 2. HEADER Y MENÚ HAMBURGUESA */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        body {
+            color: var(--text-main);
+            background: var(--bg-body);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+        /* 2. HEADER Y NAVEGACIÓN */
         header {
             background: var(--bg-body);
             padding: 15px 8%;
@@ -42,16 +54,42 @@
             z-index: 1000;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
-
-        .logo { font-weight: 700; color: var(--secondary); font-size: 1.4rem; display: flex; align-items: center; gap: 10px; text-transform: uppercase; }
-        
-        nav ul { display: flex; list-style: none; gap: 20px; align-items: center; }
-        nav a { text-decoration: none; color: var(--secondary); font-size: 0.85rem; font-weight: 600; transition: 0.3s; }
-        nav a:hover { color: var(--primary); }
-
-        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
-        .menu-toggle span { width: 25px; height: 3px; background: var(--secondary); }
-
+        .logo {
+            font-weight: 700;
+            color: var(--secondary);
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            align-items: center;
+        }
+        nav a {
+            text-decoration: none;
+            color: var(--secondary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        nav a:hover {
+            color: var(--primary);
+        }
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--secondary);
+        }
         /* 3. HERO SECTION */
         .hero {
             background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
@@ -62,9 +100,18 @@
             justify-content: space-between;
             min-height: 500px;
         }
-        .hero-text h1 { font-size: 3rem; margin-bottom: 20px; max-width: 500px; line-height: 1.2; }
-        .hero-image img { width: 100%; max-width: 600px; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
-
+        .hero-text h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            max-width: 500px;
+            line-height: 1.2;
+        }
+        .hero-image img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 15px;
+            object-fit: cover;
+        }
         /* 4. ACTION CONTAINER */
         .action-container {
             width: 80%;
@@ -81,70 +128,223 @@
             position: relative;
             z-index: 10;
         }
-
-        /* 5. ESPECIALISTAS GRID */
-        section { padding: 80px 8%; }
-        .section-title { text-align: center; margin-bottom: 40px; }
-        .section-title h2 { color: var(--secondary); font-size: 2rem; }
-
-        .doctors-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-        .doctor-card { 
-            display: flex; flex-direction: column; align-items: center; 
-            background: var(--bg-body); border-radius: 30px; overflow: hidden; 
-            transition: 0.3s ease; box-shadow: 0 10px 25px rgba(0,0,0,0.08); text-align: center;
+        /* 5. SERVICIOS GRID & CARDS */
+        .doctors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
         }
-        .doctor-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.12); }
-        .doctor-card img { width: 140px; height: 140px; border-radius: 50%; border: 4px solid var(--primary); margin: 30px 0 20px; object-fit: cover; }
-        
-        .doctor-info { padding: 0 20px 20px; width: 100%; }
-        .doctor-info h3 { color: var(--primary); font-size: 1.4rem; margin-bottom: 5px; }
-        .doctor-info p { color: var(--text-main); font-size: 1rem; margin-bottom: 20px; }
-
+        .doctor-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0;
+            background: var(--bg-body);
+            border-radius: 30px;
+            overflow: hidden;
+            transition: 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            border: none;
+        }
+        .doctor-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+        }
+        .doctor-card img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 4px solid var(--primary);
+            margin: 30px 0 20px;
+            object-fit: cover;
+        }
+        .doctor-info {
+            padding: 0 20px 20px;
+            width: 100%;
+        }
+        .doctor-info h3 {
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+        .doctor-info p {
+            color: var(--text-main);
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
         .btn-agendar {
-            background: var(--accent); color: var(--secondary) !important;
-            padding: 12px; border-radius: 12px; text-decoration: none;
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-            font-weight: 700; width: 90%; margin: 0 auto 25px;
+            background: var(--accent);
+            color: white !important;
+            padding: 12px;
+            border-radius: 12px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: 700;
+            width: 90%;
+            margin: 0 auto 25px;
         }
-        .card-footer-color { background: var(--primary); width: 100%; padding: 15px; color: white; font-size: 0.75rem; font-weight: 600; }
-
-        /* 6. HORARIOS (Ancho controlado) */
-        .info-container { 
-            max-width: 1200px; margin: 0 auto; background: var(--bg-light); 
-            border-radius: 20px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        .card-footer-color {
+            background: var(--primary);
+            width: 100%;
+            padding: 15px;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
         }
-        .schedule-list { list-style: none; }
-        .schedule-list li { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed #cbd5e1; }
-
-        /* 7. UBICACIÓN Y REDES */
-        .map-responsive { width: 100%; height: 300px; border-radius: 10px; border: none; margin-top: 15px; }
-        #contacto { background: var(--primary); color: white; text-align: center; }
-        .social-icons { display: flex; gap: 15px; justify-content: center; margin-top: 20px; }
-        .social-icons a { 
-            background: var(--bg-body); color: var(--primary); width: 45px; height: 45px; 
-            display: flex; align-items: center; justify-content: center; border-radius: 50%; 
-            transition: 0.3s; text-decoration: none;
+        /* 6. SECCIONES GENERALES Y HORARIOS */
+        section {
+            padding: 80px 8%;
         }
-        .social-icons a:hover { background: var(--accent); color: var(--secondary); transform: translateY(-5px); }
-
-        footer { background: var(--secondary); color: #cbd5e1; padding: 40px 8% 20px; text-align: center; }
-
-        /* Responsivo */
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .section-title h2 {
+            color: var(--secondary);
+            font-size: 2rem;
+        }
+        .info-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--bg-light);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+        .schedule-list {
+            list-style: none;
+        }
+        .schedule-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px dashed #cbd5e1;
+            font-size: 1.1rem;
+        }
+        /* 7. UBICACIÓN Y MAPA */
+        .map-responsive {
+            width: 100%;
+            height: 350px;
+            border-radius: 10px;
+            border: none;
+            margin-top: 20px;
+        }
+        /* 8. CONTACTO Y REDES */
+        #contacto {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+        }
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .social-icons a {
+            background: var(--bg-body);
+            color: var(--primary);
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .social-icons a:hover {
+            background: var(--accent);
+            color: var(--secondary);
+            transform: translateY(-5px);
+        }
+        /* 9. FOOTER */
+        footer {
+            background: var(--secondary);
+            color: #cbd5e1;
+            padding: 40px 8% 20px;
+            text-align: center;
+        }
+        /* 10. MEDIA QUERIES (OPTIMIZACIÓN MÓVIL) */
         @media (max-width: 992px) {
-            .action-container { width: 90%; grid-template-columns: 1fr; text-align: center; }
-            nav ul { display: none; }
-            .menu-toggle { display: flex; }
-            .hero { flex-direction: column; text-align: center; gap: 30px; }
+            .info-container {
+                grid-template-columns: 1fr;
+            }
+            .action-container {
+                width: 90%;
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 20px;
+            }
+            nav ul {
+                display: none;
+            }
+            .menu-toggle {
+                display: flex;
+            }
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                gap: 30px;
+            }
+            .emergency-block {
+                border-right: none !important;
+                border-bottom: 1px solid #e2e8f0;
+                padding-bottom: 20px;
+            }
+        }
+        .schedule-box {
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 30px 40px;
+            box-sizing: border-box;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+        }
+        .schedule-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .schedule-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+        }
+        .schedule-list li:not(:last-child) {
+            border-bottom: 1px dashed #e2e8f0;
+        }
+        .schedule-list li span:first-child {
+            color: #475569;
+            font-weight: 500;
+        }
+        .schedule-list li span:last-child {
+            color: #1e293b;
+            font-weight: 600;
+        }
+        .schedule-list li span.destacado {
+            color: #db2777 !important;
+            font-weight: 700 !important;
+        }
+        @media (max-width: 600px) {
+            .schedule-box { padding: 20px; }
+            .schedule-list li { font-size: 14px; padding: 12px 0; }
         }
     </style>
 </head>
-
 <body>
-
     <header>
         <div class="logo">
-            <img id="main-logo" src="" alt="img_logo.webp" style="height: 40px; display: none;" onload="this.style.display='block'">
-            <span class="clinic-name-placeholder">NOMBRE SALÓN</span>
+            <img id="main-logo" src="${CLIENTE_LOGO}" alt="Logo" style="height: 40px;">
+            <span class="clinic-name-placeholder">${CLIENTE_NOMBRE}</span>
         </div>
         <nav>
             <ul id="main-menu">
@@ -159,149 +359,152 @@
             </div>
         </nav>
     </header>
-
     <section class="hero" id="inicio">
         <div class="hero-text">
-            <p>EL CUIDADO QUE MERECES</p>
-            <h1>Resalta tu belleza natural con nuestras manos expertas.</h1>
+            <h1>${CLIENTE_NOMBRE}</h1>
+            <p style="font-size: 1.2rem; max-width: 500px; margin-top: 15px; opacity: 0.9;">${CLIENTE_META_DESCRIPCION}</p>
         </div>
-	<div class="hero-image">
-	    <img id="img-hero" src="https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Salon de Belleza">
-	</div>
+        <div class="hero-image">
+            <img src="${CLIENTE_BANNER}" alt="${CLIENTE_NOMBRE}">
+        </div>
     </section>
-
     <div class="action-container">
-        <div class="emergency-block" style="display: flex; align-items: center; justify-content: center; gap: 15px; border-right: 1px solid #eee; padding: 10px;">
-            <div style="background: #fdf2f8; padding: 12px; border-radius: 50%; color: var(--primary); font-size: 1.5rem;">📅</div>
+        <div class="emergency-block" style="display: flex; align-items: center; justify-content: center; gap: 15px; border-right: 1px solid #e2e8f0; padding: 10px;">
+            <div style="background: #fce7f3; padding: 12px; border-radius: 50%; color: #db2777; font-size: 1.5rem;">📅</div>
             <div style="text-align: left;">
-                <h4 style="color: var(--primary); font-size: 1rem; font-weight: 700;">CITAS HOY</h4>
-                <p style="font-size: 0.85rem; color: #475569;">Consulta disponibilidad inmediata</p>
-                <a href="#" class="clinic-tel-link clinic-tel-text" style="color: var(--secondary); font-weight: 800; font-size: 1.1rem; text-decoration: none;">TELÉFONO</a>
+                <h4 style="color: var(--txt-urgencias); font-size: 1rem; font-weight: 700;">AGENDA TU CITA</h4>
+                <p style="font-size: 0.85rem; color: #475569;">Reserva tu espacio ahora</p>
+                <a href="tel:${CLIENTE_WHATSAPP}" class="clinic-tel-text" style="color: var(--secondary); font-weight: 800; font-size: 1.1rem; text-decoration: none;">${CLIENTE_TELEFONO}</a>
             </div>
         </div>
         <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 10px;">
-            <p style="font-size: 0.9rem; font-weight: 600; color: var(--secondary);">¿Tienes dudas sobre un tratamiento?</p>
-            <a href="#" id="whatsapp-link" target="_blank" style="background: var(--primary); color: white; width: 100%; max-width: 300px; padding: 12px; border-radius: 8px; text-decoration: none; font-weight: 700; text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px;">
-                <span>💬</span> WHATSAPP DIRECTO
+            <p style="font-size: 0.9rem; font-weight: 600; color: var(--secondary);">¿Tienes dudas sobre tu look?</p>
+            <a href="https://wa.me/${CLIENTE_WHATSAPP}?text=Hola,%20quisiera%20consultar%20sobre%20sus%20servicios%20de%20belleza." id="whatsapp-link" target="_blank" rel="noopener" style="background: var(--primary); color: white; width: 100%; max-width: 300px; padding: 12px; border-radius: 8px; text-decoration: none; font-weight: 700; text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
+                <span>💬</span> HABLAR CON UN ESTILISTA
             </a>
         </div>
     </div>
-
     <section id="servicios">
         <div class="section-title">
-            <h2>Nuestros Especialistas</h2>
-            <p>Talento dedicado a tu imagen</p>
+            <h2>Nuestros Servicios</h2>
+            <p>Transforma tu estilo con nuestros expertos</p>
         </div>
-        <div class="doctors-grid" id="doctors-container"></div>
+        <div class="doctors-grid">
+            <div class="doctor-card" data-aos="fade-up">
+                <img src="${CLIENTE_SERVICIOS_S1_IMG}" alt="${CLIENTE_SERVICIOS_S1_TITULO}">
+                <div class="doctor-info">
+                    <h3>${CLIENTE_SERVICIOS_S1_TITULO}</h3>
+                    <p>${CLIENTE_SERVICIOS_S1_DESC}</p>
+                    <a href="https://wa.me/${CLIENTE_WHATSAPP}?text=Hola,%20quiero%20reservar%20una%20cita%20para%20${CLIENTE_SERVICIOS_S1_TEXT_WA}" target="_blank" rel="noopener" class="btn-agendar">
+                        <i class="fa-solid fa-scissors" style="font-size: 1.2rem;"></i> Agendar Cita
+                    </a>
+                </div>
+                <div class="card-footer-color">${CLIENTE_NOMBRE}</div>
+            </div>
+            <div class="doctor-card" data-aos="fade-up" data-aos-delay="100">
+                <img src="${CLIENTE_SERVICIOS_S2_IMG}" alt="${CLIENTE_SERVICIOS_S2_TITULO}">
+                <div class="doctor-info">
+                    <h3>${CLIENTE_SERVICIOS_S2_TITULO}</h3>
+                    <p>${CLIENTE_SERVICIOS_S2_DESC}</p>
+                    <a href="https://wa.me/${CLIENTE_WHATSAPP}?text=Hola,%20quiero%20reservar%20una%20cita%20para%20${CLIENTE_SERVICIOS_S2_TEXT_WA}" target="_blank" rel="noopener" class="btn-agendar">
+                        <i class="fa-solid fa-calendar-check" style="font-size: 1.2rem;"></i> Agendar Cita
+                    </a>
+                </div>
+                <div class="card-footer-color">${CLIENTE_NOMBRE}</div>
+            </div>
+            <div class="doctor-card" data-aos="fade-up" data-aos-delay="200">
+                <img src="${CLIENTE_SERVICIOS_S3_IMG}" alt="${CLIENTE_SERVICIOS_S3_TITULO}">
+                <div class="doctor-info">
+                    <h3>${CLIENTE_SERVICIOS_S3_TITULO}</h3>
+                    <p>${CLIENTE_SERVICIOS_S3_DESC}</p>
+                    <a href="https://wa.me/${CLIENTE_WHATSAPP}?text=Hola,%20quiero%20reservar%20una%20cita%20para%20${CLIENTE_SERVICIOS_S3_TEXT_WA}" target="_blank" rel="noopener" class="btn-agendar">
+                        <i class="fa-solid fa-sparkles" style="font-size: 1.2rem;"></i> Agendar Cita
+                    </a>
+                </div>
+                <div class="card-footer-color">${CLIENTE_NOMBRE}</div>
+            </div>
+        </div>
     </section>
-
     <section id="horarios">
-        <div class="section-title"><h2>Horarios de Atención</h2></div>
+        <div class="section-title">
+            <h2>Horarios de Atención</h2>
+        </div>
         <div class="info-container">
-            <ul class="schedule-list" id="schedule-container"></ul>
+            <div class="schedule-box" style="width: 100%;">
+                <ul id="scheduleListContainer" class="schedule-list" data-raw-horario="${CLIENTE_HORARIO}">
+                    </ul>
+            </div>
         </div>
     </section>
-
     <section id="ubicacion">
-        <div class="section-title"><h2>Ubicación</h2></div>
-        <div class="location-box" style="text-align: center;">
-            <p>📍 Calle Principal, Edificio <span class="clinic-name-placeholder">NOMBRE</span>, Distrito Glamour</p>
-            <iframe id="mapa-clinica" class="map-responsive" src="" allowfullscreen="" loading="lazy"></iframe>
+        <div class="section-title">
+            <h2>Ubicación</h2>
+        </div>
+        <div class="info-container" style="max-width: 900px;">
+            <h3 style="color: var(--secondary); margin-bottom: 10px;">Visítanos</h3>
+            <p>📍 ${CLIENTE_DIRECCION}</p>
+            <iframe class="map-responsive" src="${CLIENTE_MAPA_URL}" allowfullscreen="" loading="lazy"></iframe>
         </div>
     </section>
-
     <section id="contacto">
-        <div class="section-title"><h2 style="color: white;">Síguenos</h2></div>
-        <div id="social-icons" class="social-icons"></div>
+        <div class="section-title">
+            <h2 style="color: var(--secondary);">Redes Sociales</h2>
+        </div>
+        <div class="social-links-container">
+            <p>Síguenos para ver nuestros trabajos:</p>
+            <div id="social-icons" class="social-icons">
+                <a href="https://wa.me/${CLIENTE_WHATSAPP}" target="_blank" rel="noopener" ><i class="fab fa-whatsapp"></i></a>
+                <a href="tel:${CLIENTE_WHATSAPP}"><i class="fas fa-phone"></i></a>
+            </div>
+        </div>
     </section>
-
     <footer>
-        <p>Copyright © 2026 <span class="clinic-name-placeholder">NOMBRE</span> | Creado por <a href="https://pixelsitepro.com/" style="color:var(--accent); text-decoration: none;">PixelSitePro</a></p>
+        <p>Copyright © 2026 <strong>${CLIENTE_NOMBRE}</strong> | Creado por <a href="https://pixelsitepro.com" style="color:var(--accent); text-decoration: none; font-weight: bold;">PixelSitePro</a></p>
     </footer>
-
-    <script>
-        const CONFIG = {
-            nombre: "Bella Glamour Salon",
-            logo: "img_logo.webp",
-            telefono: "+504 9926-5960",
-            mapaURL: "https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d640.1341127733469!2d-86.5678636!3d14.0310941!3m2!1i1024!2i768!4f13.1!5e1!3m2!1ses!2shn!4v1780988374188!5m2!1ses!2shn",
-            horarios: [
-                { dias: "Martes - Viernes", horas: "09:00 AM - 07:00 PM" },
-                { dias: "Sábados", horas: "08:00 AM - 02:00 PM" },
-                { dias: "Lunes", horas: "Cerrado por Formación", especial: true }
-            ],
-            pagos: {
-                banco: "Banco Atlántida",
-                cuenta: "001122334455",
-                nombre: "Bella Glamour S. de R.L.",
-                monto: "Reserva: L. 200.00"
-            },
-            redes: {
-                facebook: "https://facebook.com/",
-                instagram: "https://instagram.com/",
-                twitter: ""
-            }
-        };
-
-		const ESPECIALISTAS = [		    
-            { name: "Valeria Ruiz", spec: "Colorista & Balayage", img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=688&q=80" },		    
-            { name: "Elena Cruz", spec: "Manicura & Nail Art", img: "https://images.unsplash.com/photo-1581403341630-a6e0b9d2d257?auto=format&fit=crop&w=400&q=80" },		    
-            { name: "Marco Peña", spec: "Corte Caballero & Estilo", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80" }	
-        ];
-
-        document.addEventListener('DOMContentLoaded', () => {
-            // Sincronización Básica
-            document.getElementById('main-logo').src = CONFIG.logo;
-            document.getElementById('favicon').href = CONFIG.logo;
-            document.querySelectorAll('.clinic-name-placeholder').forEach(el => el.innerText = CONFIG.nombre);
-            document.querySelectorAll('.clinic-tel-text').forEach(el => el.innerText = CONFIG.telefono);
-            document.querySelectorAll('.clinic-tel-link').forEach(el => el.href = `tel:${CONFIG.telefono.replace(/\s+/g, '')}`);
-            document.getElementById('mapa-clinica').src = CONFIG.mapaURL;
-
-            // WhatsApp
-            const waNumber = CONFIG.telefono.replace(/[^0-9]/g, '');
-            document.getElementById('whatsapp-link').href = `https://wa.me/${waNumber}`;
-
-            // Cargar Especialistas
-            const docContainer = document.getElementById('doctors-container');
-            ESPECIALISTAS.forEach(doc => {
-                const msg = encodeURIComponent(`Hola, quiero una cita con ${doc.name} para un servicio de ${doc.spec}.`);
-                docContainer.innerHTML += `
-                    <div class="doctor-card" data-aos="fade-up">
-                        <img src="${doc.img}" alt="${doc.name}">
-                        <div class="doctor-info">
-                            <h3>${doc.name}</h3>
-                            <p>${doc.spec}</p>
-                            <a href="https://wa.me/${waNumber}?text=${msg}" target="_blank" class="btn-agendar">
-                                <i class="fab fa-whatsapp"></i> Reservar Cita
-                            </a>
-                        </div>
-                        <div class="card-footer-color">${CONFIG.nombre}</div>
-                    </div>`;
-            });
-
-            // Cargar Horarios
-            const scheduleContainer = document.getElementById('schedule-container');
-            CONFIG.horarios.forEach(item => {
-                const style = item.especial ? `style="color: var(--txt-urgencias); font-weight: bold;"` : "";
-                scheduleContainer.innerHTML += `<li><span>${item.dias}</span><span ${style}>${item.horas}</span></li>`;
-            });
-
-            // Redes Sociales
-            const socialIcons = document.getElementById('social-icons');
-            if(CONFIG.redes.facebook) socialIcons.innerHTML += `<a href="${CONFIG.redes.facebook}"><i class="fab fa-facebook-f"></i></a>`;
-            if(CONFIG.redes.instagram) socialIcons.innerHTML += `<a href="${CONFIG.redes.instagram}"><i class="fab fa-instagram"></i></a>`;
-        });
-
+<script>
         function toggleMobileMenu() {
             const menu = document.getElementById('main-menu');
+            if (!menu) return;
             const isFlex = menu.style.display === 'flex';
-            menu.style.display = isFlex ? 'none' : 'flex';
-            if(!isFlex) menu.style.cssText = "display:flex; position:absolute; top:70px; left:0; width:100%; background:white; flex-direction:column; padding:20px; box-shadow: 0 10px 10px rgba(0,0,0,0.1);";
+            if (isFlex) {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'flex';
+                menu.style.cssText = "display:flex; position:absolute; top:70px; left:0; width:100%; background:white; flex-direction:column; padding:20px; box-shadow: 0 10px 10px rgba(0,0,0,0.1); z-index: 1000;";
+            }
         }
+        document.addEventListener("DOMContentLoaded", () => {
+            const container = document.getElementById("scheduleListContainer");
+            if (!container) return;
+            let rawData = container.getAttribute("data-raw-horario") || "";
+            if (!rawData || rawData.trim() === "" || rawData.includes("CLIENTE_HORARIO")) {
+                rawData = "Lunes a Viernes: 09:00 AM - 07:00 PM | Sábados: 08:00 AM - 05:00 PM | Domingo: Cerrado";
+            }
+            container.innerHTML = "";
+            const lineas = rawData.split("|");
+            lineas.forEach(linea => {
+                if (!linea.trim()) return;
+                const partes = linea.split(":");
+                const diaText = partes[0] ? partes[0].trim() : "Horario";
+                const horaText = partes.length > 1 ? partes.slice(1).join(":").trim() : linea.trim();
+                const textoMinuscula = horaText.toLowerCase();
+                const li = document.createElement("li");
+                const spanDia = document.createElement("span");
+                const spanHora = document.createElement("span");
+                spanDia.textContent = diaText;
+                spanHora.textContent = horaText;
+                if (textoMinuscula.includes("cerrado") || textoMinuscula.includes("urgencias")) {
+                    spanHora.classList.add("destacado");
+                }
+                li.appendChild(spanDia);
+                li.appendChild(spanHora);
+                container.appendChild(li);
+            });
+        });
     </script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>AOS.init({ duration: 1000, once: true });</script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"4be2b4efbc664629b841f68ef6e00bef","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+    </script>
 </body>
 </html>
