@@ -9,607 +9,156 @@
 
     <meta property="og:title" content="${CLIENTE_NOMBRE}">
     <meta property="og:description" content="${CLIENTE_META_DESCRIPCION}">
-    <meta property="og:image" content="${CLIENTE_LOGO}">
+    <meta property="og:image" content="${CLIENTE_LOGO_URL}">
     <meta property="og:type" content="website">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="${CLIENTE_NOMBRE}">
     <meta name="twitter:description" content="${CLIENTE_META_DESCRIPCION}">
-    <meta name="twitter:image" content="${CLIENTE_LOGO}">
+    <meta name="twitter:image" content="${CLIENTE_LOGO_URL}">
 
     <title>${CLIENTE_NOMBRE}</title>
 
-    <link rel="icon" id="favicon" href="${CLIENTE_LOGO}">
+    <link rel="icon" id="favicon" href="${CLIENTE_LOGO_URL}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        /* 1. CONFIGURACIÓN Y VARIABLES DINÁMICAS INYECTADAS POR KV */
-        :root {
-            --primary: ${CLIENTE_COLOR_PRIMARIO};
-            --secondary: ${CLIENTE_COLOR_SECUNDARIO};
-            --accent: #d4e157;
-            --text-main: #334155;
-            --bg-light: #f8fafc;
-            --bg-body: #ffffff;
-            --txt-urgencias: #dc2626;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
-
-        body {
-            color: var(--text-main);
-            background: var(--bg-body);
-            line-height: 1.6;
-            scroll-behavior: smooth;
-        }
-
-        /* 2. HEADER Y NAVEGACIÓN */
-        header {
-            background: var(--bg-body);
-            padding: 15px 8%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-
-        .logo {
-            font-weight: 700;
-            color: var(--secondary);
-            font-size: 1.4rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-transform: uppercase;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 20px;
-            align-items: center;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--secondary);
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-
-        nav a:hover {
-            color: var(--primary);
-        }
-
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-        }
-
-        .menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background: var(--secondary);
-        }
-
-        /* 3. HERO SECTION */
-        .hero {
-            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
-            color: white;
-            padding: 80px 8%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            min-height: 500px;
-        }
-
-        .hero-text h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            max-width: 500px;
-            line-height: 1.2;
-        }
-
-        .hero-image img {
-            width: 100%;
-            max-width: 600px;
-            border-radius: 15px;
-            object-fit: cover;
-        }
-
-        /* 4. ACTION CONTAINER */
-        .action-container {
-            width: 80%;
-            margin: -50px auto 50px;
-            background: var(--bg-light);
-            padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            align-items: center;
-            gap: 20px;
-            border-top: 5px solid var(--accent);
-            position: relative;
-            z-index: 10;
-        }
-
-        /* 5. SERVICIOS GRID & CARDS */
-        .doctors-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        .doctor-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 0;
-            background: var(--bg-body);
-            border-radius: 30px;
-            overflow: hidden;
-            transition: 0.3s ease;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-            text-align: center;
-            border: none;
-        }
-
-        .doctor-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
-        }
-
-        .doctor-card img {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            border: 4px solid var(--primary);
-            margin: 30px 0 20px;
-            object-fit: cover;
-        }
-
-        .doctor-info {
-            padding: 0 20px 20px;
-            width: 100%;
-        }
-
-        .doctor-info h3 {
-            color: var(--primary);
-            font-size: 1.4rem;
-            margin-bottom: 5px;
-        }
-
-        .doctor-info p {
-            color: var(--text-main);
-            font-size: 1rem;
-            margin-bottom: 20px;
-        }
-
-/* Estilo Moderno para el Botón de WhatsApp */
-.btn-agendar {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    background-color: #25D366; /* Verde WhatsApp */
-    color: #ffffff;
-    padding: 12px 24px;
-    border-radius: 50px; /* Bordes redondeados modernos */
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    margin-top: 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border: none;
-    cursor: pointer;
-}
-
-/* Efecto Hover para interactividad */
-.btn-agendar:hover {
-    background-color: #128C7E; /* Verde más oscuro al pasar el mouse */
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(37, 211, 102, 0.3);
-    color: #ffffff;
-}
-
-/* Ajustes adicionales para consistencia en la card */
-.doctor-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-/* Opcional: Asegurar que el icono se vea bien */
-.btn-agendar i {
-    font-size: 1.2rem;
-}
-
-        .card-footer-color {
-            background: var(--primary);
-            width: 100%;
-            padding: 15px;
-            color: white;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        /* 6. SECCIONES GENERALES Y HORARIOS */
-        section {
-            padding: 80px 8%;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .section-title h2 {
-            color: var(--secondary);
-            font-size: 2rem;
-        }
-
-        .info-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: var(--bg-light);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-        }
-
-        .schedule-list {
-            list-style: none;
-        }
-
-        .schedule-list li {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px dashed #cbd5e1;
-            font-size: 1.1rem;
-        }
-
-        /* 7. UBICACIÓN Y MAPA */
-        .map-responsive {
-            width: 100%;
-            height: 350px;
-            border-radius: 10px;
-            border: none;
-            margin-top: 20px;
-        }
-
-        /* 8. CONTACTO Y REDES */
-        #contacto {
-            background: var(--primary);
-            color: white;
-            text-align: center;
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .social-icons a {
-            background: var(--bg-body);
-            color: var(--primary);
-            width: 45px;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            font-size: 1.2rem;
-            text-decoration: none;
-            transition: 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .social-icons a:hover {
-            background: var(--accent);
-            color: var(--secondary);
-            transform: translateY(-5px);
-        }
-
-        /* 9. FOOTER */
-        footer {
-            background: var(--secondary);
-            color: #cbd5e1;
-            padding: 40px 8% 20px;
-            text-align: center;
-        }
-
-        /* 10. MEDIA QUERIES (OPTIMIZACIÓN MÓVIL) */
-        @media (max-width: 992px) {
-            .info-container {
-                grid-template-columns: 1fr;
-            }
-
-            .action-container {
-                width: 90%;
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 20px;
-            }
-
-            nav ul {
-                display: none;
-            }
-
-            .menu-toggle {
-                display: flex;
-            }
-
-            .hero {
-                flex-direction: column;
-                text-align: center;
-                gap: 30px;
-            }
-
-            .emergency-block {
-                border-right: none !important;
-                border-bottom: 1px solid #e2e8f0;
-                padding-bottom: 20px;
-            }
-        }
-
-        .schedule-box {
-            background-color: #f8fafc;
-            border-radius: 16px;
-            padding: 30px 40px;
-            box-sizing: border-box;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
-        }
-
-        .schedule-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .schedule-list li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 0;
-            font-family: 'Inter', sans-serif;
-            font-size: 15px;
-        }
-
-        .schedule-list li:not(:last-child) {
-            border-bottom: 1px dashed #e2e8f0;
-        }
-
-        .schedule-list li span:first-child {
-            color: #475569;
-            font-weight: 500;
-        }
-
-        .schedule-list li span:last-child {
-            color: #1e293b;
-            font-weight: 600;
-        }
-
-        .schedule-list li span.destacado {
-            color: #dc2626 !important;
-            font-weight: 700 !important;
-        }
-
-        @media (max-width: 600px) {
-            .schedule-box { padding: 20px; }
-            .schedule-list li { font-size: 14px; padding: 12px 0; }
-        }
+        :root { --primary: #059669; --secondary: #064e3b; --accent: #f59e0b; --text-main: #334155; --bg-light: #ecfdf5; --bg-body: #ffffff; --txt-urgencias: #e11d48; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { color: var(--text-main); background: var(--bg-body); line-height: 1.6; scroll-behavior: smooth; }
+        header { background: var(--bg-body); padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
+        .logo { font-weight: 700; color: var(--secondary); font-size: 1.4rem; display: flex; align-items: center; gap: 10px; text-transform: uppercase; }
+        nav ul { display: flex; list-style: none; gap: 20px; align-items: center; }
+        nav a { text-decoration: none; color: var(--secondary); font-size: 0.85rem; font-weight: 600; transition: 0.3s; }
+        nav a:hover { color: var(--primary); }
+        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .menu-toggle span { width: 25px; height: 3px; background: var(--secondary); }
+        .hero { background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%); color: white; padding: 80px 8%; display: flex; align-items: center; justify-content: space-between; min-height: 500px; }
+        .hero-text h1 { font-size: 3rem; margin-bottom: 20px; max-width: 500px; line-height: 1.2; }
+        .hero-image img { width: 100%; max-width: 600px; border-radius: 15px; object-fit: cover; }
+        .action-container { width: 80%; margin: -50px auto 50px; background: var(--bg-light); padding: 10px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 20px; border-top: 5px solid var(--accent); position: relative; z-index: 10; }
+        .doctors-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .doctor-card { display: flex; flex-direction: column; align-items: center; padding: 0; background: var(--bg-body); border-radius: 30px; overflow: hidden; transition: 0.3s ease; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); text-align: center; border: none; }
+        .doctor-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12); }
+        .doctor-card img { width: 140px; height: 140px; border-radius: 50%; border: 4px solid var(--primary); margin: 30px 0 20px; object-fit: cover; }
+        .doctor-info { padding: 0 20px 20px; width: 100%; display: flex; flex-direction: column; align-items: center; }
+        .doctor-info h3 { color: var(--primary); font-size: 1.4rem; margin-bottom: 5px; }
+        .doctor-info p { color: var(--text-main); font-size: 1rem; margin-bottom: 20px; }
+        .btn-agendar { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background-color: var(--primary); color: #ffffff; padding: 12px 24px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+        .btn-agendar:hover { background-color: var(--secondary); transform: translateY(-3px); }
+        .card-footer-color { background: var(--primary); width: 100%; padding: 15px; color: white; font-size: 0.75rem; font-weight: 600; }
+        section { padding: 80px 8%; }
+        .section-title { text-align: center; margin-bottom: 40px; }
+        .section-title h2 { color: var(--secondary); font-size: 2rem; }
+        .info-container { max-width: 1200px; margin: 0 auto; background: var(--bg-light); border-radius: 20px; padding: 40px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); }
+        .schedule-list { list-style: none; }
+        .schedule-list li { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed #cbd5e1; font-size: 1.1rem; }
+        .map-responsive { width: 100%; height: 350px; border-radius: 10px; border: none; margin-top: 20px; }
+        #contacto { background: var(--primary); color: white; text-align: center; }
+        .social-icons { display: flex; gap: 15px; justify-content: center; margin-top: 20px; }
+        .social-icons a { background: var(--bg-body); color: var(--primary); width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.2rem; text-decoration: none; transition: 0.3s ease; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+        .social-icons a:hover { background: var(--accent); color: var(--secondary); transform: translateY(-5px); }
+        footer { background: var(--secondary); color: #cbd5e1; padding: 40px 8% 20px; text-align: center; }
+        @media (max-width: 992px) { .info-container { grid-template-columns: 1fr; } .action-container { width: 90%; grid-template-columns: 1fr; text-align: center; gap: 20px; } nav ul { display: none; } .menu-toggle { display: flex; } .hero { flex-direction: column; text-align: center; gap: 30px; } .emergency-block { border-right: none !important; border-bottom: 1px solid #e2e8f0; padding-bottom: 20px; } }
+        .schedule-box { background-color: #f8fafc; border-radius: 16px; padding: 30px 40px; }
+        .schedule-list li span.destacado { color: var(--txt-urgencias) !important; font-weight: 700 !important; }
     </style>
 </head>
-
 <body>
+<header>
+    <div class="logo"><img id="main-logo" src="${CLIENTE_LOGO_URL}" alt="Logo" style="height: 40px;"><span class="clinic-name-placeholder">${CLIENTE_NOMBRE}</span></div>
+    <nav>
+        <ul id="main-menu">
+            <li><a href="#inicio">INICIO</a></li>
+            <li><a href="#servicios">SERVICIOS</a></li>
+            <li><a href="#horarios">HORARIOS</a></li>
+            <li><a href="#ubicacion">UBICACIÓN</a></li>
+            <li><a href="#contacto">CONTACTO</a></li>
+        </ul>
+        <div class="menu-toggle" onclick="toggleMobileMenu()"><span></span><span></span><span></span></div>
+    </nav>
+</header>
 
-    <header>
-        <div class="logo">
-            <img id="main-logo" src="${CLIENTE_LOGO}" alt="Logo" style="height: 40px;">
-            <span class="clinic-name-placeholder">${CLIENTE_NOMBRE}</span>
-        </div>
-        <nav>
-            <ul id="main-menu">
-                <li><a href="#inicio">INICIO</a></li>
-                <li><a href="#servicios">SERVICIOS</a></li>
-                <li><a href="#horarios">HORARIOS</a></li>
-                <li><a href="#ubicacion">UBICACIÓN</a></li>
-                <li><a href="#contacto">REDES</a></li>
-            </ul>
-            <div class="menu-toggle" onclick="toggleMobileMenu()">
-                <span></span><span></span><span></span>
-            </div>
-        </nav>
-    </header>
+<section class="hero" id="inicio">
+    <div class="hero-text">
+        <h1>${CLIENTE_NOMBRE}</h1>
+        <p style="font-size: 1.2rem; max-width: 500px; margin-top: 15px; opacity: 0.9;">${CLIENTE_META_DESCRIPCION}</p>
+    </div>
+    <div class="hero-image"><img src="${CLIENTE_BANNER_URL}" alt="${CLIENTE_NOMBRE}"></div>
+</section>
 
-    <section class="hero" id="inicio">
-        <div class="hero-text">
-            <h1>${CLIENTE_NOMBRE}</h1>
-            <p style="font-size: 1.2rem; max-width: 500px; margin-top: 15px; opacity: 0.9;">${CLIENTE_META_DESCRIPCION}</p>
-        </div>
-        <div class="hero-image">
-            <img src="${CLIENTE_BANNER}" alt="${CLIENTE_NOMBRE}">
-        </div>
-    </section>
-
-    <div class="action-container">
-        <div class="emergency-block" style="display: flex; align-items: center; justify-content: center; gap: 15px; border-right: 1px solid #e2e8f0; padding: 10px;">
-            <div style="background: #fee2e2; padding: 12px; border-radius: 50%; color: #dc2626; font-size: 1.5rem;"> 🐾 </div>
-            <div style="text-align: left;">
-                <h4 style="color: var(--txt-urgencias); font-size: 1rem; font-weight: 700;">URGENCIAS VET</h4>
-                <p style="font-size: 0.85rem; color: #475569;">Línea directa de atención inmediata</p>
-                <a href="tel:${CLIENTE_WHATSAPP}" class="clinic-tel-text" style="color: var(--secondary); font-weight: 800; font-size: 1.1rem; text-decoration: none;">${CLIENTE_TELEFONO}</a>
-            </div>
-        </div>
-
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 10px;">
-            <p style="font-size: 0.9rem; font-weight: 600; color: var(--secondary);">¿Deseas agendar o hacer una consulta?</p>
-            <a href="https://wa.me/${CLIENTE_WHATSAPP}?text=Hola,%20solicito%20m%C3%A1s%20informaci%C3%B3n%20acerca%20de%20sus%20servicios%20veterinitarios." id="whatsapp-link" target="_blank" rel="noopener" style="background: var(--primary); color: white; width: 100%; max-width: 300px; padding: 12px; border-radius: 8px; text-decoration: none; font-weight: 700; text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
-                <span> <i class="fab fa-whatsapp"></i> </span> AGENDAR POR WHATSAPP
-            </a>
+<div class="action-container">
+    <div class="emergency-block" style="display: flex; align-items: center; justify-content: center; gap: 15px; border-right: 1px solid #e2e8f0; padding: 10px;">
+        <div style="background: #fee2e2; padding: 12px; border-radius: 50%; color: var(--txt-urgencias); font-size: 1.5rem;"> 🐾 </div>
+        <div style="text-align: left;">
+            <h4 style="color: var(--txt-urgencias); font-size: 1rem; font-weight: 700;">URGENCIAS</h4>
+            <p style="font-size: 0.85rem; color: #475569;">Atención veterinaria inmediata</p>
+            <a href="tel:${CLIENTE_TELEFONO}" style="color: var(--secondary); font-weight: 800; font-size: 1.1rem; text-decoration: none;">${CLIENTE_TELEFONO_VISIBLE}</a>
         </div>
     </div>
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 10px;">
+        <p style="font-size: 0.9rem; font-weight: 600; color: var(--secondary);">¿Necesitas una consulta?</p>
+        <a href="${CLIENTE_WHATSAPP_URL}" id="whatsapp-link" target="_blank" rel="noopener" class="btn-agendar"><span><i class="fab fa-whatsapp"></i></span> AGENDAR POR WHATSAPP</a>
+    </div>
+</div>
 
-    <section id="servicios">
-        <div class="section-title">
-            <h2>Nuestros Servicios Veterinarios</h2>
-            <p>Cuidado profesional y especializado para tus mejores amigos</p>
+<section id="servicios">
+    <div class="section-title"><h2>Nuestros Servicios</h2><p>Cuidado profesional para tus mejores amigos</p></div>
+    <div class="doctors-grid">
+        <div class="doctor-card" data-aos="fade-up">
+            <img src="${CLIENTE_SERVICIOS_S1_IMG}" alt="Servicio 1">
+            <div class="doctor-info"><h3>${CLIENTE_SERVICIOS_S1_TITULO}</h3><p>${CLIENTE_SERVICIOS_S1_DESC}</p><a href="${CLIENTE_WHATSAPP_URL}" target="_blank" rel="noopener" class="btn-agendar"><i class="fas fa-paw"></i> Agendar</a></div>
+            <div class="card-footer-color">${CLIENTE_NOMBRE}</div>
         </div>
-        <div class="doctors-grid">
-            <div class="doctor-card" data-aos="fade-up">
-                <img src="${CLIENTE_SERVICIOS_S1_IMG}" alt="${CLIENTE_SERVICIOS_S1_TITULO}">
-                <div class="doctor-info">
-                    <h3>${CLIENTE_SERVICIOS_S1_TITULO}</h3>
-                    <p>${CLIENTE_SERVICIOS_S1_DESC}</p>
-                    <a href="https://wa.me/${CLIENTE_WHATSAPP}?text=Hola,%20solicito%20m%C3%A1s%20informaci%C3%B3n%20sobre%20el%20servicio%20de%20${CLIENTE_SERVICIOS_S1_TEXT_WA}" target="_blank" rel="noopener" class="btn-agendar">
-                        <i class="fas fa-paw"></i> Consultar Servicio
-                    </a>
-                </div>
-                <div class="card-footer-color">${CLIENTE_NOMBRE}</div>
-            </div>
-
-            <div class="doctor-card" data-aos="fade-up" data-aos-delay="100">
-                <img src="${CLIENTE_SERVICIOS_S2_IMG}" alt="${CLIENTE_SERVICIOS_S2_TITULO}">
-                <div class="doctor-info">
-                    <h3>${CLIENTE_SERVICIOS_S2_TITULO}</h3>
-                    <p>${CLIENTE_SERVICIOS_S2_DESC}</p>
-                    <a href="https://wa.me/${CLIENTE_WHATSAPP}?text=Hola,%20solicito%20m%C3%A1s%20informaci%C3%B3n%20sobre%20el%20servicio%20de%20${CLIENTE_SERVICIOS_S2_TEXT_WA}" target="_blank" rel="noopener" class="btn-agendar">
-                        <i class="fas fa-paw"></i> Consultar Servicio
-                    </a>
-                </div>
-                <div class="card-footer-color">${CLIENTE_NOMBRE}</div>
-            </div>
-
-            <div class="doctor-card" data-aos="fade-up" data-aos-delay="200">
-                <img src="${CLIENTE_SERVICIOS_S3_IMG}" alt="${CLIENTE_SERVICIOS_S3_TITULO}">
-                <div class="doctor-info">
-                    <h3>${CLIENTE_SERVICIOS_S3_TITULO}</h3>
-                    <p>${CLIENTE_SERVICIOS_S3_DESC}</p>
-                    <a href="https://wa.me/${CLIENTE_WHATSAPP}?text=Hola,%20solicito%20m%C3%A1s%20informaci%C3%B3n%20sobre%20el%20servicio%20de%20${CLIENTE_SERVICIOS_S3_TEXT_WA}" target="_blank" rel="noopener" class="btn-agendar">
-                        <i class="fas fa-paw"></i> Consultar Servicio
-                    </a>
-                </div>
-                <div class="card-footer-color">${CLIENTE_NOMBRE}</div>
-            </div>
+        <div class="doctor-card" data-aos="fade-up" data-aos-delay="100">
+            <img src="${CLIENTE_SERVICIOS_S2_IMG}" alt="Servicio 2">
+            <div class="doctor-info"><h3>${CLIENTE_SERVICIOS_S2_TITULO}</h3><p>${CLIENTE_SERVICIOS_S2_DESC}</p><a href="${CLIENTE_WHATSAPP_URL}" target="_blank" rel="noopener" class="btn-agendar"><i class="fas fa-paw"></i> Agendar</a></div>
+            <div class="card-footer-color">${CLIENTE_NOMBRE}</div>
         </div>
-    </section>
-
-    <section id="horarios">
-        <div class="section-title">
-            <h2>Horarios de Atención</h2>
+        <div class="doctor-card" data-aos="fade-up" data-aos-delay="200">
+            <img src="${CLIENTE_SERVICIOS_S3_IMG}" alt="Servicio 3">
+            <div class="doctor-info"><h3>${CLIENTE_SERVICIOS_S3_TITULO}</h3><p>${CLIENTE_SERVICIOS_S3_DESC}</p><a href="${CLIENTE_WHATSAPP_URL}" target="_blank" rel="noopener" class="btn-agendar"><i class="fas fa-paw"></i> Agendar</a></div>
+            <div class="card-footer-color">${CLIENTE_NOMBRE}</div>
         </div>
-        <div class="info-container">
-            <div class="schedule-box" style="width: 100%;">
-                <ul id="scheduleListContainer" class="schedule-list" data-raw-horario="${CLIENTE_HORARIO}">
-                </ul>
-            </div>
+    </div>
+</section>
+
+<section id="horarios">
+    <div class="section-title"><h2>Horarios de Atención</h2></div>
+    <div class="info-container"><div class="schedule-box"><ul id="scheduleListContainer" class="schedule-list" data-raw-horario="${CLIENTE_HORARIO}"></ul></div></div>
+</section>
+
+<section id="ubicacion">
+    <div class="section-title"><h2>Ubicación</h2></div>
+    <div class="info-container" style="max-width: 900px;">
+        <h3 style="color: var(--secondary); margin-bottom: 10px;">Encuéntranos</h3>
+        <p> 📍 ${CLIENTE_DIRECCION}</p>
+        <iframe class="map-responsive" src="${CLIENTE_MAPA_URL}" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+</section>
+
+<section id="contacto">
+    <div class="section-title"><h2 style="color: white;">Nuestras Redes</h2></div>
+    <div class="social-links-container">
+        <p>Síguenos para ver consejos y salud animal:</p>
+        <div id="social-icons" class="social-icons">
+            <a href="${CLIENTE_WHATSAPP_URL}" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+            <a href="${CLIENTE_FACEBOOK_URL}" target="_blank" rel="noopener"><i class="fab fa-facebook"></i></a>
+            <a href="${CLIENTE_INSTAGRAM_URL}" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+            <a href="${CLIENTE_TIKTOK_URL}" target="_blank" rel="noopener"><i class="fab fa-tiktok"></i></a>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section id="ubicacion">
-        <div class="section-title">
-            <h2>Ubicación de la Clínica</h2>
-        </div>
-        <div class="info-container" style="max-width: 900px;">
-            <h3 style="color: var(--secondary); margin-bottom: 10px;">Cómo Llegar</h3>
-            <p> 📍  ${CLIENTE_DIRECCION}</p>
-            <iframe class="map-responsive" src="${CLIENTE_MAPA_URL}" allowfullscreen="" loading="lazy"></iframe>
-        </div>
-    </section>
+<footer><p>Copyright © 2026 <strong>${CLIENTE_NOMBRE}</strong> | Creado por <a href="https://pixelsitepro.com" style="color:var(--accent); text-decoration: none; font-weight: bold;">PixelSitePro</a></p></footer>
 
-    <section id="contacto">
-        <div class="section-title">
-            <h2 style="color: var(--secondary);">Nuestras Redes</h2>
-        </div>
-        <div class="social-links-container">
-            <p>Síguenos y entérate de consejos para tus mascotas:</p>
-            <div id="social-icons" class="social-icons">
-                <a href="https://wa.me/${CLIENTE_WHATSAPP}" target="_blank" rel="noopener" ><i class="fab fa-whatsapp"></i></a>
-                <a href="tel:${CLIENTE_WHATSAPP}"><i class="fas fa-phone"></i></a>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <p>Copyright © 2026 <strong>${CLIENTE_NOMBRE}</strong> | Creado por <a href="https://pixelsitepro.com" style="color:var(--accent); text-decoration: none; font-weight: bold;">PixelSitePro</a></p>
-    </footer>
-
-    <script>
-        function toggleMobileMenu() {
-            const menu = document.getElementById('main-menu');
-            if (!menu) return;
-            const isFlex = menu.style.display === 'flex';
-            if (isFlex) {
-                menu.style.display = 'none';
-            } else {
-                menu.style.display = 'flex';
-                menu.style.cssText = "display:flex; position:absolute; top:70px; left:0; width:100%; background:white; flex-direction:column; padding:20px; box-shadow: 0 10px 10px rgba(0,0,0,0.1); z-index: 1000;";
-            }
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            const container = document.getElementById("scheduleListContainer");
-            if (!container) return;
-        
-            let rawData = container.getAttribute("data-raw-horario") || "";
-            
-            if (!rawData || rawData.trim() === "" || rawData.includes("CLIENTE_HORARIO")) {
-                rawData = "Lunes a Viernes: 08:00 AM - 06:00 PM | Sábados: 08:00 AM - 02:00 PM | Domingo: Urgencias";
-            }
-            
-            container.innerHTML = "";
-        
-            const lineas = rawData.split("|");
-        
-            lineas.forEach(linea => {
-                if (!linea.trim()) return;
-        
-                const partes = linea.split(":");
-                const diaText = partes[0] ? partes[0].trim() : "Horario";
-                const horaText = partes.length > 1 ? partes.slice(1).join(":").trim() : linea.trim();
-        
-                const textoMinuscula = horaText.toLowerCase();
-                
-                const li = document.createElement("li");
-                const spanDia = document.createElement("span");
-                const spanHora = document.createElement("span");
-        
-                spanDia.textContent = diaText;
-                spanHora.textContent = horaText;
-        
-                if (textoMinuscula.includes("cerrado") || textoMinuscula.includes("urgencias")) {
-                    spanHora.classList.add("destacado");
-                }        
-        
-                li.appendChild(spanDia);
-                li.appendChild(spanHora);
-                container.appendChild(li);
-            });
-        });
-    </script>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({ duration: 1000, once: true });
-    </script>
+<script>
+    function toggleMobileMenu() { const menu = document.getElementById('main-menu'); if (!menu) return; menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex'; menu.style.cssText = (menu.style.display === 'flex') ? "display:flex; position:absolute; top:70px; left:0; width:100%; background:white; flex-direction:column; padding:20px; box-shadow: 0 10px 10px rgba(0,0,0,0.1); z-index: 1000;" : ""; }
+    document.addEventListener("DOMContentLoaded", () => { const container = document.getElementById("scheduleListContainer"); if (!container) return; let rawData = container.getAttribute("data-raw-horario") || ""; if (!rawData || rawData.includes("CLIENTE_HORARIO")) rawData = "Lunes a Viernes: 09:00 AM - 07:00 PM"; container.innerHTML = ""; rawData.split("|").forEach(linea => { if (!linea.trim()) return; const partes = linea.split(":"); const li = document.createElement("li"); li.innerHTML = `<span>${partes[0].trim()}</span><span class="${linea.toLowerCase().includes('urgencias') || linea.toLowerCase().includes('cerrado') ? 'destacado' : ''}">${partes.slice(1).join(":").trim()}</span>`; container.appendChild(li); }); });
+</script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>AOS.init({ duration: 1000, once: true });</script>
 </body>
 </html>
