@@ -1,120 +1,209 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="${CLIENTE_META_DESCRIPCION}">
-    <title>${CLIENTE_NOMBRE}</title>
-    <link rel="icon" href="${CLIENTE_LOGO}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <style>
-        :root {
-            --primary: ${CLIENTE_COLOR_PRIMARIO};
-            --secondary: ${CLIENTE_COLOR_SECUNDARIO};
-            --accent: #f48fb1;
-            --text-main: #334155;
-            --bg-body: #ffffff;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { color: var(--text-main); background: var(--bg-body); line-height: 1.6; }
-        
-        header { padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; background: var(--bg-body); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .logo { font-weight: 700; color: var(--secondary); display: flex; align-items: center; gap: 10px; }
-        
-        .hero { background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%); color: white; padding: 80px 8%; display: flex; align-items: center; justify-content: space-between; }
-        .hero-image img { width: 100%; max-width: 500px; border-radius: 15px; }
-        
-        .action-container { width: 80%; margin: -50px auto 50px; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 20px; }
-        
-        .doctors-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; padding: 40px 8%; }
-        .doctor-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.08); text-align: center; transition: 0.3s; }
-        .doctor-card:hover { transform: translateY(-10px); }
-        .doctor-card img { width: 100%; height: 250px; object-fit: cover; }
-        .doctor-info { padding: 20px; }
-        
-        .btn-agendar { background: var(--accent); color: white; padding: 12px; display: block; text-decoration: none; border-radius: 8px; font-weight: 700; margin-top: 15px; }
-        
-        .map-responsive { width: 100%; height: 350px; border: none; }
-        
-        @media (max-width: 768px) {
-            .hero, .action-container { flex-direction: column; text-align: center; }
-            .action-container { width: 95%; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="${CLIENTE_META_DESCRIPCION}">
+<meta name="author" content="PixelSitePro">
+<link rel="canonical" href="https://${CLIENTE_DOMINIO}">
+
+<meta property="og:title" content="${CLIENTE_NOMBRE}">
+<meta property="og:description" content="${CLIENTE_META_DESCRIPCION}">
+<meta property="og:image" content="${CLIENTE_LOGO}">
+<meta property="og:type" content="website">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${CLIENTE_NOMBRE}">
+<meta name="twitter:description" content="${CLIENTE_META_DESCRIPCION}">
+<meta name="twitter:image" content="${CLIENTE_LOGO}">
+
+<title>${CLIENTE_NOMBRE}</title>
+
+<link rel="icon" id="favicon" href="${CLIENTE_LOGO}">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+<style>
+/* (Mismo bloque de estilos original preservado) */
+:root { --primary: ${CLIENTE_COLOR_PRIMARIO}; --secondary: ${CLIENTE_COLOR_SECUNDARIO}; --accent: #ff80ab; --text-main: #334155; --bg-light: #fdf2f8; --bg-body: #ffffff; --txt-urgencias: #d81b60; }
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+body { color: var(--text-main); background: var(--bg-body); line-height: 1.6; scroll-behavior: smooth; }
+header { background: var(--bg-body); padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
+.logo { font-weight: 700; color: var(--secondary); font-size: 1.4rem; display: flex; align-items: center; gap: 10px; text-transform: uppercase; }
+nav ul { display: flex; list-style: none; gap: 20px; align-items: center; }
+nav a { text-decoration: none; color: var(--secondary); font-size: 0.85rem; font-weight: 600; transition: 0.3s; }
+nav a:hover { color: var(--primary); }
+.menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+.menu-toggle span { width: 25px; height: 3px; background: var(--secondary); }
+.hero { background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%); color: white; padding: 80px 8%; display: flex; align-items: center; justify-content: space-between; min-height: 500px; }
+.hero-text h1 { font-size: 3rem; margin-bottom: 20px; max-width: 500px; line-height: 1.2; }
+.hero-image img { width: 100%; max-width: 600px; border-radius: 15px; object-fit: cover; }
+.action-container { width: 80%; margin: -50px auto 50px; background: var(--bg-light); padding: 10px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 20px; border-top: 5px solid var(--accent); position: relative; z-index: 10; }
+.doctors-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+.doctor-card { display: flex; flex-direction: column; align-items: center; padding: 0; background: var(--bg-body); border-radius: 30px; overflow: hidden; transition: 0.3s ease; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); text-align: center; border: none; }
+.doctor-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12); }
+.doctor-card img { width: 140px; height: 140px; border-radius: 50%; border: 4px solid var(--primary); margin: 30px 0 20px; object-fit: cover; }
+.doctor-info { padding: 0 20px 20px; width: 100%; display: flex; flex-direction: column; align-items: center; }
+.doctor-info h3 { color: var(--primary); font-size: 1.4rem; margin-bottom: 5px; }
+.doctor-info p { color: var(--text-main); font-size: 1rem; margin-bottom: 20px; }
+.btn-agendar { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background-color: var(--primary); color: #ffffff; padding: 12px 24px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+.btn-agendar:hover { background-color: var(--secondary); transform: translateY(-3px); }
+.card-footer-color { background: var(--primary); width: 100%; padding: 15px; color: white; font-size: 0.75rem; font-weight: 600; }
+section { padding: 80px 8%; }
+.section-title { text-align: center; margin-bottom: 40px; }
+.section-title h2 { color: var(--secondary); font-size: 2rem; }
+.info-container { max-width: 1200px; margin: 0 auto; background: var(--bg-light); border-radius: 20px; padding: 40px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); }
+.schedule-list { list-style: none; }
+.schedule-list li { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed #cbd5e1; font-size: 1.1rem; }
+.map-responsive { width: 100%; height: 350px; border-radius: 10px; border: none; margin-top: 20px; }
+#contacto { background: var(--primary); color: white; text-align: center; }
+.social-icons { display: flex; gap: 15px; justify-content: center; margin-top: 20px; }
+.social-icons a { background: var(--bg-body); color: var(--primary); width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.2rem; text-decoration: none; transition: 0.3s ease; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+.social-icons a:hover { background: var(--accent); color: var(--secondary); transform: translateY(-5px); }
+footer { background: var(--secondary); color: #cbd5e1; padding: 40px 8% 20px; text-align: center; }
+@media (max-width: 992px) { .info-container { grid-template-columns: 1fr; } .action-container { width: 90%; grid-template-columns: 1fr; text-align: center; gap: 20px; } nav ul { display: none; } .menu-toggle { display: flex; } .hero { flex-direction: column; text-align: center; gap: 30px; } .emergency-block { border-right: none !important; border-bottom: 1px solid #e2e8f0; padding-bottom: 20px; } }
+.schedule-box { background-color: #f8fafc; border-radius: 16px; padding: 30px 40px; }
+.schedule-list li { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; font-size: 15px; }
+.schedule-list li span.destacado { color: var(--txt-urgencias) !important; font-weight: 700 !important; }
+</style>
 </head>
+
 <body>
-    <header>
-        <div class="logo">
-            <img src="${CLIENTE_LOGO}" alt="Logo" style="height: 40px;">
-            <span>${CLIENTE_NOMBRE}</span>
-        </div>
-    </header>
+<header>
+    <div class="logo">
+        <img id="main-logo" src="${CLIENTE_LOGO}" alt="Logo" style="height: 40px;">
+        <span class="clinic-name-placeholder">${CLIENTE_NOMBRE}</span>
+    </div>
+    <nav>
+        <ul id="main-menu">
+            <li><a href="#inicio">INICIO</a></li>
+            <li><a href="#servicios">SERVICIOS</a></li>
+            <li><a href="#horarios">HORARIOS</a></li>
+            <li><a href="#ubicacion">UBICACIÓN</a></li>
+            <li><a href="#contacto">REDES</a></li>
+        </ul>
+        <div class="menu-toggle" onclick="toggleMobileMenu()"><span></span><span></span><span></span></div>
+    </nav>
+</header>
 
-    <section class="hero">
-        <div class="hero-text">
-            <h1>${CLIENTE_NOMBRE}</h1>
-            <p>${CLIENTE_META_DESCRIPCION}</p>
-        </div>
-        <div class="hero-image">
-            <img src="${CLIENTE_BANNER}" alt="Banner">
-        </div>
-    </section>
+<section class="hero" id="inicio">
+    <div class="hero-text">
+        <h1>${CLIENTE_NOMBRE}</h1>
+        <p style="font-size: 1.2rem; max-width: 500px; margin-top: 15px; opacity: 0.9;">${CLIENTE_META_DESCRIPCION}</p>
+    </div>
+    <div class="hero-image">
+        <img src="${CLIENTE_BANNER}" alt="${CLIENTE_NOMBRE}">
+    </div>
+</section>
 
-    <div class="action-container">
-        <div>
-            <h4>CONTACTO DIRECTO</h4>
-            <p>${CLIENTE_TELEFONO}</p>
+<div class="action-container">
+    <div class="emergency-block" style="display: flex; align-items: center; justify-content: center; gap: 15px; border-right: 1px solid #e2e8f0; padding: 10px;">
+        <div style="background: #fce7f3; padding: 12px; border-radius: 50%; color: var(--txt-urgencias); font-size: 1.5rem;"> ✂️ </div>
+        <div style="text-align: left;">
+            <h4 style="color: var(--txt-urgencias); font-size: 1rem; font-weight: 700;">CITA EXPRESS</h4>
+            <p style="font-size: 0.85rem; color: #475569;">Reserva tu espacio ahora</p>
+            <a href="tel:${CLIENTE_WHATSAPP}" style="color: var(--secondary); font-weight: 800; font-size: 1.1rem; text-decoration: none;">${CLIENTE_TELEFONO}</a>
         </div>
-        <a href="https://wa.me/${CLIENTE_WHATSAPP}" style="background: var(--primary); color: white; padding: 15px; border-radius: 8px; text-decoration: none; text-align: center;">
-            HABLAR POR WHATSAPP
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 10px;">
+        <p style="font-size: 0.9rem; font-weight: 600; color: var(--secondary);">¿Tienes dudas sobre tu look?</p>
+        <a href="https://wa.me/${CLIENTE_WHATSAPP}" id="whatsapp-link" target="_blank" rel="noopener" class="btn-agendar">
+            <span><i class="fab fa-whatsapp"></i></span> AGENDAR POR WHATSAPP
         </a>
     </div>
+</div>
 
-    <section class="doctors-grid">
-        <!-- Servicio 1 -->
-        <div class="doctor-card">
+<section id="servicios">
+    <div class="section-title">
+        <h2>Nuestros Servicios</h2>
+        <p>Expertos en resaltar tu belleza natural</p>
+    </div>
+    <div class="doctors-grid">
+        <div class="doctor-card" data-aos="fade-up">
             <img src="${CLIENTE_SERVICIOS_S1_IMG}" alt="${CLIENTE_SERVICIOS_S1_TITULO}">
             <div class="doctor-info">
                 <h3>${CLIENTE_SERVICIOS_S1_TITULO}</h3>
                 <p>${CLIENTE_SERVICIOS_S1_DESC}</p>
-                <a href="https://wa.me/${CLIENTE_WHATSAPP}?text=${CLIENTE_SERVICIOS_S1_TEXT_WA}" class="btn-agendar">Reservar</a>
+                <a href="https://wa.me/${CLIENTE_WHATSAPP}" target="_blank" rel="noopener" class="btn-agendar"><i class="fas fa-cut"></i> Agendar</a>
             </div>
+            <div class="card-footer-color">${CLIENTE_NOMBRE}</div>
         </div>
-        <!-- Servicio 2 -->
-        <div class="doctor-card">
+        <div class="doctor-card" data-aos="fade-up" data-aos-delay="100">
             <img src="${CLIENTE_SERVICIOS_S2_IMG}" alt="${CLIENTE_SERVICIOS_S2_TITULO}">
             <div class="doctor-info">
                 <h3>${CLIENTE_SERVICIOS_S2_TITULO}</h3>
                 <p>${CLIENTE_SERVICIOS_S2_DESC}</p>
-                <a href="https://wa.me/${CLIENTE_WHATSAPP}?text=${CLIENTE_SERVICIOS_S2_TEXT_WA}" class="btn-agendar">Reservar</a>
+                <a href="https://wa.me/${CLIENTE_WHATSAPP}" target="_blank" rel="noopener" class="btn-agendar"><i class="fas fa-palette"></i> Agendar</a>
             </div>
+            <div class="card-footer-color">${CLIENTE_NOMBRE}</div>
         </div>
-        <!-- Servicio 3 -->
-        <div class="doctor-card">
+        <div class="doctor-card" data-aos="fade-up" data-aos-delay="200">
             <img src="${CLIENTE_SERVICIOS_S3_IMG}" alt="${CLIENTE_SERVICIOS_S3_TITULO}">
             <div class="doctor-info">
                 <h3>${CLIENTE_SERVICIOS_S3_TITULO}</h3>
                 <p>${CLIENTE_SERVICIOS_S3_DESC}</p>
-                <a href="https://wa.me/${CLIENTE_WHATSAPP}?text=${CLIENTE_SERVICIOS_S3_TEXT_WA}" class="btn-agendar">Reservar</a>
+                <a href="https://wa.me/${CLIENTE_WHATSAPP}" target="_blank" rel="noopener" class="btn-agendar"><i class="fas fa-magic"></i> Agendar</a>
             </div>
+            <div class="card-footer-color">${CLIENTE_NOMBRE}</div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section style="padding: 40px 8%;">
-        <h2>Horarios</h2>
-        <p>${CLIENTE_HORARIO}</p>
-    </section>
+<section id="horarios">
+    <div class="section-title"><h2>Horarios de Atención</h2></div>
+    <div class="info-container"><div class="schedule-box"><ul id="scheduleListContainer" class="schedule-list" data-raw-horario="${CLIENTE_HORARIO}"></ul></div></div>
+</section>
 
-    <section style="padding: 40px 8%;">
-        <h2>Ubicación</h2>
-        <p>${CLIENTE_DIRECCION}</p>
+<section id="ubicacion">
+    <div class="section-title"><h2>Ubicación</h2></div>
+    <div class="info-container" style="max-width: 900px;">
+        <h3 style="color: var(--secondary); margin-bottom: 10px;">Encuéntranos</h3>
+        <p> 📍 ${CLIENTE_DIRECCION}</p>
         <iframe class="map-responsive" src="${CLIENTE_MAPA_URL}" allowfullscreen="" loading="lazy"></iframe>
-    </section>
+    </div>
+</section>
 
-    <footer style="padding: 20px; text-align: center; background: var(--secondary); color: white;">
-        <p>© 2026 ${CLIENTE_NOMBRE}</p>
-    </footer>
+<section id="contacto">
+    <div class="section-title"><h2 style="color: white;">Nuestras Redes</h2></div>
+    <div class="social-links-container">
+        <p>Síguenos para ver nuestros trabajos:</p>
+        <div id="social-icons" class="social-icons">
+            <a href="https://wa.me/${CLIENTE_WHATSAPP}"><i class="fab fa-whatsapp"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>Copyright © 2026 <strong>${CLIENTE_NOMBRE}</strong> | Creado por <a href="https://pixelsitepro.com" style="color:var(--accent); text-decoration: none; font-weight: bold;">PixelSitePro</a></p>
+</footer>
+
+<script>
+    function toggleMobileMenu() {
+        const menu = document.getElementById('main-menu');
+        if (!menu) return;
+        menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+        menu.style.cssText = (menu.style.display === 'flex') ? "display:flex; position:absolute; top:70px; left:0; width:100%; background:white; flex-direction:column; padding:20px; box-shadow: 0 10px 10px rgba(0,0,0,0.1); z-index: 1000;" : "";
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+        const container = document.getElementById("scheduleListContainer");
+        if (!container) return;
+        let rawData = container.getAttribute("data-raw-horario") || "";
+        if (!rawData || rawData.includes("CLIENTE_HORARIO")) rawData = "Lunes a Viernes: 09:00 AM - 07:00 PM";
+        container.innerHTML = "";
+        rawData.split("|").forEach(linea => {
+            if (!linea.trim()) return;
+            const partes = linea.split(":");
+            const li = document.createElement("li");
+            li.innerHTML = `<span>${partes[0].trim()}</span><span class="${linea.toLowerCase().includes('cerrado') ? 'destacado' : ''}">${partes.slice(1).join(":").trim()}</span>`;
+            container.appendChild(li);
+        });
+    });
+</script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>AOS.init({ duration: 1000, once: true });</script>
 </body>
 </html>
