@@ -26,7 +26,15 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        :root { --primary: #059669; --secondary: #064e3b; --accent: #f59e0b; --text-main: #334155; --bg-light: #ecfdf5; --bg-body: #ffffff; --txt-urgencias: #e11d48; }
+            :root { 
+            --primary: ${CLIENTE_COLOR_PRIMARIO}; 
+            --secondary: ${CLIENTE_COLOR_SECUNDARIO}; 
+            --accent: #38bdf8; 
+            --text-main: #334155; 
+            --bg-light: #f1f5f9; 
+            --bg-body: #ffffff; 
+            --txt-urgencias: #e11d48; 
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { color: var(--text-main); background: var(--bg-body); line-height: 1.6; scroll-behavior: smooth; }
         header { background: var(--bg-body); padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
