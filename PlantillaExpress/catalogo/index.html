@@ -1,1 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Proyectos | PixelSitePro</title>
+    <style>
+        /* Estilos Integrados - Moderno y Competitivo */
+        :root { 
+            --primary: #3b82f6; 
+            --dark: #0f172a; 
+            --bg: #0f172a; 
+            --bg-gradient: radial-gradient(circle at top center, #1e293b 0%, #0f172a 50%, #020617 100%);
+            --text: #f8fafc; 
+            --whatsapp: #22c55e;
+            --card-bg: rgba(30, 41, 59, 0.5); 
+        }
 
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: var(--bg-gradient); color: var(--text); line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
+        
+        .navbar { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); color: white; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .logo { font-weight: bold; font-size: 1.5rem; letter-spacing: -1px; }
+        
+        .menu-toggle { display: none; cursor: pointer; flex-direction: column; }
+        .menu-toggle span { display: block; width: 25px; height: 3px; background: white; margin: 2px 0; }
+
+        .nav-links { display: flex; list-style: none; gap: 20px; align-items: center; }
+        .btn-nav-contact { background: var(--whatsapp); color: white; padding: 8px 20px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 0.9rem; transition: background 0.2s; }
+        .btn-nav-contact:hover { background: #16a34a; }
+
+        header { padding: 60px 5%; text-align: center; }
+        header h1 { color: white; font-size: 2.5rem; margin-bottom: 10px; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 0 5% 50px 5%; flex: 1; }
+        
+        /* Efecto Glassmorphism */
+        .card { background: var(--card-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.3); transition: transform 0.3s ease; }
+        .card:hover { transform: translateY(-10px); background: rgba(30, 41, 59, 0.7); }
+        .card img { width: 100%; height: 180px; object-fit: cover; opacity: 0.9; }
+        .card-body { padding: 20px; }
+        .card-body h3 { margin: 0 0 10px 0; }
+        .card-body p { font-size: 0.85rem; color: #cbd5e1; margin-bottom: 15px; }
+        
+        .btn-container { display: flex; gap: 10px; margin-top: 15px; }
+        .btn-ver, .btn-comprar { flex: 1; text-align: center; padding: 10px 5px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 0.85rem; transition: background 0.2s; }
+        
+        .btn-ver { background: var(--primary); color: white; }
+        .btn-ver:hover { background: #2563eb; }
+        
+        .btn-comprar { background: var(--whatsapp); color: white; }
+        .btn-comprar:hover { background: #16a34a; }
+
+        footer { text-align: center; padding: 30px 5%; border-top: 1px solid rgba(255,255,255,0.1); color: #94a3b8; font-size: 0.9rem; }
+        footer a { color: var(--primary); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        @media (max-width: 768px) {
+            .menu-toggle { display: flex; }
+            .nav-links { display: none; position: absolute; top: 60px; left: 0; width: 100%; background: var(--dark); flex-direction: column; align-items: center; padding: 20px 0; }
+            .nav-links.active { display: flex; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">Catálogo - PixelSitePro</div>
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span><span></span><span></span>
+        </div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="https://wa.me/50498611270" target="_blank" class="btn-nav-contact">CONTACTAR</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <h1>Landing Pages Express</h1>
+        <p>Selecciona un sistema y visualiza la potencia de nuestras soluciones.</p>
+    </header>
+
+    <main id="catalogo">
+        <div class="grid" id="contenedor-apps">
+            <!-- Los proyectos se cargan aquí automáticamente -->
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 PixelSitePro. Todos los derechos reservados. | <a href="https://pixelsitepro.com" target="_blank">pixelsitepro.com</a></p>
+    </footer>
+
+    <script>
+        // Lista de subdominios
+        const proyectos = [
+            { nombre: "Belleza", desc: "Resalta la elegancia de tu salón con una plataforma enfocada en agendar citas y mostrar tus servicios.", img: "https://pub-e9527e43ecbd44a6a30d6743b70ff3d9.r2.dev/belleza/assets/img_hero.webp", url: "https://belleza.PixelSitePro.com" },
+            { nombre: "Clínica", desc: "Gestión médica profesional con acceso rápido a información de especialistas, especialidades y contacto directo.", img: "https://pub-e9527e43ecbd44a6a30d6743b70ff3d9.r2.dev/clinica/assets/img_hero.webp", url: "https://clinica.PixelSitePro.com" },
+            { nombre: "Funeraria", desc: "Ofrece servicios con empatía y claridad, facilitando el contacto necesario en los momentos de mayor importancia.", img: "https://pub-e9527e43ecbd44a6a30d6743b70ff3d9.r2.dev/funeraria/assets/img_hero.webp", url: "https://funeraria.PixelSitePro.com" },
+            { nombre: "Turismo", desc: "Captura la atención de los viajeros con una landing visual impactante para reservas y paquetes de destinos.", img: "https://images.unsplash.com/photo-1662911136928-1068ba7be9e6?", url: "https://turismo.PixelSitePro.com" },
+            { nombre: "Veterinaria", desc: "Cuida el bienestar animal con un sitio optimizado para emergencias, vacunas y consultas personalizadas.", img: "https://pub-e9527e43ecbd44a6a30d6743b70ff3d9.r2.dev/veterinaria/assets/img_hero.webp", url: "https://veterinaria.PixelSitePro.com" }
+        ];
+
+        const contenedor = document.getElementById('contenedor-apps');
+
+        proyectos.forEach(p => {
+            const mensajeWA = encodeURIComponent(`Hola PixelSitePro, deseo gestionar la compra de esta Página Web: ${p.url}`);
+            
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <img src="${p.img}" alt="${p.nombre}">
+                <div class="card-body">
+                    <h3>${p.nombre}</h3>
+                    <p>${p.desc}</p>
+                    <div class="btn-container">
+                        <a href="${p.url}" target="_blank" class="btn-ver">Ver Sitio Web</a>
+                        <a href="https://wa.me/50498611270?text=${mensajeWA}" target="_blank" class="btn-comprar">Comprar ahora</a>
+                    </div>
+                </div>
+            `;
+            contenedor.appendChild(card);
+        });
+
+        // Toggle menú hamburguesa
+        document.getElementById('mobile-menu').addEventListener('click', () => {
+            document.getElementById('nav-links').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
