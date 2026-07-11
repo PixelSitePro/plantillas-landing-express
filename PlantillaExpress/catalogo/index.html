@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo de Proyectos | PixelSitePro</title>
+    <!-- Favicon -->
+    <link rel="icon" href="logo.png" type="image/png">
     <style>
         /* Estilos Integrados - Moderno y Competitivo */
         :root { 
@@ -19,7 +21,7 @@
         body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: var(--bg-gradient); color: var(--text); line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
         
         .navbar { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); color: white; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .logo { font-weight: bold; font-size: 1.5rem; letter-spacing: -1px; }
+        .logo img { height: 40px; display: block; }
         
         .menu-toggle { display: none; cursor: pointer; flex-direction: column; }
         .menu-toggle span { display: block; width: 25px; height: 3px; background: white; margin: 2px 0; }
@@ -64,7 +66,7 @@
 <body>
 
     <nav class="navbar">
-        <div class="logo">Catálogo - PixelSitePro</div>
+        <div class="logo"><img src="logo.png" alt="PixelSitePro Logo"></div>
         <div class="menu-toggle" id="mobile-menu">
             <span></span><span></span><span></span>
         </div>
