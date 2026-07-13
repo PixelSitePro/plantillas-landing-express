@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo de Proyectos | PixelSitePro</title>
-    
-    <link rel="icon" id="favicon" href="${CLIENTE_LOGO}">
+    <link rel="icon" id="favicon" href="https://pub-e9527e43ecbd44a6a30d6743b70ff3d9.r2.dev/catalogo/assets/img_logo.webp">
     <style>
         /* Estilos Integrados - Moderno y Competitivo */
         :root { 
@@ -16,75 +15,85 @@
             --text: #f8fafc; 
             --whatsapp: #22c55e;
             --card-bg: rgba(30, 41, 59, 0.5); 
+            /* Variables de Servicios Adicionales. */
+            --sa-accent: #28a745;
+            --sa-accent-hover: #218838;
         }
         body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: var(--bg-gradient); color: var(--text); line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
         
         .navbar { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); color: white; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        
-        /* Estilo del Logo */
-        .logo { display: flex; align-items: center; }
-        .logo img { height: 40px; width: auto; display: block; }
-
+        .logo { display: flex; align-items: center; font-size: 1.2rem; font-weight: bold; color: var(--primary)}
         .menu-toggle { display: none; cursor: pointer; flex-direction: column; }
         .menu-toggle span { display: block; width: 25px; height: 3px; background: white; margin: 2px 0; }
-
         .nav-links { display: flex; list-style: none; gap: 20px; align-items: center; }
+        .nav-links a { color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
         .btn-nav-contact { background: var(--whatsapp); color: white; padding: 8px 20px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 0.9rem; transition: background 0.2s; }
         .btn-nav-contact:hover { background: #16a34a; }
 
         header { padding: 60px 5%; text-align: center; }
         header h1 { color: white; font-size: 2.5rem; margin-bottom: 10px; }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 0 5% 50px 5%; flex: 1; }
-        
-        /* Efecto Glassmorphism */
-        .card { background: var(--card-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.3); transition: transform 0.3s ease; }
+        /* Grid Principal */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 0 5% 50px 5%; }
+        .card { background: var(--card-bg); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.3); transition: transform 0.3s ease; }
         .card:hover { transform: translateY(-10px); background: rgba(30, 41, 59, 0.7); }
         .card img { width: 100%; height: 180px; object-fit: cover; opacity: 0.9; }
         .card-body { padding: 20px; }
         .card-body h3 { margin: 0 0 10px 0; }
         .card-body p { font-size: 0.85rem; color: #cbd5e1; margin-bottom: 15px; }
-        
+
         .btn-container { display: flex; gap: 10px; margin-top: 15px; }
         .btn-ver, .btn-comprar { flex: 1; text-align: center; padding: 10px 5px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 0.85rem; transition: background 0.2s; }
-        
         .btn-ver { background: var(--primary); color: white; }
         .btn-ver:hover { background: #2563eb; }
-        
         .btn-comprar { background: var(--whatsapp); color: white; }
         .btn-comprar:hover { background: #16a34a; }
 
+        /* Estilos de Servicios Adicionales (Sección Integrada) */
+        .containerSAI { max-width: 900px; margin: 40px auto; padding: 20px; }
+        .service-category { background: var(--card-bg); backdrop-filter: blur(12px); margin-bottom: 25px; padding: 25px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); }
+        .service-category h2 { color: var(--primary); border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-top: 0; }
+        .service-desc { font-size: 0.95rem; color: var(--primary); margin-bottom: 15px; font-weight: bold; }
+        .price-list { list-style: none; padding: 0; }
+        .price-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .price { font-weight: bold; color: var(--sa-accent); }
+        .note { font-size: 0.9rem; color: #f87171; margin-top: 10px; font-weight: bold; }
+        .btn-more { display: inline-block; margin-top: 15px; padding: 10px 20px; background-color: var(--sa-accent); color: white; text-decoration: none; border-radius: 8px; font-weight: bold; transition: background 0.3s ease; }
+        .btn-more:hover { background-color: var(--sa-accent-hover); }
+
         footer { text-align: center; padding: 30px 5%; border-top: 1px solid rgba(255,255,255,0.1); color: #94a3b8; font-size: 0.9rem; }
         footer a { color: var(--primary); text-decoration: none; }
-        footer a:hover { text-decoration: underline; }
 
         @media (max-width: 768px) {
             .menu-toggle { display: flex; }
-            .nav-links { display: none; position: absolute; top: 60px; left: 0; width: 100%; background: var(--dark); flex-direction: column; align-items: center; padding: 20px 0; }
+            .nav-links { display: none; position: absolute; top: 60px; left: 0; width: 100%; background: var(--dark); flex-direction: column; align-items: center; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
             .nav-links.active { display: flex; }
+            .nav-links li { margin: 10px 0; }
+            .price-item { flex-direction: column; }
         }
     </style>
 </head>
 <body>
-
     <nav class="navbar">
-     <div class="logo">Catálogo - PixelSitePro</div>
-        <div class="menu-toggle" id="mobile-menu">
-            <span></span><span></span><span></span>
-        </div>
+        <div class="logo">PixelSitePro</div>
+        <div class="menu-toggle" id="mobile-menu"><span></span><span></span><span></span></div>
         <ul class="nav-links" id="nav-links">
+            <li><a href="#catalogo">Catálogo</a></li>
+            <li><a href="#services-container">Servicios</a></li>
             <li><a href="https://wa.me/50498611270" target="_blank" class="btn-nav-contact">CONTACTAR</a></li>
         </ul>
     </nav>
 
     <header>
-        <h1>Landing Pages Express</h1>
+        <h1>Catálogo - Landing Pages Express</h1>
         <p>Selecciona un sistema y visualiza la potencia de nuestras soluciones.</p>
     </header>
 
     <main id="catalogo">
-        <div class="grid" id="contenedor-apps">
-            <!-- Los proyectos se cargan aquí automáticamente -->
+        <div class="grid" id="contenedor-apps"></div>
+        
+        <div class="containerSAI" id="services-container">
+            <h2 style="text-align: center; color: white; margin-bottom: 30px;">Servicios Adicionales Integrados</h2>
         </div>
     </main>
 
@@ -101,29 +110,44 @@
             { nombre: "Veterinaria", desc: "Cuida el bienestar animal con un sitio optimizado para emergencias, vacunas y consultas personalizadas.", img: "https://pub-e9527e43ecbd44a6a30d6743b70ff3d9.r2.dev/veterinaria/assets/img_hero.webp", url: "https://veterinaria.PixelSitePro.com" }
         ];
 
+        const services = [
+            { title: "Gestión de Servicios (Landing Pro, Plan Starter, Plan Pro)", desc: "Adición o actualización de Servicios para asegurar que la página web esté siempre a medida y al día.", items: [{ name: "◉ Una Tarjeta de Servicio Adicional o Actualización.", price: "$5.00 (Pago único)" }, { name: "◉ Dos Tarjetas de Servicio Adicionales o Actualización.", price: "$8.00 (Pago único)" }, { name: "◉ Tres Tarjetas de Servicio Adicionales o Actualización.", price: "$12.00 (Pago único)" }], note: "**Estos paquetes no incluyen Edición ni optimización de imágenes." },
+            { title: "Gestión y Actualización de Catálogo (Landing Store y Plan Premium)", desc: "Actualización o Adición de productos para garantizar un inventario real.", items: [{ name: "◉ Cinco Productos Adicionales o Actualización.", price: "$25.00 (Pago único)" }, { name: "◉ Diez Productos Adicionales o Actualización.", price: "$40.00 (Pago único)" }, { name: "◉ Veinte Productos Adicionales o Actualización.", price: "$80.00 (Pago único)" }], note: "**Estos paquetes no incluyen Edición ni optimización de imágenes." },
+            { title: "Adición de Secciones (Galería, Casos de Éxito, Sucursales, Otros Servicios, Sobre Nosotros, Misión y Visión, Productos/Servicios Destacados, Preguntas frecuentes, etc.)", desc: "Expansión de la estructura del sitio web con nuevas áreas informativas para garantizar una navegación intuitiva y generar cercanía a los visitantes y Clientes.", items: [{ name: "◉ Galería Estática: Cinco fotos optimizadas.", price: "$20.00 (Pago único)" }, { name: "◉ Productos/Servicios Destacados: Tres Productos/Servicios con imágenes optimizadas.", price: "$20.00 (Pago único)" }, { name: "◉ Casos de Éxito: Tres casos de éxito con imágenes optimizadas.", price: "$20.00 (Pago único)" }], note: "**Estos paquetes no incluyen Redacción de textos ni Edición de imágenes." },
+            { title: "Gestión de Correo Electrónico", desc: "Configuración y gestión de cuentas de correo adicionales personalizadas. (Ejemplo: info@miempresa.com)", items: [{ name: "◉ una Cuenta de correo personalizada:", price: "$10.00 (Pago único)" }, { name: "◉ Dos cuentas de correo personalizada:", price: "$18.00 (Pago único)" }, { name: "◉ Tres cuentas de correo personalizada:", price: "$27.00 (Pago único)" }] },
+            { title: "Creación de Logo", desc: "Servicios de diseño de identidad visual adaptados a las necesidades del cliente.", items: [{ name: "◉ Logo Básico (1 color) Basado en Brief:", price: "$10.00" }, { name: "◉ Logo Pro (2 colores, 1 revisión):", price: "$20.00" }, { name: "◉ Logo Premium (3 colores, 2 revisiones):", price: "$40.00" }, { name: "◉ Logo Corporativo (Diseño a medida, 3 revisiones):", price: "$50.00" }], note: "(**Todos los Logos se entregan como Archivo único PNG con fondo transparente optimizado para la página web)." },
+            { title: "Botón flotante de WhatsApp", desc: "Botón estándar con ícono oficial de WhatsApp con mensaje predeterminado para iniciar la conversación.", items: [{ name: "◉ Precio único:", price: "$5.00" }] },
+            { title: "Configuración de Cuenta y Botones de Pago (PayPal – Cuenta Personal)", desc: "Integración de herramientas de cobro personalizadas.", items: [{ name: "◉ Creación cuenta Paypal personal + agregar tarjeta:", price: "$20.00" }, { name: "◉ Crear botón de pago (precio fijo):", price: "$10.00" }, { name: "◉ Crear botón de suscripción (precio fijo):", price: "$35.00" }, { name: "◉ Integración web - Botón de pago:", price: "$5.00" }, { name: "◉ Integración web - Botón de suscripción:", price: "$10.00" }] },
+            { title: "Formulario de Contacto + Zoho", desc: "Creación e integración de formularios avanzados vinculados a herramientas CRM.", items: [{ name: "◉ Creación e integración de Formulario:", price: "$30.00" }] },
+            { title: "Gestiones Adicionales no definidas", desc: "Creación e integración de formularios avanzados vinculados a herramientas CRM.", items: [{ name: "◉ Todas las Gestiones no definidas en esta lista, serán cotizados directamente con el Departamento de Administración de PixelSitePro.", price: "COTIZAR" }, { name: "◉ Todos los precios publicados en esta lista (Versión más reciente publicada), se consideran Precios Oficiales de PixelSitePro. ", price: "COTIZAR" }] }
+        ];
+
         const contenedor = document.getElementById('contenedor-apps');
+        const containerSAI = document.getElementById('services-container');
+        const phoneNumber = "50498611270";
 
         proyectos.forEach(p => {
-            const mensajeWA = encodeURIComponent(`Hola PixelSitePro, deseo gestionar la compra de esta Página Web: ${p.url}`);
-            
+            const msg = encodeURIComponent(`Hola PixelSitePro, deseo comprar: ${p.url}`);
             const card = document.createElement('div');
             card.className = 'card';
-            card.innerHTML = `
-                <img src="${p.img}" alt="${p.nombre}">
-                <div class="card-body">
-                    <h3>${p.nombre}</h3>
-                    <p>${p.desc}</p>
-                    <div class="btn-container">
-                        <a href="${p.url}" target="_blank" class="btn-ver">Ver Sitio Web</a>
-                        <a href="https://wa.me/50498611270?text=${mensajeWA}" target="_blank" class="btn-comprar">Comprar ahora</a>
-                    </div>
-                </div>
-            `;
+            card.innerHTML = `<img src="${p.img}" alt="${p.nombre}"><div class="card-body"><h3>${p.nombre}</h3><p>${p.desc}</p><div class="btn-container"><a href="${p.url}" target="_blank" class="btn-ver">Ver Sitio</a><a href="https://wa.me/${phoneNumber}?text=${msg}" target="_blank" class="btn-comprar">Comprar</a></div></div>`;
             contenedor.appendChild(card);
         });
 
-        document.getElementById('mobile-menu').addEventListener('click', () => {
-            document.getElementById('nav-links').classList.toggle('active');
+        services.forEach(cat => {
+            let html = `<div class="service-category"><h2>${cat.title}</h2><p class="service-desc">${cat.desc}</p><ul class="price-list">`;
+            cat.items.forEach(i => html += `<li class="price-item"><span>${i.name}</span><span class="price">${i.price}</span></li>`);
+            html += `</ul>${cat.note ? `<div class="note">${cat.note}</div>` : ''}`;
+            const msg = encodeURIComponent(`Hola, estoy interesado en el servicio de: ${cat.title.split('(')[0].trim()}`);
+            html += `<a href="https://wa.me/${phoneNumber}?text=${msg}" target="_blank" rel="noopener noreferrer" class="btn-more">Más información</a></div>`;
+            containerSAI.innerHTML += html;
+        });
+
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+        mobileMenu.addEventListener('click', () => { navLinks.classList.toggle('active'); });
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => { navLinks.classList.remove('active'); });
         });
     </script>
 </body>
