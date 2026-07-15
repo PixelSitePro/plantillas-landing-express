@@ -115,7 +115,7 @@
                 <div class="doctor-info">
                     <h3>${CLIENTE_SERVICIOS_S1_TITULO}</h3>
                     <p>${CLIENTE_SERVICIOS_S1_DESC}</p>
-                    <a href="https://wa.me/${CLIENTE_WHATSAPP}" class="btn-agendar"><i class="fas fa-info-circle"></i> Consultar</a>
+                    <a href="https://wa.me/${CLIENTE_WHATSAPP}" class="btn-agendar btn-servicio"><i class="fas fa-info-circle"></i> Consultar</a>
                 </div>
                 <div class="card-footer-color">${CLIENTE_NOMBRE}</div>
             </div>
@@ -124,7 +124,7 @@
                 <div class="doctor-info">
                     <h3>${CLIENTE_SERVICIOS_S2_TITULO}</h3>
                     <p>${CLIENTE_SERVICIOS_S2_DESC}</p>
-                    <a href="https://wa.me/${CLIENTE_WHATSAPP}" class="btn-agendar"><i class="fas fa-info-circle"></i> Consultar</a>
+                    <a href="https://wa.me/${CLIENTE_WHATSAPP}" class="btn-agendar btn-servicio"><i class="fas fa-info-circle"></i> Consultar</a>
                 </div>
                 <div class="card-footer-color">${CLIENTE_NOMBRE}</div>
             </div>
@@ -133,7 +133,7 @@
                 <div class="doctor-info">
                     <h3>${CLIENTE_SERVICIOS_S3_TITULO}</h3>
                     <p>${CLIENTE_SERVICIOS_S3_DESC}</p>
-                    <a href="https://wa.me/${CLIENTE_WHATSAPP}" class="btn-agendar"><i class="fas fa-info-circle"></i> Consultar</a>
+                    <a href="https://wa.me/${CLIENTE_WHATSAPP}" class="btn-agendar btn-servicio"><i class="fas fa-info-circle"></i> Consultar</a>
                 </div>
                 <div class="card-footer-color">${CLIENTE_NOMBRE}</div>
             </div>
@@ -181,7 +181,17 @@
                     container.appendChild(li);
                 });
             }
-            document.querySelectorAll('#social-icons-wrapper a').forEach(a => {
+            
+            document.querySelectorAll('.btn-servicio').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const titulo = btn.closest('.doctor-info').querySelector('h3').innerText;
+                    const mensaje = encodeURIComponent(`Hola, estoy interesado en el servicio: ${titulo}`);
+                    window.open(`https://wa.me/${"${CLIENTE_WHATSAPP}"}?text=${mensaje}`, '_blank');
+                });
+            });
+
+            document.querySelectorAll('#social-icons a').forEach(a => {
                 if (a.getAttribute('href').includes('undefined') || a.getAttribute('href') === '#') a.style.display = 'none';
             });
         });
