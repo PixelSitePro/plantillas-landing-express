@@ -125,7 +125,7 @@ footer { background: var(--secondary); color: #cbd5e1; padding: 40px 8% 20px; te
             <div class="doctor-info">
                 <h3>${CLIENTE_SERVICIOS_S1_TITULO}</h3>
                 <p>${CLIENTE_SERVICIOS_S1_DESC}</p>
-                <a href="https://wa.me/${CLIENTE_WHATSAPP}" target="_blank" rel="noopener" class="btn-agendar"><i class="fas fa-calendar"></i> Agendar</a>
+                <a href="https://wa.me/${CLIENTE_WHATSAPP}" class="btn-agendar btn-servicio"><i class="fas fa-glass-cheers"></i> AGENDAR CITA</a>
             </div>
             <div class="card-footer-color">${CLIENTE_NOMBRE}</div>
         </div>
@@ -134,7 +134,7 @@ footer { background: var(--secondary); color: #cbd5e1; padding: 40px 8% 20px; te
             <div class="doctor-info">
                 <h3>${CLIENTE_SERVICIOS_S2_TITULO}</h3>
                 <p>${CLIENTE_SERVICIOS_S2_DESC}</p>
-                <a href="https://wa.me/${CLIENTE_WHATSAPP}" target="_blank" rel="noopener" class="btn-agendar"><i class="fas fa-calendar"></i> Agendar</a>
+                <a href="https://wa.me/${CLIENTE_WHATSAPP}" class="btn-agendar btn-servicio"><i class="fas fa-glass-cheers"></i> AGENDAR CITA</a>
             </div>
             <div class="card-footer-color">${CLIENTE_NOMBRE}</div>
         </div>
@@ -143,7 +143,7 @@ footer { background: var(--secondary); color: #cbd5e1; padding: 40px 8% 20px; te
             <div class="doctor-info">
                 <h3>${CLIENTE_SERVICIOS_S3_TITULO}</h3>
                 <p>${CLIENTE_SERVICIOS_S3_DESC}</p>
-                <a href="https://wa.me/${CLIENTE_WHATSAPP}" target="_blank" rel="noopener" class="btn-agendar"><i class="fas fa-calendar"></i> Agendar</a>
+                <a href="https://wa.me/${CLIENTE_WHATSAPP}" class="btn-agendar btn-servicio"><i class="fas fa-glass-cheers"></i> AGENDAR CITA</a>
             </div>
             <div class="card-footer-color">${CLIENTE_NOMBRE}</div>
         </div>
@@ -182,27 +182,34 @@ footer { background: var(--secondary); color: #cbd5e1; padding: 40px 8% 20px; te
 </footer>
 
 <script>
-    function toggleMobileMenu() {
-        const menu = document.getElementById('main-menu');
-        if (!menu) return;
-        menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
-        menu.style.cssText = (menu.style.display === 'flex') ? "display:flex; position:absolute; top:70px; left:0; width:100%; background:white; flex-direction:column; padding:20px; box-shadow: 0 10px 10px rgba(0,0,0,0.1); z-index: 1000;" : "";
-    }
-    document.addEventListener("DOMContentLoaded", () => {
-        const container = document.getElementById("scheduleListContainer");
-        if (!container) return;
-        let rawData = container.getAttribute("data-raw-horario") || "";
-        if (!rawData || rawData.includes("CLIENTE_HORARIO")) rawData = "Lunes a Viernes: 09:00 AM - 07:00 PM";
-        container.innerHTML = "";
-        rawData.split("|").forEach(linea => {
-            if (!linea.trim()) return;
-            const partes = linea.split(":");
-            const li = document.createElement("li");
-            li.innerHTML = `<span>${partes[0].trim()}</span><span class="${linea.toLowerCase().includes('cerrado') ? 'destacado' : ''}">${partes.slice(1).join(":").trim()}</span>`;
-            container.appendChild(li);
+        function toggleMobileMenu() { const menu = document.getElementById('main-menu'); menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex'; }
+        document.addEventListener("DOMContentLoaded", () => {
+            const container = document.getElementById("scheduleListContainer");
+            if (container) {
+                let rawData = container.getAttribute("data-raw-horario") || "";
+                rawData.split("|").forEach(linea => {
+                    if(!linea.trim()) return;
+                    const partes = linea.split(":");
+                    const li = document.createElement("li");
+                    li.innerHTML = `<span>${partes[0].trim()}</span><span>${partes.slice(1).join(":").trim()}</span>`;
+                    container.appendChild(li);
+                });
+            }
+            
+            document.querySelectorAll('.btn-servicio').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const titulo = btn.closest('.doctor-info').querySelector('h3').innerText;
+                    const mensaje = encodeURIComponent(`Hola, estoy interesado en el servicio: ${titulo}`);
+                    window.open(`https://wa.me/${"${CLIENTE_WHATSAPP}"}?text=${mensaje}`, '_blank');
+                });
+            });
+
+            document.querySelectorAll('#social-icons a').forEach(a => {
+                if (a.getAttribute('href').includes('undefined') || a.getAttribute('href') === '#') a.style.display = 'none';
+            });
         });
-    });
-</script>
+    </script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>AOS.init({ duration: 1000, once: true });</script>
 </body>
