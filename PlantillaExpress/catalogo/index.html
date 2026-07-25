@@ -15,9 +15,6 @@
             --text: #f8fafc; 
             --whatsapp: #22c55e;
             --card-bg: rgba(30, 41, 59, 0.5); 
-            /* Variables de Servicios Adicionales. */
-            --sa-accent: #28a745;
-            --sa-accent-hover: #218838;
         }
         body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: var(--bg-gradient); color: var(--text); line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
         
@@ -27,8 +24,7 @@
         .menu-toggle span { display: block; width: 25px; height: 3px; background: white; margin: 2px 0; }
         .nav-links { display: flex; list-style: none; gap: 20px; align-items: center; }
         .nav-links a { color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
-        /* Solución para el desplazamiento con navbar fijo */
-        #catalogo, #services-container {scroll-margin-top: 80px;}
+        #catalogo { scroll-margin-top: 80px; }
         .btn-nav-contact { background: var(--whatsapp); color: white; padding: 8px 20px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 0.9rem; transition: background 0.2s; }
         .btn-nav-contact:hover { background: #16a34a; }
 
@@ -51,7 +47,7 @@
         .btn-comprar { background: var(--whatsapp); color: white; }
         .btn-comprar:hover { background: #16a34a; }
 
-        footer { text-align: center; padding: 30px 5%; border-top: 1px solid rgba(255,255,255,0.1); color: #94a3b8; font-size: 0.9rem; }
+        footer { text-align: center; padding: 30px 5%; border-top: 1px solid rgba(255,255,255,0.1); color: #94a3b8; font-size: 0.9rem; margin-top: auto; }
         footer a { color: var(--primary); text-decoration: none; }
 
         @media (max-width: 768px) {
@@ -59,7 +55,6 @@
             .nav-links { display: none; position: absolute; top: 60px; left: 0; width: 100%; background: var(--dark); flex-direction: column; align-items: center; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
             .nav-links.active { display: flex; }
             .nav-links li { margin: 10px 0; }
-            .price-item { flex-direction: column; }
         }
     </style>
 </head>
@@ -70,7 +65,6 @@
         <ul class="nav-links" id="nav-links">
             <li><a href="https://pixelsitepro.com/">Inicio</a></li>
             <li><a href="#catalogo">Catálogo</a></li>
-            <li><a href="#services-container">Servicios</a></li>
             <li><a href="https://wa.me/50498611270" target="_blank" class="btn-nav-contact">CONTACTAR</a></li>
         </ul>
     </nav>
@@ -79,6 +73,10 @@
         <h1>Catálogo - Landing Pages Express</h1>
         <p>Selecciona un sistema y visualiza la potencia de nuestras soluciones.</p>
     </header>
+
+    <main>
+        <div class="grid" id="contenedor-apps"></div>
+    </main>
 
     <footer>
         <p>&copy; 2026 PixelSitePro. Todos los derechos reservados. | <a href="https://pixelsitepro.com" target="_blank">pixelsitepro.com</a></p>
@@ -97,7 +95,6 @@
         ];
 
         const contenedor = document.getElementById('contenedor-apps');
-        const containerSAI = document.getElementById('services-container');
         const phoneNumber = "50498611270";
 
         proyectos.forEach(p => {
@@ -106,15 +103,6 @@
             card.className = 'card';
             card.innerHTML = `<img src="${p.img}" alt="${p.nombre}"><div class="card-body"><h3>${p.nombre}</h3><p>${p.desc}</p><div class="btn-container"><a href="${p.url}" target="_blank" class="btn-ver">Ver Sitio</a><a href="https://wa.me/${phoneNumber}?text=${msg}" target="_blank" class="btn-comprar">Comprar</a></div></div>`;
             contenedor.appendChild(card);
-        });
-
-        services.forEach(cat => {
-            let html = `<div class="service-category"><h2>${cat.title}</h2><p class="service-desc">${cat.desc}</p><ul class="price-list">`;
-            cat.items.forEach(i => html += `<li class="price-item"><span>${i.name}</span><span class="price">${i.price}</span></li>`);
-            html += `</ul>${cat.note ? `<div class="note">${cat.note}</div>` : ''}`;
-            const msg = encodeURIComponent(`Hola, estoy interesado en el servicio de: ${cat.title.split('(')[0].trim()}`);
-            html += `<a href="https://wa.me/${phoneNumber}?text=${msg}" target="_blank" rel="noopener noreferrer" class="btn-more">Más información</a></div>`;
-            containerSAI.innerHTML += html;
         });
 
         const mobileMenu = document.getElementById('mobile-menu');
