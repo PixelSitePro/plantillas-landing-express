@@ -163,4 +163,31 @@
         document.addEventListener("DOMContentLoaded", () => {
             const container = document.getElementById("scheduleListContainer");
             if (container) {
-                let rawData = container.getAttribute("data
+                let rawData = container.getAttribute("data-raw-horario") || "";
+                rawData.split("|").forEach(linea => {
+                    if(!linea.trim()) return;
+                    const partes = linea.split(":");
+                    const li = document.createElement("li");
+                    li.innerHTML = `<span>${partes[0].trim()}</span><span>${partes.slice(1).join(":").trim()}</span>`;
+                    container.appendChild(li);
+                });
+            }
+            
+            document.querySelectorAll('.btn-servicio').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const titulo = btn.closest('.doctor-info').querySelector('h3').innerText;
+                    const mensaje = encodeURIComponent(`Hola, estoy interesado en el servicio: ${titulo}`);
+                    window.open(`https://wa.me/${"${CLIENTE_WHATSAPP}"}?text=${mensaje}`, '_blank');
+                });
+            });
+
+            document.querySelectorAll('#social-icons a').forEach(a => {
+                if (a.getAttribute('href').includes('undefined') || a.getAttribute('href') === '#') a.style.display = 'none';
+            });
+        });
+    </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init({ duration: 1000, once: true });</script>
+</body>
+</html>
