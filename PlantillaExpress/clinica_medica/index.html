@@ -21,15 +21,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        :root { 
-            --primary: ${CLIENTE_COLOR_PRIMARIO}; 
-            --secondary: ${CLIENTE_COLOR_SECUNDARIO}; 
-            --accent: #38bdf8; 
-            --text-main: #334155; 
-            --bg-light: #f1f5f9; 
-            --bg-body: #ffffff; 
-            --txt-urgencias: #e11d48; 
-        }
+        :root { --primary: ${CLIENTE_COLOR_PRIMARIO}; --secondary:${CLIENTE_COLOR_SECUNDARIO}; --accent: #84cc16; /* Cambiado a un tono más natural */ --text-main: #334155; --bg-light: #f0fdf4; --bg-body: #ffffff; --txt-urgencias: #4d7c0f; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { color: var(--text-main); background: var(--bg-body); line-height: 1.6; scroll-behavior: smooth; }
         header { background: var(--bg-body); padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
@@ -46,7 +38,7 @@
         .doctors-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .doctor-card { display: flex; flex-direction: column; align-items: center; padding: 0; background: var(--bg-body); border-radius: 30px; overflow: hidden; transition: 0.3s ease; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); text-align: center; border: none; }
         .doctor-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12); }
-        .doctor-card img { width: 140px; height: 140px; border-radius: 50%; border: 4px solid var(--primary); margin: 30px 0 20px; object-fit: cover; }
+        .doctor-card img { width: 100%; height: 250px; border-radius: 20px 20px 0 0; border: none; margin: 0 0 20px 0; object-fit: cover; }
         .doctor-info { padding: 0 20px 20px; width: 100%; }
         .doctor-info h3 { color: var(--primary); font-size: 1.4rem; margin-bottom: 5px; }
         .btn-agendar { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background-color: var(--primary); color: #ffffff; padding: 12px 24px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
@@ -57,7 +49,7 @@
         .section-title h2 { color: var(--secondary); font-size: 2rem; }
         .info-container { max-width: 1200px; margin: 0 auto; background: var(--bg-light); border-radius: 20px; padding: 40px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); }
         .schedule-list { list-style: none; }
-        .schedule-list li { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed #cbd5e1; font-size: 1.1rem; }
+        .schedule-list li { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed #a3e635; font-size: 1.1rem; }
         .map-responsive { width: 100%; height: 350px; border-radius: 10px; border: none; margin-top: 20px; }
         #contacto { background: var(--primary); color: white; text-align: center; }
         .social-icons { display: flex; gap: 15px; justify-content: center; margin-top: 20px; }
