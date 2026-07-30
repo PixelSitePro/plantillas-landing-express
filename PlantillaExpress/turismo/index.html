@@ -1,224 +1,192 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GDH Tours | Tu Aventura Tropical</title>
+    <meta name="description" content="${CLIENTE_META_DESCRIPCION}">
+    <meta name="author" content="PixelSitePro">
+    <link rel="canonical" href="${CLIENTE_RUTA_CANONICAL}">
+    <meta property="og:title" content="${CLIENTE_NOMBRE}">
+    <meta property="og:description" content="${CLIENTE_META_DESCRIPCION}">
+    <meta property="og:image" content="${CLIENTE_LOGO}">
+    <meta property="og:type" content="website">
+    <title>${CLIENTE_NOMBRE}</title>
+    <link rel="icon" id="favicon" href="${CLIENTE_LOGO}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
     <style>
-        :root {
-            --primary-blue: #0073b7;
-            --secondary-orange: #f37321;
-            --white: #ffffff;
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --bg-dark: #0f172a;
-        }
-
-        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background-color: var(--bg-dark); color: var(--white); scroll-behavior: smooth; }
-
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; background: rgba(0,0,0,0.3); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 1000; }
-        .nav-links a { margin-left: 20px; text-decoration: none; color: var(--white); font-weight: 500; cursor: pointer; }
-        .btn-trabaja { background: var(--primary-blue); color: var(--white) !important; padding: 8px 15px; border-radius: 20px; transition: 0.3s; }
-        .btn-trabaja:hover { background: var(--secondary-orange); }
-
-        /* Hamburguesa */
-        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; }
-        @media (max-width: 768px) {
-            .menu-toggle { display: block; }
-            .nav-links { 
-                display: none; position: absolute; top: 100%; left: 0; width: 100%; 
-                background: rgba(0,0,0,0.9); flex-direction: column; padding: 20px 0; text-align: center;
-            }
-            .nav-links.active { display: flex; }
-            .nav-links a { margin: 10px 0; }
-        }
-
-        .nav-links a { position: relative; padding-bottom: 5px; }
-        .nav-links a:not(.btn-trabaja):hover { color: var(--secondary-orange); }
-        .nav-links a:not(.btn-trabaja)::after {
-            content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 0;
-            background-color: var(--secondary-orange); transition: width 0.3s ease;
-        }
-        .nav-links a:not(.btn-trabaja):hover::after { width: 100%; }
-
-        .hero { 
-            height: 70vh; position: relative; display: flex; flex-direction: column; 
-            justify-content: center; align-items: center; color: var(--white); text-align: center; overflow: hidden;
-        }
-        .hero-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
-        .hero-content { position: relative; z-index: 1; background: rgba(0,0,0,0.4); padding: 20px; border-radius: 10px; }
-        .hero-content:hover { transform: scale(1.05); border: 1.0px; border-color: var(--primary-blue); transition: 0.3s ease }
-
-        .stats-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; padding: 4rem 5%; }
-        .stat-card { text-align: center; padding: 25px; border-radius: 15px; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); transition: 0.3s; }
-        .stat-card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.15); border-color: var(--primary-blue); }
-        .stat-card i { font-size: 2rem; color: var(--primary-blue); margin-bottom: 10px; }
-        .stat-card h3 { margin: 5px 0; }
-        .stat-card p { font-size: 0.8rem; color: #aaa; margin: 0; }
-
-        .quote-section { padding: 4rem 5%; text-align: center; }
-        .quote-form { 
-            background: var(--glass-bg); backdrop-filter: blur(15px); border: 1px solid var(--glass-border); 
-            padding: 25px; border-radius: 20px; display: inline-flex; gap: 10px; flex-wrap: wrap; 
-            justify-content: center; max-width: 900px; transition: 0.3s ease 
-        }
-        .quote-form input { border: 1px solid var(--glass-border); padding: 12px; border-radius: 10px; width: 180px; background: rgba(0,0,0,0.2); color: white; }
-        .quote-form:hover { transform: scale(1.05); border: 1.0px; border-color: var(--primary-blue); }
-        .btn-quote { background: var(--secondary-orange); color: var(--white); border: none; padding: 12px 25px; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        .btn-quote:hover { background: var(--primary-blue); }
-
-        .container { padding: 4rem 5%; }
-        .section-title { text-align: center; font-size: 2rem; margin-bottom: 0.5rem; }
-        .section-desc { text-align: center; color: #94a3b8; margin-bottom: 2rem; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-
-        #grid-ofertas, #grid-destinos { scroll-margin-top: 205px; }
-
-        .location-section { padding: 4rem 5%; text-align: center; }
-        .glass-box { background: var(--glass-bg); backdrop-filter: blur(15px); border: 1px solid var(--glass-border); padding: 25px; border-radius: 20px; max-width: 900px; margin: 0 auto; }
-
-        .social-section { padding: 3rem 5%; text-align: center; }
-        .social-container { display: flex; justify-content: center; gap: 30px; margin-top: 20px; }
-        .social-icon { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); font-size: 1.5rem; color: var(--white); transition: 0.3s; text-decoration: none; }
-        .social-icon:hover { background: var(--secondary-orange); transform: scale(1.1); }
-
-        footer { background: #000; color: var(--white); padding: 2rem 5%; text-align: center; }
+        :root { --primary: ${CLIENTE_COLOR_PRIMARIO}; --secondary:${CLIENTE_COLOR_SECUNDARIO}; --accent: #94a3b8; --text-main: #334155; --bg-light: #f8fafc; --bg-body: #ffffff; --txt-urgencias: #64748b; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { color: var(--text-main); background: var(--bg-body); line-height: 1.6; scroll-behavior: smooth; }
+        header { background: var(--bg-body); padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
+        .logo { font-weight: 700; color: var(--secondary); font-size: 1.4rem; display: flex; align-items: center; gap: 10px; text-transform: uppercase; }
+        nav ul { display: flex; list-style: none; gap: 20px; align-items: center; }
+        nav a { text-decoration: none; color: var(--secondary); font-size: 0.85rem; font-weight: 600; transition: 0.3s; }
+        nav a:hover { color: var(--primary); }
+        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .menu-toggle span { width: 25px; height: 3px; background: var(--secondary); }
+        .hero { background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%); color: white; padding: 80px 8%; display: flex; align-items: center; justify-content: space-between; min-height: 500px; }
+        .hero-text h1 { font-size: 3rem; margin-bottom: 20px; max-width: 500px; line-height: 1.2; }
+        .hero-image img { width: 100%; max-width: 600px; border-radius: 15px; object-fit: cover; }
+        .action-container { width: 80%; margin: -50px auto 50px; background: var(--bg-light); padding: 10px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 20px; border-top: 5px solid var(--accent); position: relative; z-index: 10; }
+        .doctors-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .doctor-card { display: flex; flex-direction: column; align-items: center; padding: 0; background: var(--bg-body); border-radius: 30px; overflow: hidden; transition: 0.3s ease; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); text-align: center; border: none; }
+        .doctor-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12); }
+        .doctor-card img { width: 100%; height: 250px; border-radius: 20px 20px 0 0; border: none; margin: 0 0 20px 0; object-fit: cover; }
+        .doctor-info { padding: 0 20px 20px; width: 100%; }
+        .doctor-info h3 { color: var(--primary); font-size: 1.4rem; margin-bottom: 5px; }
+        .btn-agendar { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background-color: var(--primary); color: #ffffff; padding: 12px 24px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+        .btn-agendar:hover { background-color: var(--secondary); transform: translateY(-3px); }
+        .card-footer-color { background: var(--primary); width: 100%; padding: 15px; color: white; font-size: 0.75rem; font-weight: 600; }
+        section { padding: 80px 8%; }
+        .section-title { text-align: center; margin-bottom: 40px; }
+        .section-title h2 { color: var(--secondary); font-size: 2rem; }
+        .info-container { max-width: 1200px; margin: 0 auto; background: var(--bg-light); border-radius: 20px; padding: 40px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); }
+        .schedule-list { list-style: none; }
+        .schedule-list li { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed #cbd5e1; font-size: 1.1rem; }
+        .map-responsive { width: 100%; height: 350px; border-radius: 10px; border: none; margin-top: 20px; }
+        #contacto { background: var(--primary); color: white; text-align: center; }
+        .social-icons { display: flex; gap: 15px; justify-content: center; margin-top: 20px; }
+        .social-icons a { background: var(--bg-body); color: var(--primary); width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.2rem; text-decoration: none; transition: 0.3s ease; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+        .social-icons a:hover { background: var(--accent); color: var(--secondary); transform: translateY(-5px); }
+        footer { background: var(--secondary); color: #cbd5e1; padding: 40px 8% 20px; text-align: center; }
+        @media (max-width: 992px) { .info-container { grid-template-columns: 1fr; } .action-container { width: 90%; grid-template-columns: 1fr; text-align: center; gap: 20px; } nav ul { display: none; } .menu-toggle { display: flex; } .hero { flex-direction: column; text-align: center; gap: 30px; } .emergency-block { border-right: none !important; border-bottom: 1px solid #e2e8f0; padding-bottom: 20px; } }
     </style>
 </head>
 <body>
-
-    <nav>
-        <div class="logo"><strong>GDH Tours</strong></div>
-        <div class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">
-            <i class="fas fa-bars"></i>
-        </div>
-        <div class="nav-links">
-            <a onclick="cerrarMenu(); document.querySelector('.hero').scrollIntoView()">Inicio</a>
-            <a onclick="cerrarMenu(); document.querySelector('.quote-section').scrollIntoView()">Planificar</a>
-            <a onclick="cerrarMenu(); document.getElementById('grid-ofertas').scrollIntoView()">Destacadas</a>
-            <a onclick="cerrarMenu(); document.getElementById('grid-destinos').scrollIntoView()">Populares</a>
-            <a onclick="cerrarMenu(); document.querySelector('.location-section').scrollIntoView()">Ubicación</a>
-            <a onclick="cerrarMenu(); document.querySelector('.social-section').scrollIntoView()" class="btn-trabaja">Contacto</a>
-        </div>
-    </nav>
-
-    <header class="hero">
-        <img src="https://images.unsplash.com/photo-1662911136928-1068ba7be9e6?q=80&w=1631&auto=format&fit=crop" alt="Fondo" class="hero-img">
-        <div class="hero-content">
-            <h1>Destinos Exclusivos para tu próximo viaje</h1>
-            <p style="color: var(--secondary-orange); font-size: 1.2rem; font-weight: 500">Tu viaje Comienza Aquí</p>
-        </div>
+    <header>
+        <div class="logo"><img src="${CLIENTE_LOGO}" style="height: 40px;" alt="Logo"> ${CLIENTE_NOMBRE}</div>
+        <nav>
+            <ul id="main-menu">
+                <li><a href="#inicio">INICIO</a></li>
+                <li><a href="#servicios">DESTINOS</a></li>
+                <li><a href="#horarios">RESERVAS</a></li>
+                <li><a href="#ubicacion">OFICINA</a></li>
+                <li><a href="#contacto">CONTACTO</a></li>
+            </ul>
+            <div class="menu-toggle" onclick="toggleMobileMenu()"><span></span><span></span><span></span></div>
+        </nav>
     </header>
 
-    <section class="stats-section">
-        <div class="stat-card"><i class="fas fa-briefcase"></i><h3>5+</h3><p>Años en el Mercado</p></div>
-        <div class="stat-card"><i class="fas fa-users"></i><h3>2,000+</h3><p>Clientes satisfechos</p></div>
-        <div class="stat-card"><i class="fas fa-shield-alt"></i><h3>100%</h3><p>Viajes Certificados</p></div>
-        <div class="stat-card"><i class="fas fa-check-circle"></i><h3>100%</h3><p>Garantía de satisfacción</p></div>
+    <section class="hero" id="inicio">
+        <div class="hero-text">
+            <p>${CLIENTE_NOMBRE}</p>
+            <h1>${CLIENTE_META_DESCRIPCION}</h1>
+        </div>
+        <div class="hero-image">
+            <img src="${CLIENTE_BANNER}" alt="Imagen principal de ${CLIENTE_NOMBRE}">
+        </div>
     </section>
 
-    <section class="quote-section">
-        <h2 class="section-title">Ayúdame a programar el viaje</h2>
-        <p class="section-desc">Completa tus datos y recibe una cotización personalizada hoy mismo.</p>
-        <form class="quote-form">
-            <input type="text" placeholder="Nombre" required>
-            <input type="email" placeholder="Email" required>
-            <input type="text" placeholder="Destino">
-            <input type="date" title="Fecha del viaje">
-            <input type="number" placeholder="Días del viaje" min="1">
-            <input type="number" placeholder="Personas" min="1">
-            <button type="submit" class="btn-quote">Solicitar Cotización</button>
-        </form>
-    </section>
+    <div class="action-container">
+        <div class="emergency-block" style="display: flex; align-items: center; justify-content: center; gap: 15px; border-right: 1px solid #e2e8f0; padding: 10px;">
+            <div style="background: #f1f5f9; padding: 12px; border-radius: 50%; color: var(--txt-urgencias); font-size: 1.5rem;"><i class="fas fa-plane-departure"></i></div>
+            <div style="text-align: left;">
+                <h4 style="color: var(--txt-urgencias); font-size: 1rem; font-weight: 700;">RESERVA TU VIAJE</h4>
+                <p style="font-size: 0.85rem; color: #475569;">Asesoramiento personalizado</p>
+                <a href="tel:${CLIENTE_TELEFONO}" style="color: var(--secondary); font-weight: 800; font-size: 1.1rem; text-decoration: none;">${CLIENTE_TELEFONO}</a>
+            </div>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 10px;">
+            <p style="font-size: 0.9rem; font-weight: 600; color: var(--secondary);">¿Listo para tu próxima aventura?</p>
+            <a href="https://wa.me/${CLIENTE_WHATSAPP}" target="_blank" class="btn-agendar"><i class="fab fa-whatsapp"></i> Chatear con un Agente</a>
+        </div>
+    </div>
 
-    <main class="container">
-        <h2 class="section-title">Ofertas Destacadas</h2>
-        <p class="section-desc">Descubre nuestros paquetes promocionales más populares.</p>
-        <div class="grid" id="grid-ofertas"></div>
-
-        <h2 class="section-title" style="margin-top:4rem;">Destinos Populares</h2>
-        <p class="section-desc">Explora los lugares más visitados por nuestros viajeros.</p>
-        <div class="grid" id="grid-destinos"></div>
-    </main>
-
-    <section class="location-section">
-        <h2 class="section-title">Nuestra Ubicación</h2>
-        <p class="section-desc">Visítanos en nuestras oficinas centrales.</p>
-        <div class="glass-box">
-            <p style="margin-bottom: 20px;">Edificio Interamericana, Tegucigalpa, Honduras.</p>
-            <div style="border-radius: 15px; overflow: hidden; border: 2px solid var(--glass-border);">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d291.967882896736!2d-86.56751950207924!3d14.030912959045502!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1ses!2shn!4v1781482179038!5m2!1ses!2shn" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    <section id="servicios">
+        <div class="section-title"><h2>Nuestros Destinos y Paquetes</h2></div>
+        <div class="doctors-grid">
+            <div class="doctor-card" data-aos="fade-up">
+                <img src="${CLIENTE_SERVICIOS_S1_IMG}" alt="${CLIENTE_SERVICIOS_S1_TITULO}">
+                <div class="doctor-info">
+                    <h3>${CLIENTE_SERVICIOS_S1_TITULO}</h3>
+                    <p>${CLIENTE_SERVICIOS_S1_DESC}</p>
+                    <a href="https://wa.me/${CLIENTE_WHATSAPP}" class="btn-agendar btn-servicio"><i class="fas fa-umbrella-beach"></i> MÁS INFORMACIÓN</a>
+                </div>
+                <div class="card-footer-color">${CLIENTE_NOMBRE}</div>
+            </div>
+            <div class="doctor-card" data-aos="fade-up" data-aos-delay="100">
+                <img src="${CLIENTE_SERVICIOS_S2_IMG}" alt="${CLIENTE_SERVICIOS_S2_TITULO}">
+                <div class="doctor-info">
+                    <h3>${CLIENTE_SERVICIOS_S2_TITULO}</h3>
+                    <p>${CLIENTE_SERVICIOS_S2_DESC}</p>
+                    <a href="https://wa.me/${CLIENTE_WHATSAPP}" class="btn-agendar btn-servicio"><i class="fas fa-city"></i> MÁS INFORMACIÓN</a>
+                </div>
+                <div class="card-footer-color">${CLIENTE_NOMBRE}</div>
+            </div>
+            <div class="doctor-card" data-aos="fade-up" data-aos-delay="200">
+                <img src="${CLIENTE_SERVICIOS_S3_IMG}" alt="${CLIENTE_SERVICIOS_S3_TITULO}">
+                <div class="doctor-info">
+                    <h3>${CLIENTE_SERVICIOS_S3_TITULO}</h3>
+                    <p>${CLIENTE_SERVICIOS_S3_DESC}</p>
+                    <a href="https://wa.me/${CLIENTE_WHATSAPP}" class="btn-agendar btn-servicio"><i class="fas fa-ship"></i> MÁS INFORMACIÓN</a>
+                </div>
+                <div class="card-footer-color">${CLIENTE_NOMBRE}</div>
             </div>
         </div>
     </section>
 
-    <section class="social-section">
-        <h2 class="section-title">Síguenos en Redes Sociales</h2>
-        <p class="section-desc">Únete a nuestra comunidad para más consejos de viaje.</p>
-        <div class="social-container">
-            <a href="https://www.facebook.com/PixelSitePro/" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.instagram.com/pixel.sitepro/" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.tiktok.com/@pixel_site_pro" target="_blank" class="social-icon"><i class="fab fa-tiktok"></i></a>
-            <a href="https://wa.me/50498611270" target="_blank" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+    <section id="horarios">
+        <div class="section-title"><h2>Horarios de Atención</h2></div>
+        <div class="info-container">
+            <ul id="scheduleListContainer" class="schedule-list" data-raw-horario="${CLIENTE_HORARIO}"></ul>
+        </div>
+    </section>
+
+    <section id="ubicacion">
+        <div class="section-title"><h2>Nuestra Agencia</h2></div>
+        <div class="info-container">
+            <p>${CLIENTE_DIRECCION}</p>
+            <iframe class="map-responsive" src="${CLIENTE_MAPA_URL}" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </section>
+
+    <section id="contacto">
+        <div class="section-title"><h2 style="color: white;">Síguenos en Redes</h2></div>
+        <div id="social-icons" class="social-icons">
+            <a href="${CLIENTE_WHATSAPP_URL}" target="_blank" rel="noopener" class="social-btn" data-url="${CLIENTE_WHATSAPP_URL}"><i class="fab fa-whatsapp"></i></a>
+            <a href="${CLIENTE_FACEBOOK_URL}" target="_blank" rel="noopener" class="social-btn" data-url="${CLIENTE_FACEBOOK_URL}"><i class="fab fa-facebook"></i></a>
+            <a href="${CLIENTE_INSTAGRAM_URL}" target="_blank" rel="noopener" class="social-btn" data-url="${CLIENTE_INSTAGRAM_URL}"><i class="fab fa-instagram"></i></a>
+            <a href="${CLIENTE_TIKTOK_URL}" target="_blank" rel="noopener" class="social-btn" data-url="${CLIENTE_TIKTOK_URL}"><i class="fab fa-tiktok"></i></a>
         </div>
     </section>
 
     <footer>
-        <p>© 2026 GDH Tours. Todos los derechos reservados.</p>
+        <p>Copyright © 2026 <strong>${CLIENTE_NOMBRE}</strong> | Agencia de viajes | Creado por <a href="https://pixelsitepro.com" style="color:var(--accent); text-decoration: none; font-weight: bold;">PixelSitePro</a></p>
     </footer>
 
     <script>
-        const ofertas = [
-            { titulo: "Madrid", descripcion: "6 días, Hotel, Tours lugares destacados", precio: "$915", img: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4" },
-            { titulo: "Suiza", descripcion: "6 días, Hotel, Tours lugares destacados", precio: "$1,500", img: "https://images.unsplash.com/photo-1594069758873-e79e9075eb7d?q=80&w=1470&auto=format&fit=crop" },
-            { titulo: "Colombia", descripcion: "6 días, Hotel, Tours lugares destacados", precio: "$399", img: "https://plus.unsplash.com/premium_photo-1733266875086-64729a97b8d2?q=80&w=735&auto=format&fit=crop" }
-        ];
-
-        const destinos = [
-            { titulo: "Roatán", descripcion: "Playas cristalinas y arrecifes coralinos", precio: "Consultar", img: "https://images.unsplash.com/photo-1594477580457-c1231e900153?q=80&w=1412&auto=format&fit=crop" },
-            { titulo: "Utila", descripcion: "El mejor destino para buceo en el mundo", precio: "Consultar", img: "https://images.unsplash.com/photo-1656988086378-118f9cfe3a4c?q=80&w=1470&auto=format&fit=crop" },
-            { titulo: "Copán", descripcion: "Historia maya y cultura ancestral", precio: "Consultar", img: "https://images.unsplash.com/photo-1591551963955-9487b4973e84?q=80&w=1470&auto=format&fit=crop" }
-        ];
-
-        function render(id, data) {
-            document.getElementById(id).innerHTML = data.map(item => {
-                const mensaje = encodeURIComponent(`Hola, me gustaría más información sobre el paquete: ${item.titulo}`);
-                const urlWhatsApp = `https://wa.me/50498611270?text=${mensaje}`;
-
-                return `
-                <div class="card-item" style="background:rgba(255,255,255,0.05); backdrop-filter:blur(10px); border:1px solid var(--glass-border); border-radius:15px; overflow:hidden; transition:0.3s;">
-                    <img src="${item.img}" style="width:100%; height:200px; object-fit:cover;">
-                    <div style="padding:1.5rem;">
-                        <h3>${item.titulo}</h3>
-                        <p style="font-size: 0.9rem; color: #ccc;">${item.descripcion}</p>
-                        <p>Desde: <strong>${item.precio}</strong></p>
-                        <button class="btn-card" onclick="window.open('${urlWhatsApp}', '_blank')" style="background:var(--secondary-orange); color:white; border:none; padding:10px; width:100%; border-radius:5px; cursor:pointer; transition:0.3s;">Contactar</button>
-                    </div>
-                </div>`;
-            }).join('');
-
-            document.querySelectorAll('.card-item').forEach(card => {
-                card.onmouseover = () => card.style.background = 'rgba(255,255,255,0.15)';
-                card.onmouseout = () => card.style.background = 'rgba(255,255,255,0.05)';
+        function toggleMobileMenu() { const menu = document.getElementById('main-menu'); menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex'; }
+        document.addEventListener("DOMContentLoaded", () => {
+            const container = document.getElementById("scheduleListContainer");
+            if (container) {
+                let rawData = container.getAttribute("data-raw-horario") || "";
+                rawData.split("|").forEach(linea => {
+                    if(!linea.trim()) return;
+                    const partes = linea.split(":");
+                    const li = document.createElement("li");
+                    li.innerHTML = `<span>${partes[0].trim()}</span><span>${partes.slice(1).join(":").trim()}</span>`;
+                    container.appendChild(li);
+                });
+            }
+            
+            document.querySelectorAll('.btn-servicio').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const titulo = btn.closest('.doctor-info').querySelector('h3').innerText;
+                    const mensaje = encodeURIComponent(`Hola, estoy interesado en el servicio: ${titulo}`);
+                    window.open(`https://wa.me/${"${CLIENTE_WHATSAPP}"}?text=${mensaje}`, '_blank');
+                });
             });
-            document.querySelectorAll('.btn-card').forEach(btn => {
-                btn.onmouseover = () => btn.style.background = 'var(--primary-blue)';
-                btn.onmouseout = () => btn.style.background = 'var(--secondary-orange)';
+
+            document.querySelectorAll('#social-icons a').forEach(a => {
+                if (a.getAttribute('href').includes('undefined') || a.getAttribute('href') === '#') a.style.display = 'none';
             });
-        }
-
-        render('grid-ofertas', ofertas);
-        render('grid-destinos', destinos);
-
-        function cerrarMenu() {
-    const navLinks = document.querySelector('.nav-links');
-    if (navLinks.classList.contains('active')) {
-        navLinks.classList.remove('active');
-    }
-}
-        
+        });
     </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init({ duration: 1000, once: true });</script>
 </body>
 </html>
