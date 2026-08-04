@@ -27,12 +27,19 @@
         nav a:hover { color: var(--primary); }
         .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
         .menu-toggle span { width: 25px; height: 3px; background: var(--secondary); }
-        .hero { background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%); color: white; padding: 80px 8%; display: flex; align-items: center; justify-content: space-between; min-height: 500px; }
-        .hero-text h1 { font-size: 3rem; margin-bottom: 20px; max-width: 500px; line-height: 1.2; }
-        .hero-image img { width: 100%; max-width: 600px; border-radius: 15px; object-fit: cover; }
+        
+        /* Nuevo Estilo Hero a Pantalla Completa con Imagen de Fondo y Texto al Frente */
+        .hero { position: relative; width: 100%; height: 85vh; min-height: 500px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #000; }
+        .hero-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+        .hero-image img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.85); }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.35); z-index: 2; }
+        .hero-text { position: relative; z-index: 3; text-align: center; color: white; padding: 30px 50px; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(5px); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.15); max-width: 750px; margin: 0 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
+        .hero-text p { font-size: 1.1rem; font-weight: 600; color: var(--accent); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .hero-text h1 { font-size: 2.5rem; line-height: 1.2; font-weight: 700; }
+
         .action-container { width: 80%; margin: -50px auto 50px; background: var(--bg-light); padding: 10px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 20px; border-top: 5px solid var(--accent); position: relative; z-index: 10; }
         
-        /* Estilos del Nuevo Diseño Tipo Slide / Filas Alternadas para Servicios */
+        /* Estilos del Diseño Tipo Slide / Filas Alternadas para Servicios */
         .services-container { display: flex; flex-direction: column; gap: 50px; max-width: 1200px; margin: 0 auto; }
         .service-slide-card { background: var(--bg-light); border-radius: 20px; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; align-items: center; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06); transition: transform 0.3s ease, box-shadow 0.3s ease; }
         .service-slide-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); }
@@ -66,7 +73,7 @@
             .action-container { width: 90%; grid-template-columns: 1fr; text-align: center; gap: 20px; } 
             nav ul { display: none; } 
             .menu-toggle { display: flex; } 
-            .hero { flex-direction: column; text-align: center; gap: 30px; } 
+            .hero-text h1 { font-size: 1.8rem; }
             .emergency-block { border-right: none !important; border-bottom: 1px solid #e2e8f0; padding-bottom: 20px; } 
             .service-slide-card, .service-slide-card.reverse { grid-template-columns: 1fr; }
             .service-slide-card.reverse .service-slide-content { order: unset; }
@@ -90,13 +97,15 @@
         </nav>
     </header>
 
+    <!-- SECCIÓN HERO A PANTALLA COMPLETA CON IMAGEN DE FONDO -->
     <section class="hero" id="inicio">
-        <div class="hero-text">
-            <p>${CLIENTE_NOMBRE}</p>
-            <h1>${CLIENTE_META_DESCRIPCION}</h1>
-        </div>
         <div class="hero-image">
             <img src="${CLIENTE_BANNER}" alt="${CLIENTE_NOMBRE}">
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-text" data-aos="fade-zoom-in" data-aos-duration="1200">
+            <p>${CLIENTE_NOMBRE}</p>
+            <h1>${CLIENTE_META_DESCRIPCION}</h1>
         </div>
     </section>
 
@@ -115,7 +124,7 @@
         </div>
     </div>
 
-    <!-- SECCIÓN DE SERVICIOS CON ESTILO SLIDE (3 SERVICIOS Y FILAS ALTERNADAS.) -->
+    <!-- SECCIÓN DE SERVICIOS CON ESTILO SLIDE (3 SERVICIOS Y FILAS ALTERNADAS) -->
     <section id="servicios">
         <div class="section-title">
             <h2>Nuestros Muebles</h2>
@@ -133,7 +142,7 @@
                 </div>
             </div>
 
-            <!-- Servicio 2 (Invertido: Imagen a la derecha, texto a la izquierda) -->
+            <!-- Servicio 2 (Invertido) -->
             <div class="service-slide-card reverse" data-aos="fade-up" data-aos-delay="100">
                 <img src="${CLIENTE_SERVICIOS_S2_IMG}" alt="${CLIENTE_SERVICIOS_S2_TITULO}" class="service-slide-img">
                 <div class="service-slide-content">
