@@ -1,23 +1,35 @@
 <!DOCTYPE html>
 <html lang="es">
+    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="${CLIENTE_META_DESCRIPCION}">
-    <meta name="author" content="PixelStar">
+    <meta name="author" content="PixelSitePro">
     <link rel="canonical" href="${CLIENTE_RUTA_CANONICAL}">
+
     <meta property="og:title" content="${CLIENTE_NOMBRE}">
     <meta property="og:description" content="${CLIENTE_META_DESCRIPCION}">
     <meta property="og:image" content="${CLIENTE_LOGO}">
     <meta property="og:type" content="website">
+
     <title>${CLIENTE_NOMBRE}</title>
+
     <link rel="icon" id="favicon" href="${CLIENTE_LOGO}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
+
     <style>
-        :root { --primary: ${CLIENTE_COLOR_PRIMARIO}; --secondary: ${CLIENTE_COLOR_SECUNDARIO}; --accent: #94a3b8; --text-main: #334155; --bg-light: #f8fafc; --bg-body: #ffffff; --txt-urgencias: #64748b; }
+        :root { 
+            --primary: ${CLIENTE_COLOR_PRIMARIO}; 
+            --secondary: ${CLIENTE_COLOR_SECUNDARIO}; 
+            --accent: #94a3b8; 
+            --text-main: #334155; 
+            --bg-light: #f8fafc; 
+            --bg-body: #ffffff; 
+            --txt-urgencias: #64748b; 
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { color: var(--text-main); background: var(--bg-body); line-height: 1.6; scroll-behavior: smooth; }
         header { background: var(--bg-body); padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
@@ -31,26 +43,18 @@
         .hero-text h1 { font-size: 3rem; margin-bottom: 20px; max-width: 500px; line-height: 1.2; }
         .hero-image img { width: 100%; max-width: 600px; border-radius: 15px; object-fit: cover; }
         .action-container { width: 80%; margin: -50px auto 50px; background: var(--bg-light); padding: 10px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 20px; border-top: 5px solid var(--accent); position: relative; z-index: 10; }
-        
-        /* Estilos del Nuevo Layout Estilo Slide para Servicios */
-        .services-container { display: flex; flex-direction: column; gap: 50px; max-width: 1200px; margin: 0 auto; }
-        .service-slide-card { background: var(--bg-light); border-radius: 20px; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; align-items: center; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06); transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        .service-slide-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); }
-        .service-slide-card.reverse { grid-template-columns: 1fr 1fr; }
-        .service-slide-card.reverse .service-slide-text { order: 1; }
-        .service-slide-card.reverse .service-slide-img { order: 2; }
-        .service-slide-img { width: 100%; height: 100%; min-height: 320px; object-fit: cover; }
-        .service-slide-content { padding: 40px; display: flex; flex-direction: column; justify-content: center; }
-        .service-slide-tag { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--primary); font-weight: 700; margin-bottom: 8px; }
-        .service-slide-content h3 { color: var(--secondary); font-size: 1.8rem; margin-bottom: 15px; line-height: 1.2; }
-        .service-slide-content p { color: var(--text-main); margin-bottom: 25px; font-size: 0.95rem; }
-
-        .btn-agendar { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background-color: var(--primary); color: #ffffff; padding: 12px 24px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); width: fit-content; }
+        .doctors-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .doctor-card { display: flex; flex-direction: column; align-items: center; padding: 0; background: var(--bg-body); border-radius: 30px; overflow: hidden; transition: 0.3s ease; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); text-align: center; border: none; }
+        .doctor-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12); }
+        .doctor-card img { width: 100%; height: 250px; border-radius: 20px 20px 0 0; border: none; margin: 0 0 20px 0; object-fit: cover; }
+        .doctor-info { padding: 0 20px 20px; width: 100%; }
+        .doctor-info h3 { color: var(--primary); font-size: 1.4rem; margin-bottom: 5px; }
+        .btn-agendar { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background-color: var(--primary); color: #ffffff; padding: 12px 24px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
         .btn-agendar:hover { background-color: var(--secondary); transform: translateY(-3px); }
-        
+        .card-footer-color { background: var(--primary); width: 100%; padding: 15px; color: white; font-size: 0.75rem; font-weight: 600; }
         section { padding: 80px 8%; }
         .section-title { text-align: center; margin-bottom: 40px; }
-        .section-title h2 { color: var(--secondary); font-size: 2.2rem; }
+        .section-title h2 { color: var(--secondary); font-size: 2rem; }
         .info-container { max-width: 1200px; margin: 0 auto; background: var(--bg-light); border-radius: 20px; padding: 40px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); }
         .schedule-list { list-style: none; }
         .schedule-list li { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed #cbd5e1; font-size: 1.1rem; }
@@ -60,24 +64,12 @@
         .social-icons a { background: var(--bg-body); color: var(--primary); width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.2rem; text-decoration: none; transition: 0.3s ease; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
         .social-icons a:hover { background: var(--accent); color: var(--secondary); transform: translateY(-5px); }
         footer { background: var(--secondary); color: #cbd5e1; padding: 40px 8% 20px; text-align: center; }
-        
-        @media (max-width: 992px) { 
-            .info-container { grid-template-columns: 1fr; } 
-            .action-container { width: 90%; grid-template-columns: 1fr; text-align: center; gap: 20px; } 
-            nav ul { display: none; } 
-            .menu-toggle { display: flex; } 
-            .hero { flex-direction: column; text-align: center; gap: 30px; } 
-            .emergency-block { border-right: none !important; border-bottom: 1px solid #e2e8f0; padding-bottom: 20px; } 
-            .service-slide-card, .service-slide-card.reverse { grid-template-columns: 1fr; }
-            .service-slide-card.reverse .service-slide-text { order: unset; }
-            .service-slide-card.reverse .service-slide-img { order: unset; }
-            .service-slide-img { height: 250px; min-height: 250px; }
-        }
+        @media (max-width: 992px) { .info-container { grid-template-columns: 1fr; } .action-container { width: 90%; grid-template-columns: 1fr; text-align: center; gap: 20px; } nav ul { display: none; } .menu-toggle { display: flex; } .hero { flex-direction: column; text-align: center; gap: 30px; } .emergency-block { border-right: none !important; border-bottom: 1px solid #e2e8f0; padding-bottom: 20px; } }
     </style>
 </head>
 <body>
     <header>
-        <div class="logo"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=120&q=80" style="height: 40px; border-radius: 4px;" alt="Logo"> ${CLIENTE_NOMBRE}</div>
+        <div class="logo"><img src="${CLIENTE_LOGO}" style="height: 40px;"> ${CLIENTE_NOMBRE}</div>
         <nav>
             <ul id="main-menu">
                 <li><a href="#inicio">INICIO</a></li>
@@ -92,67 +84,58 @@
 
     <section class="hero" id="inicio">
         <div class="hero-text">
-            <p style="font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; opacity: 0.9;">${CLIENTE_NOMBRE}</p>
+            <p>${CLIENTE_NOMBRE}</p>
             <h1>${CLIENTE_META_DESCRIPCION}</h1>
         </div>
         <div class="hero-image">
-            <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=600&q=80" alt="${CLIENTE_NOMBRE}">
+            <img src="${CLIENTE_BANNER}" alt="${CLIENTE_NOMBRE}">
         </div>
     </section>
 
     <div class="action-container">
         <div class="emergency-block" style="display: flex; align-items: center; justify-content: center; gap: 15px; border-right: 1px solid #e2e8f0; padding: 10px;">
-            <div style="background: #f1f5f9; padding: 12px; border-radius: 50%; color: var(--txt-urgencias); font-size: 1.5rem;"><i class="fas fa-couch"></i></div>
+            <div style="background: #f1f5f9; padding: 12px; border-radius: 50%; color: var(--txt-urgencias); font-size: 1.5rem;"><i class="fas fa-hand-holding-heart"></i></div>
             <div style="text-align: left;">
-                <h4 style="color: var(--txt-urgencias); font-size: 1rem; font-weight: 700;">VENTAS Y ASESORÍA</h4>
-                <p style="font-size: 0.85rem; color: #475569;">Muebles de alta calidad para tu hogar</p>
+                <h4 style="color: var(--txt-urgencias); font-size: 1rem; font-weight: 700;">ATENCIÓN 24/7</h4>
+                <p style="font-size: 0.85rem; color: #475569;">Estamos para servirle</p>
                 <a href="tel:${CLIENTE_TELEFONO}" style="color: var(--secondary); font-weight: 800; font-size: 1.1rem; text-decoration: none;">${CLIENTE_TELEFONO}</a>
             </div>
         </div>
         <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 10px;">
-            <p style="font-size: 0.9rem; font-weight: 600; color: var(--secondary);">¿Buscas renovar tus espacios?</p>
-            <a href="https://wa.me/${CLIENTE_WHATSAPP}" target="_blank" class="btn-agendar"><i class="fab fa-whatsapp"></i> Consultar</a>
+            <p style="font-size: 0.9rem; font-weight: 600; color: var(--secondary);">¿Necesita asistencia inmediata?</p>
+            <a href="https://wa.me/${CLIENTE_WHATSAPP}" target="_blank" class="btn-agendar"><i class="fab fa-whatsapp"></i> CONTACTAR ASESOR</a>
         </div>
     </div>
 
-    <!-- SECCIÓN DE SERVICIOS CON ESTILO SLIDE / FILAS ALTERNADAS -->
     <section id="servicios">
-        <div class="section-title">
-            <h2>Nuestros Muebles</h2>
-        </div>
-        
-        <div class="services-container">
-            <!-- Servicio 1 -->
-            <div class="service-slide-card" data-aos="fade-up">
-                <img src="${CLIENTE_SERVICIOS_S1_IMG:-https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80}" alt="${CLIENTE_SERVICIOS_S1_TITULO}" class="service-slide-img">
-                <div class="service-slide-content service-slide-text">
-                    <span class="service-slide-tag">Destacado</span>
+        <div class="section-title"><h2>Nuestros Servicios Conmemorativos</h2></div>
+        <div class="doctors-grid">
+            <div class="doctor-card" data-aos="fade-up">
+                <img src="${CLIENTE_SERVICIOS_S1_IMG}" alt="${CLIENTE_SERVICIOS_S1_TITULO}">
+                <div class="doctor-info">
                     <h3>${CLIENTE_SERVICIOS_S1_TITULO}</h3>
                     <p>${CLIENTE_SERVICIOS_S1_DESC}</p>
-                    <a href="https://wa.me/${CLIENTE_WHATSAPP}" class="btn-agendar btn-servicio"><i class="fas fa-chair"></i> COTIZAR MUEBLE</a>
+                    <a href="https://wa.me/${CLIENTE_WHATSAPP}" class="btn-agendar btn-servicio"><i class="fas fa-info-circle"></i> Consultar</a>
                 </div>
+                <div class="card-footer-color">${CLIENTE_NOMBRE}</div>
             </div>
-
-            <!-- Servicio 2 (Invertido para dinamismo visual) -->
-            <div class="service-slide-card reverse" data-aos="fade-up" data-aos-delay="100">
-                <img src="${CLIENTE_SERVICIOS_S2_IMG:-https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80}" alt="${CLIENTE_SERVICIOS_S2_TITULO}" class="service-slide-img">
-                <div class="service-slide-content service-slide-text">
-                    <span class="service-slide-tag">Especial</span>
+            <div class="doctor-card" data-aos="fade-up" data-aos-delay="100">
+                <img src="${CLIENTE_SERVICIOS_S2_IMG}" alt="${CLIENTE_SERVICIOS_S2_TITULO}">
+                <div class="doctor-info">
                     <h3>${CLIENTE_SERVICIOS_S2_TITULO}</h3>
                     <p>${CLIENTE_SERVICIOS_S2_DESC}</p>
-                    <a href="https://wa.me/${CLIENTE_WHATSAPP}" class="btn-agendar btn-servicio"><i class="fas fa-utensils"></i> COTIZAR MUEBLE</a>
+                    <a href="https://wa.me/${CLIENTE_WHATSAPP}" class="btn-agendar btn-servicio"><i class="fas fa-info-circle"></i> Consultar</a>
                 </div>
+                <div class="card-footer-color">${CLIENTE_NOMBRE}</div>
             </div>
-
-            <!-- Servicio 3 -->
-            <div class="service-slide-card" data-aos="fade-up" data-aos-delay="200">
-                <img src="${CLIENTE_SERVICIOS_S3_IMG:-https://images.unsplash.com/photo-1540518614846-7ede433c4ef0?auto=format&fit=crop&w=800&q=80}" alt="${CLIENTE_SERVICIOS_S3_TITULO}" class="service-slide-img">
-                <div class="service-slide-content service-slide-text">
-                    <span class="service-slide-tag">Confort</span>
+            <div class="doctor-card" data-aos="fade-up" data-aos-delay="200">
+                <img src="${CLIENTE_SERVICIOS_S3_IMG}" alt="${CLIENTE_SERVICIOS_S3_TITULO}">
+                <div class="doctor-info">
                     <h3>${CLIENTE_SERVICIOS_S3_TITULO}</h3>
                     <p>${CLIENTE_SERVICIOS_S3_DESC}</p>
-                    <a href="https://wa.me/${CLIENTE_WHATSAPP}" class="btn-agendar btn-servicio"><i class="fas fa-bed"></i> COTIZAR MUEBLE</a>
+                    <a href="https://wa.me/${CLIENTE_WHATSAPP}" class="btn-agendar btn-servicio"><i class="fas fa-info-circle"></i> Consultar</a>
                 </div>
+                <div class="card-footer-color">${CLIENTE_NOMBRE}</div>
             </div>
         </div>
     </section>
@@ -163,7 +146,7 @@
     </section>
 
     <section id="ubicacion">
-        <div class="section-title"><h2>Nuestra Mueblería</h2></div>
+        <div class="section-title"><h2>Ubicación</h2></div>
         <div class="info-container">
             <p>${CLIENTE_DIRECCION}</p>
             <iframe class="map-responsive" src="${CLIENTE_MAPA_URL}"></iframe>
@@ -172,16 +155,16 @@
 
     <section id="contacto">
         <div class="section-title"><h2 style="color: white;">Nuestras Redes</h2></div>
-        <div id="social-icons" class="social-icons">
-            <a href="${CLIENTE_WHATSAPP_URL}" target="_blank" rel="noopener" class="social-btn" data-url="${CLIENTE_WHATSAPP_URL}"><i class="fab fa-whatsapp"></i></a>
-            <a href="${CLIENTE_FACEBOOK_URL}" target="_blank" rel="noopener" class="social-btn" data-url="${CLIENTE_FACEBOOK_URL}"><i class="fab fa-facebook"></i></a>
-            <a href="${CLIENTE_INSTAGRAM_URL}" target="_blank" rel="noopener" class="social-btn" data-url="${CLIENTE_INSTAGRAM_URL}"><i class="fab fa-instagram"></i></a>
-            <a href="${CLIENTE_TIKTOK_URL}" target="_blank" rel="noopener" class="social-btn" data-url="${CLIENTE_TIKTOK_URL}"><i class="fab fa-tiktok"></i></a>
+        <div class="social-icons" id="social-icons-wrapper">
+            <a href="${CLIENTE_WHATSAPP_URL}" data-url="${CLIENTE_WHATSAPP_URL}"><i class="fab fa-whatsapp"></i></a>
+            <a href="${CLIENTE_FACEBOOK_URL}" data-url="${CLIENTE_FACEBOOK_URL}"><i class="fab fa-facebook"></i></a>
+            <a href="${CLIENTE_INSTAGRAM_URL}" data-url="${CLIENTE_INSTAGRAM_URL}"><i class="fab fa-instagram"></i></a>
+            <a href="${CLIENTE_TIKTOK_URL}" data-url="${CLIENTE_TIKTOK_URL}"><i class="fab fa-tiktok"></i></a>
         </div>
     </section>
 
     <footer>
-        <p>Copyright © 2026 <strong>${CLIENTE_NOMBRE}</strong> | Creado por <a href="https://pixelsitepro.com" style="color:var(--accent); text-decoration: none; font-weight: bold;">PixelStar</a></p>
+        <p>Copyright © 2026 <strong>${CLIENTE_NOMBRE}</strong> | Creado por <a href="https://pixelsitepro.com" style="color:var(--accent); text-decoration: none; font-weight: bold;">PixelSitePro</a></p>
     </footer>
 
     <script>
@@ -202,7 +185,7 @@
             document.querySelectorAll('.btn-servicio').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.preventDefault();
-                    const titulo = btn.closest('.service-slide-content').querySelector('h3').innerText;
+                    const titulo = btn.closest('.doctor-info').querySelector('h3').innerText;
                     const mensaje = encodeURIComponent(`Hola, estoy interesado en el servicio: ${titulo}`);
                     window.open(`https://wa.me/${"${CLIENTE_WHATSAPP}"}?text=${mensaje}`, '_blank');
                 });
