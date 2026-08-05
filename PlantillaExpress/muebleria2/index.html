@@ -20,15 +20,20 @@
         :root { --primary: ${CLIENTE_COLOR_PRIMARIO}; --secondary: ${CLIENTE_COLOR_SECUNDARIO}; --accent: #94a3b8; --text-main: #334155; --bg-light: #f8fafc; --bg-body: #ffffff; --txt-urgencias: #64748b; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { color: var(--text-main); background: var(--bg-body); line-height: 1.6; scroll-behavior: smooth; }
+        
         header { background: var(--bg-body); padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
         .logo { font-weight: 700; color: var(--secondary); font-size: 1.4rem; display: flex; align-items: center; gap: 10px; text-transform: uppercase; }
+        
+        /* Estilos del Menú de Navegación */
         nav ul { display: flex; list-style: none; gap: 20px; align-items: center; }
         nav a { text-decoration: none; color: var(--secondary); font-size: 0.85rem; font-weight: 600; transition: 0.3s; }
         nav a:hover { color: var(--primary); }
-        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
-        .menu-toggle span { width: 25px; height: 3px; background: var(--secondary); }
         
-        /* Nuevo Estilo Hero a Pantalla Completa con Imagen de Fondo y Texto al Frente */
+        /* Botón Hamburguesa Oculto por Defecto en Escritorio */
+        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 5px; }
+        .menu-toggle span { width: 28px; height: 3px; background: var(--secondary); border-radius: 2px; transition: 0.3s; }
+
+        /* Estilo Hero a Pantalla Completa con Imagen de Fondo y Texto al Frente */
         .hero { position: relative; width: 100%; height: 85vh; min-height: 500px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #000; }
         .hero-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
         .hero-image img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.85); }
@@ -68,11 +73,34 @@
         .social-icons a:hover { background: var(--accent); color: var(--secondary); transform: translateY(-5px); }
         footer { background: var(--secondary); color: #cbd5e1; padding: 40px 8% 20px; text-align: center; }
         
+        /* Media Queries para Móviles y Tablets */
         @media (max-width: 992px) { 
+            header { position: relative; }
             .info-container { grid-template-columns: 1fr; } 
             .action-container { width: 90%; grid-template-columns: 1fr; text-align: center; gap: 20px; } 
-            nav ul { display: none; } 
+            
+            /* Ocultar menú normal por defecto en móvil y mostrar el botón hamburguesa */
+            nav ul { 
+                display: none; 
+                flex-direction: column; 
+                position: absolute; 
+                top: 100%; 
+                left: 0; 
+                width: 100%; 
+                background: var(--bg-body); 
+                padding: 20px 0; 
+                box-shadow: 0 10px 15px rgba(0,0,0,0.1); 
+                border-top: 1px solid #e2e8f0;
+                text-align: center;
+                gap: 15px;
+                z-index: 2000;
+            }
+            /* Clase que activa el despliegue del menú móvil con JavaScript */
+            nav ul.active { 
+                display: flex; 
+            }
             .menu-toggle { display: flex; } 
+            
             .hero-text h1 { font-size: 1.8rem; }
             .emergency-block { border-right: none !important; border-bottom: 1px solid #e2e8f0; padding-bottom: 20px; } 
             .service-slide-card, .service-slide-card.reverse { grid-template-columns: 1fr; }
@@ -87,13 +115,17 @@
         <div class="logo"><img src="${CLIENTE_LOGO}" style="height: 40px;"> ${CLIENTE_NOMBRE}</div>
         <nav>
             <ul id="main-menu">
-                <li><a href="#inicio">INICIO</a></li>
-                <li><a href="#servicios">SERVICIOS</a></li>
-                <li><a href="#horarios">HORARIOS</a></li>
-                <li><a href="#ubicacion">UBICACIÓN</a></li>
-                <li><a href="#contacto">CONTACTO</a></li>
+                <li><a href="#inicio" onclick="closeMobileMenu()">INICIO</a></li>
+                <li><a href="#servicios" onclick="closeMobileMenu()">SERVICIOS</a></li>
+                <li><a href="#horarios" onclick="closeMobileMenu()">HORARIOS</a></li>
+                <li><a href="#ubicacion" onclick="closeMobileMenu()">UBICACIÓN</a></li>
+                <li><a href="#contacto" onclick="closeMobileMenu()">CONTACTO</a></li>
             </ul>
-            <div class="menu-toggle" onclick="toggleMobileMenu()"><span></span><span></span><span></span></div>
+            <div class="menu-toggle" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </nav>
     </header>
 
@@ -190,11 +222,19 @@
     </section>
 
     <footer>
-        <p>Copyright © 2026 <strong>${CLIENTE_NOMBRE}</strong> | Creado por <a href="https://pixelsitepro.com" style="color:var(--accent); text-decoration: none; font-weight: bold;">PixelSitePro</a></p>
+        <p>Copyright © 2026 <strong>${CLIENTE_NOMBRE}</strong> | Creado por <a href="https://pixelsitepro.com" style="color:var(--accent); text-decoration: none; font-weight: bold;">PixelStar</a></p>
     </footer>
 
     <script>
-        function toggleMobileMenu() { const menu = document.getElementById('main-menu'); menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex'; }
+        function toggleMobileMenu() { 
+            const menu = document.getElementById('main-menu'); 
+            menu.classList.toggle('active'); 
+        }
+        function closeMobileMenu() {
+            const menu = document.getElementById('main-menu');
+            menu.classList.remove('active');
+        }
+
         document.addEventListener("DOMContentLoaded", () => {
             const container = document.getElementById("scheduleListContainer");
             if (container) {
