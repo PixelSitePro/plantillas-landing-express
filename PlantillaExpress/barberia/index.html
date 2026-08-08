@@ -36,7 +36,7 @@
 
     <style>
 
-        :root { --primary: ${CLIENTE_COLOR_PRIMARIO}; --secondary: ${CLIENTE_COLOR_SECUNDARIO}; --accent: #94a3b8; --text-main: #334155; --bg-light: #f8fafc; --bg-body: #ffffff; --txt-urgencias: #64748b; }
+        :root { --primary: ${CLIENTE_COLOR_PRIMARIO}; --secondary: ${CLIENTE_COLOR_SECUNDARIO}; --accent: #94a3b8; --text-main: #334155; --bg-light: #f8fafc; --bg-body: #ffffff; --txt-urgencias: #64748b; --secondary-orange: #f37321; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
@@ -155,15 +155,10 @@
             }
 
             nav ul li a {
-
                 font-size: 1rem;
-
                 padding: 8px 0;
-
                 width: 100%;
-
                 display: block;
-
                 transition: color 0.3s ease, background-color 0.3s ease;
 
             }
@@ -171,17 +166,13 @@
             /* Efecto hover específico para los enlaces del menú hamburguesa */
 
             nav ul li a:hover {
-
-                color: var(--primary);
-
-                background-color: var(--secondary);
+                color: var(--secondary-orange);
+                background-color: var(--bg-light);
 
             }
 
             .menu-toggle { display: flex; } 
-
             .hero { flex-direction: column; text-align: center; gap: 30px; } 
-
             .emergency-block { border-right: none !important; border-bottom: 1px solid #e2e8f0; padding-bottom: 20px; } 
 
         }
