@@ -17,27 +17,32 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
-        :root { --primary: ${CLIENTE_COLOR_PRIMARIO}; --secondary: ${CLIENTE_COLOR_SECUNDARIO}; --accent: #94a3b8; --text-main: #334155; --bg-light: #f8fafc; --bg-body: #ffffff; --txt-urgencias: #64748b; }
+        :root { --primary: ${CLIENTE_COLOR_PRIMARIO}; --secondary: ${CLIENTE_COLOR_SECUNDARIO}; --text-main: #334155; --bg-light: #f8fafc; --bg-body: #ffffff; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { color: var(--text-main); background: var(--bg-body); line-height: 1.6; scroll-behavior: smooth; }
+        
         header { background: var(--bg-body); padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
         .logo { font-weight: 700; color: var(--secondary); font-size: 1.4rem; display: flex; align-items: center; gap: 10px; text-transform: uppercase; }
+        
+        /* Estilos del Menú de Navegación */
         nav ul { display: flex; list-style: none; gap: 20px; align-items: center; }
         nav a { text-decoration: none; color: var(--secondary); font-size: 0.85rem; font-weight: 600; transition: 0.3s; }
         nav a:hover { color: var(--primary); }
-        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
-        .menu-toggle span { width: 25px; height: 3px; background: var(--secondary); }
         
-        /* Nuevo Estilo Hero a Pantalla Completa con Imagen de Fondo y Texto al Frente.. */
+        /* Botón Hamburguesa Oculto por Defecto en Escritorio */
+        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 5px; }
+        .menu-toggle span { width: 28px; height: 3px; background: var(--secondary); border-radius: 2px; transition: 0.3s; }
+
+        /* Estilo Hero a Pantalla Completa con Imagen de Fondo y Texto al Frente */
         .hero { position: relative; width: 100%; height: 85vh; min-height: 500px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #000; }
         .hero-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
         .hero-image img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.85); }
-        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.35); z-index: 2; }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.60); z-index: 2; }
         .hero-text { position: relative; z-index: 3; text-align: center; color: white; padding: 30px 50px; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(5px); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.15); max-width: 750px; margin: 0 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
-        .hero-text p { font-size: 1.1rem; font-weight: 600; color: var(--accent); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .hero-text p { font-size: 1.1rem; font-weight: 600; color: var(--primary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
         .hero-text h1 { font-size: 2.5rem; line-height: 1.2; font-weight: 700; }
 
-        .action-container { width: 80%; margin: -50px auto 50px; background: var(--bg-light); padding: 10px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 20px; border-top: 5px solid var(--accent); position: relative; z-index: 10; }
+        .action-container { width: 80%; margin: -50px auto 50px; background: var(--bg-light); padding: 10px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 20px; border-top: 5px solid var(--primary); position: relative; z-index: 10; }
         
         /* Estilos del Diseño Tipo Slide / Filas Alternadas para Servicios */
         .services-container { display: flex; flex-direction: column; gap: 50px; max-width: 1200px; margin: 0 auto; }
@@ -65,14 +70,37 @@
         #contacto { background: var(--primary); color: white; text-align: center; }
         .social-icons { display: flex; gap: 15px; justify-content: center; margin-top: 20px; }
         .social-icons a { background: var(--bg-body); color: var(--primary); width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.2rem; text-decoration: none; transition: 0.3s ease; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
-        .social-icons a:hover { background: var(--accent); color: var(--secondary); transform: translateY(-5px); }
+        .social-icons a:hover { background: var(--bg-light); color: var(--secondary); transform: translateY(-5px); }
         footer { background: var(--secondary); color: #cbd5e1; padding: 40px 8% 20px; text-align: center; }
         
+        /* Media Queries para Móviles y Tablets */
         @media (max-width: 992px) { 
+            header { position: relative; }
             .info-container { grid-template-columns: 1fr; } 
             .action-container { width: 90%; grid-template-columns: 1fr; text-align: center; gap: 20px; } 
-            nav ul { display: none; } 
+            
+            /* Ocultar menú normal por defecto en móvil y mostrar el botón hamburguesa */
+            nav ul { 
+                display: none; 
+                flex-direction: column; 
+                position: absolute; 
+                top: 100%; 
+                left: 0; 
+                width: 100%; 
+                background: var(--bg-body); 
+                padding: 20px 0; 
+                box-shadow: 0 10px 15px rgba(0,0,0,0.1); 
+                border-top: 1px solid #e2e8f0;
+                text-align: center;
+                gap: 15px;
+                z-index: 2000;
+            }
+            /* Clase que activa el despliegue del menú móvil con JavaScript */
+            nav ul.active { 
+                display: flex; 
+            }
             .menu-toggle { display: flex; } 
+            
             .hero-text h1 { font-size: 1.8rem; }
             .emergency-block { border-right: none !important; border-bottom: 1px solid #e2e8f0; padding-bottom: 20px; } 
             .service-slide-card, .service-slide-card.reverse { grid-template-columns: 1fr; }
@@ -87,13 +115,17 @@
         <div class="logo"><img src="${CLIENTE_LOGO}" style="height: 40px;"> ${CLIENTE_NOMBRE}</div>
         <nav>
             <ul id="main-menu">
-                <li><a href="#inicio">INICIO</a></li>
-                <li><a href="#servicios">SERVICIOS</a></li>
-                <li><a href="#horarios">HORARIOS</a></li>
-                <li><a href="#ubicacion">UBICACIÓN</a></li>
-                <li><a href="#contacto">CONTACTO</a></li>
+                <li><a href="#inicio" onclick="closeMobileMenu()">INICIO</a></li>
+                <li><a href="#servicios" onclick="closeMobileMenu()">SERVICIOS</a></li>
+                <li><a href="#horarios" onclick="closeMobileMenu()">HORARIOS</a></li>
+                <li><a href="#ubicacion" onclick="closeMobileMenu()">UBICACIÓN</a></li>
+                <li><a href="#contacto" onclick="closeMobileMenu()">CONTACTO</a></li>
             </ul>
-            <div class="menu-toggle" onclick="toggleMobileMenu()"><span></span><span></span><span></span></div>
+            <div class="menu-toggle" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </nav>
     </header>
 
@@ -111,9 +143,9 @@
 
     <div class="action-container">
         <div class="emergency-block" style="display: flex; align-items: center; justify-content: center; gap: 15px; border-right: 1px solid #e2e8f0; padding: 10px;">
-            <div style="background: #f1f5f9; padding: 12px; border-radius: 50%; color: var(--txt-urgencias); font-size: 1.5rem;"><i class="fas id="ico-atencion" fa-couch"></i></div>
+            <div style="background: #f1f5f9; padding: 12px; border-radius: 50%; color: var(--secondary); font-size: 1.5rem;"><i class="fas id="ico-atencion" fa-couch"></i></div>
             <div style="text-align: left;">
-                <h4 style="color: var(--txt-urgencias); font-size: 1rem; font-weight: 700;">VENTAS Y ASESORÍA</h4>
+                <h4 style="color: var(--secondary); font-size: 1rem; font-weight: 700;">VENTAS Y ASESORÍA</h4>
                 <p style="font-size: 0.85rem; color: #475569;">Muebles de alta calidad para tu hogar</p>
                 <a href="tel:${CLIENTE_TELEFONO}" style="color: var(--secondary); font-weight: 800; font-size: 1.1rem; text-decoration: none;">${CLIENTE_TELEFONO}</a>
             </div>
@@ -190,11 +222,19 @@
     </section>
 
     <footer>
-        <p>Copyright © 2026 <strong>${CLIENTE_NOMBRE}</strong> | Creado por <a href="https://pixelsitepro.com" style="color:var(--accent); text-decoration: none; font-weight: bold;">PixelSitePro</a></p>
+        <p>Copyright © 2026 <strong>${CLIENTE_NOMBRE}</strong> | Creado por <a href="https://pixelsitepro.com" style="color:var(--primary); text-decoration: none; font-weight: bold;">PixelStar</a></p>
     </footer>
 
     <script>
-        function toggleMobileMenu() { const menu = document.getElementById('main-menu'); menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex'; }
+        function toggleMobileMenu() { 
+            const menu = document.getElementById('main-menu'); 
+            menu.classList.toggle('active'); 
+        }
+        function closeMobileMenu() {
+            const menu = document.getElementById('main-menu');
+            menu.classList.remove('active');
+        }
+
         document.addEventListener("DOMContentLoaded", () => {
             const container = document.getElementById("scheduleListContainer");
             if (container) {
