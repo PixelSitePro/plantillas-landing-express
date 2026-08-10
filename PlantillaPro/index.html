@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="${CLIENTE_META_DESCRIPCION}">
+    <meta name="author" content="PixelStar">
+    <link rel="canonical" href="${CLIENTE_RUTA_CANONICAL}">
+    <meta property="og:title" content="${CLIENTE_NOMBRE}">
+    <meta property="og:description" content="${CLIENTE_META_DESCRIPCION}">
+    <meta property="og:image" content="${CLIENTE_LOGO}">
+    <meta property="og:type" content="website">
+    <title>${CLIENTE_NOMBRE}</title>
+    <link rel="icon" id="favicon" href="${CLIENTE_LOGO}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root { --primary: ${CLIENTE_COLOR_PRIMARIO}; --secondary: ${CLIENTE_COLOR_SECUNDARIO}; --text-main: #334155; --bg-light: #f8fafc; --bg-body: #ffffff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { color: var(--text-main); background: var(--bg-body); line-height: 1.6; scroll-behavior: smooth; }
+        
+        header { background: var(--bg-body); padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
+        .logo { font-weight: 700; color: var(--secondary); font-size: 1.4rem; display: flex; align-items: center; gap: 10px; text-transform: uppercase; }
+        
+        /* Estilos del Menú de Navegación */
+        nav ul { display: flex; list-style: none; gap: 20px; align-items: center; }
+        nav a { text-decoration: none; color: var(--secondary); font-size: 0.85rem; font-weight: 600; transition: 0.3s; }
+        nav a:hover { color: var(--primary); }
+        
+        /* Botón Hamburguesa Oculto por Defecto en Escritorio */
+        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 5px; }
+        .menu-toggle span { width: 28px; height: 3px; background: var(--secondary); border-radius: 2px; transition: 0.3s; }
+
+        /* Estilo Hero a Pantalla Completa con Imagen de Fondo y Texto al Frente */
+        .hero { position: relative; width: 100%; height: 85vh; min-height: 500px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #000; }
+        .hero-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+        .hero-image img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.85); }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.60); z-index: 2; }
+        .hero-text { position: relative; z-index: 3; text-align: center; color: white; padding: 30px 50px; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(5px); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.15); max-width: 750px; margin: 0 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
+        .hero-text p { font-size: 1.1rem; font-weight: 600; color: var(--primary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .hero-text h1 { font-size: 2.5rem; line-height: 1.2; font-weight: 700; }
+
+        .action-container { width: 80%; margin: -50px auto 50px; background: var(--bg-light); padding: 10px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 20px; border-top: 5px solid var(--primary); position: relative; z-index: 10; }
+        
+        /* Estilos del Diseño Tipo Slide / Filas Alternadas para Servicios */
+        .services-container { display: flex; flex-direction: column; gap: 50px; max-width: 1200px; margin: 0 auto; }
+        .service-slide-card { background: var(--bg-light); border-radius: 20px; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; align-items: center; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .service-slide-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); }
+        .service-slide-card.reverse { grid-template-columns: 1fr 1fr; }
+        .service-slide-card.reverse .service-slide-content { order: 1; }
+        .service-slide-card.reverse .service-slide-img { order: 2; }
+        .service-slide-img { width: 100%; height: 100%; min-height: 320px; object-fit: cover; border: none; margin: 0; }
+        .service-slide-content { padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+        .service-slide-tag { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--primary); font-weight: 700; margin-bottom: 8px; }
+        .service-slide-content h3 { color: var(--secondary); font-size: 1.8rem; margin-bottom: 15px; line-height: 1.2; }
+        .service-slide-content p { color: var(--text-main); margin-bottom: 25px; font-size: 0.95rem; }
+
+        .btn-agendar { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background-color: var(--primary); color: #ffffff; padding: 12px 24px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); width: fit-content; }
+        .btn-agendar:hover { background-color: var(--secondary); transform: translateY(-3px); }
+        
+        section { padding: 80px 8%; }
+        .section-title { text-align: center; margin-bottom: 40px; }
+        .section-title h2 { color: var(--secondary); font-size: 2.2rem; }
+        .info-container { max-width: 1200px; margin: 0 auto; background: var(--bg-light); border-radius: 20px; padding: 40px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); }
+        .schedule-list { list-style: none; }
+        .schedule-list li { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed #cbd5e1; font-size: 1.1rem; }
+        .map-responsive { width: 100%; height: 350px; border-radius: 10px; border: none; margin-top: 20px; }
+        #contacto { background: var(--primary); color: white; text-align: center; }
+        .social-icons { display: flex; gap: 15px; justify-content: center; margin-top: 20px; }
+        .social-icons a { background: var(--bg-body); color: var(--primary); width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.2rem; text-decoration: none; transition: 0.3s ease; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+        .social-icons a:hover { background: var(--bg-light); color: var(--secondary); transform: translateY(-5px); }
+        footer { background: var(--secondary); color: #cbd5e1; padding: 40px 8% 20px; text-align: center; }
+        
+        /* Media Queries para Móviles y Tablets */
+        @media (max-width: 992px) { 
+            header { position: relative; }
+            .info-container { grid-template-columns: 1fr; } 
+            .action-container { width: 90%; grid-template-columns: 1fr; text-align: center; gap: 20px; } 
+            
+            /* Ocultar menú normal por defecto en móvil y mostrar el botón hamburguesa */
+            nav ul { 
+                display: none; 
+                flex-direction: column; 
+                position: absolute; 
+                top: 100%; 
+                left: 0; 
+                width: 100%; 
+                background: var(--bg-body); 
+                padding: 20px 0; 
+                box-shadow: 0 10px 15px rgba(0,0,0,0.1); 
+                border-top: 1px solid #e2e8f0;
+                text-align: center;
+                gap: 15px;
+                z-index: 2000;
+            }
+            /* Clase que activa el despliegue del menú móvil con JavaScript */
+            nav ul.active { 
+                display: flex; 
+            }
+            .menu-toggle { display: flex; } 
+            
+            .hero-text h1 { font-size: 1.8rem; }
+            .emergency-block { border-right: none !important; border-bottom: 1px solid #e2e8f0; padding-bottom: 20px; } 
+            .service-slide-card, .service-slide-card.reverse { grid-template-columns: 1fr; }
+            .service-slide-card.reverse .service-slide-content { order: unset; }
+            .service-slide-card.reverse .service-slide-img { order: unset; }
+            .service-slide-img { height: 250px; min-height: 250px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo"><img src="${CLIENTE_LOGO}" style="height: 40px;"> ${CLIENTE_NOMBRE}</div>
+        <nav>
+            <ul id="main-menu">
+                <li><a href="#inicio" onclick="closeMobileMenu()">INICIO</a></li>
+                <li><a href="#servicios" onclick="closeMobileMenu()">SERVICIOS</a></li>
+                <li><a href="#horarios" onclick="closeMobileMenu()">HORARIOS</a></li>
+                <li><a href="#ubicacion" onclick="closeMobileMenu()">UBICACIÓN</a></li>
+                <li><a href="#contacto" onclick="closeMobileMenu()">CONTACTO</a></li>
+            </ul>
+            <div class="menu-toggle" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- SECCIÓN HERO A PANTALLA COMPLETA CON IMAGEN DE FONDO -->
+    <section class="hero" id="inicio">
+        <div class="hero-image">
+            <img src="${CLIENTE_BANNER}" alt="${CLIENTE_NOMBRE}">
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-text" data-aos="fade-zoom-in" data-aos-duration="1200">
+            <p>${CLIENTE_NOMBRE}</p>
+            <h1>${CLIENTE_META_DESCRIPCION}</h1>
+        </div>
+    </section>
+
+    <div class="action-container">
+        <div class="emergency-block" style="display: flex; align-items: center; justify-content: center; gap: 15px; border-right: 1px solid #e2e8f0; padding: 10px;">
+            <div style="background: #f1f5f9; padding: 12px; border-radius: 50%; color: var(--secondary); font-size: 1.5rem;"><i class="fas id="ico-atencion" fa-couch"></i></div>
+            <div style="text-align: left;">
+                <h4 style="color: var(--secondary); font-size: 1rem; font-weight: 700;">VENTAS Y ASESORÍA</h4>
+                <p style="font-size: 0.85rem; color: #475569;">Muebles de alta calidad para tu hogar</p>
+                <a href="tel:${CLIENTE_TELEFONO}" style="color: var(--secondary); font-weight: 800; font-size: 1.1rem; text-decoration: none;">${CLIENTE_TELEFONO}</a>
+            </div>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 10px;">
+            <p style="font-size: 0.9rem; font-weight: 600; color: var(--secondary);">¿Buscas renovar tus espacios?</p>
+            <a href="https://wa.me/${CLIENTE_WHATSAPP}" target="_blank" class="btn-agendar"><i class="fab fa-whatsapp"></i> Consultar</a>
+        </div>
+    </div>
+
+    <!-- SECCIÓN DE SERVICIOS CON ESTILO SLIDE (3 SERVICIOS Y FILAS ALTERNADAS) -->
+    <section id="servicios">
+        <div class="section-title">
+            <h2>Nuestros Muebles</h2>
+        </div>
+        
+        <div class="services-container">
+            <!-- Servicio 1 -->
+            <div class="service-slide-card" data-aos="fade-up">
+                <img src="${CLIENTE_SERVICIOS_S1_IMG}" alt="${CLIENTE_SERVICIOS_S1_TITULO}" class="service-slide-img">
+                <div class="service-slide-content">
+                    <span class="service-slide-tag">Destacado</span>
+                    <h3>${CLIENTE_SERVICIOS_S1_TITULO}</h3>
+                    <p>${CLIENTE_SERVICIOS_S1_DESC}</p>
+                    <a href="https://wa.me/${CLIENTE_WHATSAPP}" class="btn-agendar btn-servicio"><i class="fas fa-chair"></i> COTIZAR MUEBLE</a>
+                </div>
+            </div>
+
+            <!-- Servicio 2 (Invertido) -->
+            <div class="service-slide-card reverse" data-aos="fade-up" data-aos-delay="100">
+                <img src="${CLIENTE_SERVICIOS_S2_IMG}" alt="${CLIENTE_SERVICIOS_S2_TITULO}" class="service-slide-img">
+                <div class="service-slide-content">
+                    <span class="service-slide-tag">Especial</span>
+                    <h3>${CLIENTE_SERVICIOS_S2_TITULO}</h3>
+                    <p>${CLIENTE_SERVICIOS_S2_DESC}</p>
+                    <a href="https://wa.me/${CLIENTE_WHATSAPP}" class="btn-agendar btn-servicio"><i class="fas fa-utensils"></i> COTIZAR MUEBLE</a>
+                </div>
+            </div>
+
+            <!-- Servicio 3 -->
+            <div class="service-slide-card" data-aos="fade-up" data-aos-delay="200">
+                <img src="${CLIENTE_SERVICIOS_S3_IMG}" alt="${CLIENTE_SERVICIOS_S3_TITULO}" class="service-slide-img">
+                <div class="service-slide-content">
+                    <span class="service-slide-tag">Confort</span>
+                    <h3>${CLIENTE_SERVICIOS_S3_TITULO}</h3>
+                    <p>${CLIENTE_SERVICIOS_S3_DESC}</p>
+                    <a href="https://wa.me/${CLIENTE_WHATSAPP}" class="btn-agendar btn-servicio"><i class="fas fa-bed"></i> COTIZAR MUEBLE</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="horarios">
+        <div class="section-title"><h2>Horarios de Atención</h2></div>
+        <div class="info-container"><ul id="scheduleListContainer" class="schedule-list" data-raw-horario="${CLIENTE_HORARIO}"></ul></div>
+    </section>
+
+    <section id="ubicacion">
+        <div class="section-title"><h2>Nuestra Mueblería</h2></div>
+        <div class="info-container">
+            <p>${CLIENTE_DIRECCION}</p>
+            <iframe class="map-responsive" src="${CLIENTE_MAPA_URL}"></iframe>
+        </div>
+    </section>
+
+    <section id="contacto">
+        <div class="section-title"><h2 style="color: white;">Nuestras Redes</h2></div>
+        <div id="social-icons" class="social-icons">
+            <a href="${CLIENTE_WHATSAPP_URL}" target="_blank" rel="noopener" class="social-btn" data-url="${CLIENTE_WHATSAPP_URL}"><i class="fab fa-whatsapp"></i></a>
+            <a href="${CLIENTE_FACEBOOK_URL}" target="_blank" rel="noopener" class="social-btn" data-url="${CLIENTE_FACEBOOK_URL}"><i class="fab fa-facebook"></i></a>
+            <a href="${CLIENTE_INSTAGRAM_URL}" target="_blank" rel="noopener" class="social-btn" data-url="${CLIENTE_INSTAGRAM_URL}"><i class="fab fa-instagram"></i></a>
+            <a href="${CLIENTE_TIKTOK_URL}" target="_blank" rel="noopener" class="social-btn" data-url="${CLIENTE_TIKTOK_URL}"><i class="fab fa-tiktok"></i></a>
+        </div>
+    </section>
+
+    <footer>
+        <p>Copyright © 2026 <strong>${CLIENTE_NOMBRE}</strong> | Creado por <a href="https://pixelsitepro.com" style="color:var(--primary); text-decoration: none; font-weight: bold;">PixelStar</a></p>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() { 
+            const menu = document.getElementById('main-menu'); 
+            menu.classList.toggle('active'); 
+        }
+        function closeMobileMenu() {
+            const menu = document.getElementById('main-menu');
+            menu.classList.remove('active');
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const container = document.getElementById("scheduleListContainer");
+            if (container) {
+                let rawData = container.getAttribute("data-raw-horario") || "";
+                rawData.split("|").forEach(linea => {
+                    if(!linea.trim()) return;
+                    const partes = linea.split(":");
+                    const li = document.createElement("li");
+                    li.innerHTML = `<span>${partes[0].trim()}</span><span>${partes.slice(1).join(":").trim()}</span>`;
+                    container.appendChild(li);
+                });
+            }
+            
+            document.querySelectorAll('.btn-servicio').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const titulo = btn.closest('.service-slide-content').querySelector('h3').innerText;
+                    const mensaje = encodeURIComponent(`Hola, estoy interesado en el servicio: ${titulo}`);
+                    window.open(`https://wa.me/${"${CLIENTE_WHATSAPP}"}?text=${mensaje}`, '_blank');
+                });
+            });
+
+            document.querySelectorAll('#social-icons a').forEach(a => {
+                if (a.getAttribute('href').includes('undefined') || a.getAttribute('href') === '#') a.style.display = 'none';
+            });
+        });
+    </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init({ duration: 1000, once: true });</script>
+</body>
+</html>
