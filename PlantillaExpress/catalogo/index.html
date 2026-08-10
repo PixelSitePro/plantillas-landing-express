@@ -16,7 +16,6 @@
             --text: #f8fafc; 
             --whatsapp: #22c55e;
             --card-bg: rgba(30, 41, 59, 0.5); 
-            /* Variables de Servicios Adicionales. */
             --sa-accent: #28a745;
             --sa-accent-hover: #218838;
         }
@@ -28,13 +27,17 @@
         .menu-toggle span { display: block; width: 25px; height: 3px; background: white; margin: 2px 0; }
         .nav-links { display: flex; list-style: none; gap: 20px; align-items: center; }
         .nav-links a { color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
-        /* Solución para el desplazamiento con navbar fijo */
         #catalogo, #services-container {scroll-margin-top: 80px;}
         .btn-nav-contact { background: var(--whatsapp); color: white; padding: 8px 20px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 0.9rem; transition: background 0.2s; }
         .btn-nav-contact:hover { background: #16a34a; }
 
         header { padding: 60px 5%; text-align: center; }
         header h1 { color: white; font-size: 2.5rem; margin-bottom: 10px; }
+
+        /* Estilos de Títulos de Sección */
+        .section-header { text-align: center; padding: 40px 5% 20px 5%; }
+        .section-header h2 { color: white; font-size: 2rem; margin-bottom: 10px; }
+        .section-header p { color: #94a3b8; font-size: 1rem; }
 
         /* Grid Principal */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 0 5% 50px 5%; }
@@ -52,18 +55,6 @@
         .btn-comprar { background: var(--whatsapp); color: white; }
         .btn-comprar:hover { background: #16a34a; }
 
-        /* Estilos de Servicios Adicionales (Sección Integrada) */
-        .containerSAI { max-width: 900px; margin: 40px auto; padding: 20px; }
-        .service-category { background: var(--card-bg); backdrop-filter: blur(12px); margin-bottom: 25px; padding: 25px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); }
-        .service-category h2 { color: var(--primary); border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-top: 0; }
-        .service-desc { font-size: 0.95rem; color: var(--primary); margin-bottom: 15px; font-weight: bold; }
-        .price-list { list-style: none; padding: 0; }
-        .price-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .price { font-weight: bold; color: var(--sa-accent); }
-        .note { font-size: 0.9rem; color: #f87171; margin-top: 10px; font-weight: bold; }
-        .btn-more { display: inline-block; margin-top: 15px; padding: 10px 20px; background-color: var(--sa-accent); color: white; text-decoration: none; border-radius: 8px; font-weight: bold; transition: background 0.3s ease; }
-        .btn-more:hover { background-color: var(--sa-accent-hover); }
-
         footer { text-align: center; padding: 30px 5%; border-top: 1px solid rgba(255,255,255,0.1); color: #94a3b8; font-size: 0.9rem; }
         footer a { color: var(--primary); text-decoration: none; }
 
@@ -72,7 +63,6 @@
             .nav-links { display: none; position: absolute; top: 60px; left: 0; width: 100%; background: var(--dark); flex-direction: column; align-items: center; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
             .nav-links.active { display: flex; }
             .nav-links li { margin: 10px 0; }
-            .price-item { flex-direction: column; }
         }
     </style>
 </head>
@@ -93,15 +83,18 @@
     </header>
 
     <main>
-        <div class="grid" id="contenedor-apps"></div>
+        <!-- Contenedor único para Landing Express -->
+        <div class="grid" id="contenedor-express"></div>
     </main>
 
+    <!-- Sección Landing Pro corregida con su título estructurado -->
     <section>
-        <div> Titulo
-        <h1>Catálogo - Landing Pro</h1>
-        <p>Selecciona un sistema y visualiza la potencia de nuestras soluciones.</p>
+        <div class="section-header">
+            <h2>Catálogo - Landing Pro</h2>
+            <p>Selecciona un sistema y visualiza la potencia de nuestras soluciones.</p>
         </div>
-        <div class="grid" id="contenedor-apps"></div>
+        <!-- Contenedor único para Landing Pro -->
+        <div class="grid" id="contenedor-pro"></div>
     </section>
     
     <footer>
@@ -126,7 +119,7 @@
             { nombre: "Taller mecánica", desc: "Creamos para ti, la página web que impulsará tu taller y convierte visitantes en clientes reales.", img: "https://pub-e9527e43ecbd44a6a30d6743b70ff3d9.r2.dev/tallermecanica/assets/img_hero.webp", url: "https://tallermecanica.PixelSitePro.com" }
         ];
 
-                const proyectos_pro = [
+        const proyectos_pro = [
             { nombre: "Inmobiliaria", desc: "Tenemos la Página web perfecta enfocada en agendar citas y mostrar tus servicios de Bienes Raíces.", img: "https://pub-e9527e43ecbd44a6a30d6743b70ff3d9.r2.dev/inmobiliaria/assets/img_hero.webp", url: "https://inmobiliaria.PixelSitePro.com" },
             { nombre: "Fotógrafo", desc: "Ahora puedes mostrar tus Servicios de fotografía en una Página Web moderna para captar nuevos clientes.", img: "https://pub-e9527e43ecbd44a6a30d6743b70ff3d9.r2.dev/fotografo/assets/img_hero.webp", url: "https://fotografo.PixelSitePro.com" },
             { nombre: "Belleza", desc: "Resalta la elegancia de tu salón con una plataforma enfocada en agendar citas y mostrar tus servicios.", img: "https://pub-e9527e43ecbd44a6a30d6743b70ff3d9.r2.dev/belleza/assets/img_hero.webp", url: "https://belleza.PixelSitePro.com" },
@@ -143,23 +136,26 @@
             { nombre: "Taller mecánica", desc: "Creamos para ti, la página web que impulsará tu taller y convierte visitantes en clientes reales.", img: "https://pub-e9527e43ecbd44a6a30d6743b70ff3d9.r2.dev/tallermecanica/assets/img_hero.webp", url: "https://tallermecanica.PixelSitePro.com" }
         ];
         
-        const contenedor = document.getElementById('contenedor-apps');
         const phoneNumber = "50498611270";
 
+        // Renderizar Landing Express
+        const contenedorExpress = document.getElementById('contenedor-express');
         proyectos.forEach(p => {
             const msg = encodeURIComponent(`Hola PixelSitePro, deseo comprar: ${p.url}`);
             const card = document.createElement('div');
             card.className = 'card';
             card.innerHTML = `<img src="${p.img}" alt="${p.nombre}"><div class="card-body"><h3>${p.nombre}</h3><p>${p.desc}</p><div class="btn-container"><a href="${p.url}" target="_blank" class="btn-ver">Ver Sitio</a><a href="https://wa.me/${phoneNumber}?text=${msg}" target="_blank" class="btn-comprar">Comprar</a></div></div>`;
-            contenedor.appendChild(card);
+            contenedorExpress.appendChild(card);
         });
 
+        // Renderizar Landing Pro en su respectivo contenedor
+        const contenedorPro = document.getElementById('contenedor-pro');
         proyectos_pro.forEach(p => {
-            const msg = encodeURIComponent(`Hola PixelSitePro, deseo comprar: ${p.url}`);
+            const msg = encodeURIComponent(`Hola PixelSitePro, deseo comprar (Plan Pro): ${p.url}`);
             const card = document.createElement('div');
             card.className = 'card';
             card.innerHTML = `<img src="${p.img}" alt="${p.nombre}"><div class="card-body"><h3>${p.nombre}</h3><p>${p.desc}</p><div class="btn-container"><a href="${p.url}" target="_blank" class="btn-ver">Ver Sitio</a><a href="https://wa.me/${phoneNumber}?text=${msg}" target="_blank" class="btn-comprar">Comprar</a></div></div>`;
-            contenedor.appendChild(card);
+            contenedorPro.appendChild(card);
         });
         
         const mobileMenu = document.getElementById('mobile-menu');
