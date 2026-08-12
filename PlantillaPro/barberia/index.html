@@ -3,511 +3,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${EMPRESA} | Soluciones Digitales de Vanguardia</title>
-
-    <link rel="icon" type="image/png" href="favicon-32x32.png">
-    <link rel="apple-touch-icon" href="favicon-32x32.png">
-
-    <meta name="description" content="${EMPRESA}: La mejor tienda en línea con envíos rápidos y pago por transferencia.">
-    <meta name="keywords" content="tienda, variedades, compras en línea Honduras">
-    <meta name="author" content="${EMPRESA}">
-
-    <meta property="og:title" content="${EMPRESA} | Tienda en Línea">
-    <meta property="og:description" content="Variedades para el hogar y uso personal con entrega rápida.">
-    <meta property="og:image" content="favicon.png">
-
-    <!-- FontAwesome para los iconos de redes sociales -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <meta name="description" content="${CLIENTE_META_DESCRIPCION}">
+    <meta name="author" content="PixelStar">
+    <link rel="canonical" href="${CLIENTE_RUTA_CANONICAL}">
+    <meta property="og:title" content="${CLIENTE_NOMBRE}">
+    <meta property="og:description" content="${CLIENTE_META_DESCRIPCION}">
+    <meta property="og:image" content="${CLIENTE_LOGO}">
+    <meta property="og:type" content="website">
+    <title>${CLIENTE_NOMBRE}</title>
+    <link rel="icon" id="favicon" href="${CLIENTE_LOGO}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
-        :root {
-            --primary: #2563eb; --secondary: #1d4ed8; --dark: #1f2937; --light: #f3f4f6;
-            --white: #ffffff; --gray: #6b7280; --danger: #ef4444;
-            --success: #10b981; --whatsapp: #25d366; --bg-body: #f3f4f6; --bg-light: #ffffff;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: var(--light); color: var(--dark); }
-
-        header { 
-            background: var(--white); padding: 1rem 5%; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
-            position: sticky; top: 0; z-index: 1000; 
-            display: flex; justify-content: space-between; align-items: center; 
-        }
-        .logo { font-weight: 800; font-size: 1.5rem; color: var(--primary); }
-
-        .category-nav { background: var(--white); padding: 10px 5%; display: flex; gap: 10px; overflow-x: auto; border-bottom: 1px solid #eee; scrollbar-width: none; }
-        .cat-pill { padding: 8px 18px; background: var(--light); border-radius: 20px; white-space: nowrap; cursor: pointer; font-size: 0.85rem; font-weight: 600; color: var(--gray); transition: 0.3s; }
-        .cat-pill.active { background: var(--primary); color: var(--white); }
-
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding: 20px 5%; }
-        .card { background: var(--white); border-radius: 15px; padding: 15px; border: 1px solid #eee; position: relative; transition: 0.3s; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-        .card img { width: 100%; height: 200px; object-fit: contain; border-radius: 10px; cursor: zoom-in; }
+        :root { --primary: ${CLIENTE_COLOR_PRIMARIO}; --secondary: ${CLIENTE_COLOR_SECUNDARIO}; --text-main: #334155; --bg-light: #f8fafc; --bg-body: #ffffff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { color: var(--text-main); background: var(--bg-body); line-height: 1.6; scroll-behavior: smooth; }
         
-        .badge-ahorro { position: absolute; top: 20px; left: 20px; background: var(--danger); color: white; padding: 4px 8px; border-radius: 5px; font-size: 0.7rem; font-weight: 800; z-index: 10; }
-        .entrega-tag { font-size: 0.75rem; color: var(--success); font-weight: 700; margin-top: 5px; }
-
-        /* Estilos para las nuevas secciones (Horarios, Ubicación y Contacto) */
-        section { padding: 40px 5%; }
-        .section-title { text-align: center; margin-bottom: 25px; }
-        .info-container { max-width: 800px; margin: 0 auto; background: var(--white); padding: 25px; border-radius: 15px; border: 1px solid #eee; text-align: center; }
-        .schedule-list { list-style: none; font-size: 0.95rem; line-height: 1.8; color: var(--gray); }
+        header { background: var(--bg-body); padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
+        .logo { font-weight: 700; color: var(--secondary); font-size: 1.4rem; display: flex; align-items: center; gap: 10px; text-transform: uppercase; }
         
+        /* Estilos del Menú de Navegación */
+        nav ul { display: flex; list-style: none; gap: 20px; align-items: center; }
+        nav a { text-decoration: none; color: var(--secondary); font-size: 0.85rem; font-weight: 600; transition: 0.3s; }
+        nav a:hover { color: var(--primary); }
+        
+        /* Botón Hamburguesa Oculto por Defecto en Escritorio */
+        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 5px; }
+        .menu-toggle span { width: 28px; height: 3px; background: var(--secondary); border-radius: 2px; transition: 0.3s; }
+
+        /* Estilo Hero a Pantalla Completa con Imagen de Fondo y Texto al Frente */
+        .hero { position: relative; width: 100%; height: 85vh; min-height: 500px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #000; }
+        .hero-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+        .hero-image img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.85); }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.60); z-index: 2; }
+        .hero-text { position: relative; z-index: 3; text-align: center; color: white; padding: 30px 50px; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(5px); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.15); max-width: 750px; margin: 0 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
+        .hero-text p { font-size: 1.1rem; font-weight: 600; color: var(--primary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .hero-text h1 { font-size: 2.5rem; line-height: 1.2; font-weight: 700; }
+
+        .action-container { width: 80%; margin: -50px auto 50px; background: var(--bg-light); padding: 10px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 20px; border-top: 5px solid var(--primary); position: relative; z-index: 10; }
+        
+        /* Estilos del Diseño Tipo Slide / Filas Alternadas para Servicios */
+        .services-container { display: flex; flex-direction: column; gap: 50px; max-width: 1200px; margin: 0 auto; }
+        .service-slide-card { background: var(--bg-light); border-radius: 20px; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; align-items: center; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .service-slide-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); }
+        .service-slide-card.reverse { grid-template-columns: 1fr 1fr; }
+        .service-slide-card.reverse .service-slide-content { order: 1; }
+        .service-slide-card.reverse .service-slide-img { order: 2; }
+        .service-slide-img { width: 100%; height: 100%; min-height: 320px; object-fit: cover; border: none; margin: 0; }
+        .service-slide-content { padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+        .service-slide-tag { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--primary); font-weight: 700; margin-bottom: 8px; }
+        .service-slide-content h3 { color: var(--secondary); font-size: 1.8rem; margin-bottom: 15px; line-height: 1.2; }
+        .service-slide-content p { color: var(--text-main); margin-bottom: 25px; font-size: 0.95rem; }
+
+        .btn-agendar { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background-color: var(--primary); color: #ffffff; padding: 12px 24px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); width: fit-content; }
+        .btn-agendar:hover { background-color: var(--secondary); transform: translateY(-3px); }
+        
+        section { padding: 80px 8%; }
+        .section-title { text-align: center; margin-bottom: 40px; }
+        .section-title h2 { color: var(--secondary); font-size: 2.2rem; }
+        .info-container { max-width: 1200px; margin: 0 auto; background: var(--bg-light); border-radius: 20px; padding: 40px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); }
+        .schedule-list { list-style: none; }
+        .schedule-list li { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed #cbd5e1; font-size: 1.1rem; }
         .map-responsive { width: 100%; height: 350px; border-radius: 10px; border: none; margin-top: 20px; }
-        
         #contacto { background: var(--primary); color: white; text-align: center; }
         .social-icons { display: flex; gap: 15px; justify-content: center; margin-top: 20px; }
         .social-icons a { background: var(--bg-body); color: var(--primary); width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.2rem; text-decoration: none; transition: 0.3s ease; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
         .social-icons a:hover { background: var(--bg-light); color: var(--secondary); transform: translateY(-5px); }
-
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); z-index: 4000; justify-content: center; align-items: center; }
-        .modal-content { background: var(--white); padding: 25px; border-radius: 20px; width: 95%; max-width: 800px; position: relative; max-height: 90vh; overflow-y: auto; }
-        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; border: none; background: none; color: var(--gray); }
-
-        .cart-table-header { display: flex; font-size: 0.7rem; font-weight: 800; color: var(--gray); padding-bottom: 10px; border-bottom: 2px solid var(--light); margin-bottom: 10px; text-transform: uppercase; }
-        .cart-row { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid #f1f1f1; gap: 10px; }
-        .cart-img-min { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; }
-        .col-name { flex: 2; font-weight: 600; font-size: 0.85rem; }
-        .col-qty { flex: 1.5; display: flex; align-items: center; justify-content: center; gap: 5px; }
-        .col-del { flex: 0.5; text-align: center; }
-        .col-sub { flex: 1.2; text-align: right; font-weight: 800; }
+        footer { background: var(--secondary); color: #cbd5e1; padding: 40px 8% 20px; text-align: center; }
         
-        .qty-btn { width: 22px; height: 22px; border: 1px solid #ddd; background: white; cursor: pointer; border-radius: 4px; font-size: 0.8rem; }
-        .btn-main { width: 100%; padding: 14px; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 15px; transition: 0.3s; }
-        .btn-secondary { width: 100%; padding: 14px; border: 1px solid #ddd; background: var(--white); border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 10px; color: var(--gray); transition: 0.3s; }
-
-        .step-box { background: #f9fafb; padding: 15px; border-radius: 12px; margin-bottom: 15px; border-left: 4px solid var(--primary); text-align: left; }
-        .qr-box { text-align: center; background: white; padding: 10px; border-radius: 10px; border: 1px solid #eee; width: 140px; margin: 10px auto 0; }
-        .qr-box img { width: 100%; display: block; }
-
-        #toast { display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--dark); color: white; padding: 12px 25px; border-radius: 30px; z-index: 5000; font-weight: 600; font-size: 0.9rem; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        /* Media Queries para Móviles y Tablets */
+        @media (max-width: 992px) { 
+            header { position: relative; }
+            .info-container { grid-template-columns: 1fr; } 
+            .action-container { width: 90%; grid-template-columns: 1fr; text-align: center; gap: 20px; } 
+            
+            /* Ocultar menú normal por defecto en móvil y mostrar el botón hamburguesa */
+            nav ul { 
+                display: none; 
+                flex-direction: column; 
+                position: absolute; 
+                top: 100%; 
+                left: 0; 
+                width: 100%; 
+                background: var(--bg-body); 
+                padding: 20px 0; 
+                box-shadow: 0 10px 15px rgba(0,0,0,0.1); 
+                border-top: 1px solid #e2e8f0;
+                text-align: center;
+                gap: 15px;
+                z-index: 2000;
+            }
+            /* Clase que activa el despliegue del menú móvil con JavaScript */
+            nav ul.active { 
+                display: flex; 
+            }
+            .menu-toggle { display: flex; } 
+            
+            .hero-text h1 { font-size: 1.8rem; }
+            .emergency-block { border-right: none !important; border-bottom: 1px solid #e2e8f0; padding-bottom: 20px; } 
+            .service-slide-card, .service-slide-card.reverse { grid-template-columns: 1fr; }
+            .service-slide-card.reverse .service-slide-content { order: unset; }
+            .service-slide-card.reverse .service-slide-img { order: unset; }
+            .service-slide-img { height: 250px; min-height: 250px; }
+        }
     </style>
 </head>
 <body>
+    <header>
+        <div class="logo"><img src="${CLIENTE_LOGO}" style="height: 40px;"> ${CLIENTE_NOMBRE}</div>
+        <nav>
+            <ul id="main-menu">
+                <li><a href="#inicio" onclick="closeMobileMenu()">INICIO</a></li>
+                <li><a href="#servicios" onclick="closeMobileMenu()">SERVICIOS</a></li>
+                <li><a href="#horarios" onclick="closeMobileMenu()">HORARIOS</a></li>
+                <li><a href="#ubicacion" onclick="closeMobileMenu()">UBICACIÓN</a></li>
+                <li><a href="#contacto" onclick="closeMobileMenu()">CONTACTO</a></li>
+            </ul>
+            <div class="menu-toggle" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
 
-<header>
-    <div class="logo">${EMPRESA} | Envíos a todo Honduras | Precio Real.</div>
-    <button onclick="abrirCarrito()" style="background:none; border:none; font-size:1.5rem; cursor:pointer; position:relative;">
-        🛒 <span id="cart-counter" style="position:absolute; top:-5px; right:-5px; background:var(--danger); color:white; font-size:0.65rem; padding:2px 5px; border-radius:10px;">0</span>
-    </button>
-</header>
+    <!-- SECCIÓN HERO A PANTALLA COMPLETA CON IMAGEN DE FONDO -->
+    <section class="hero" id="inicio">
+        <div class="hero-image">
+            <img src="${CLIENTE_BANNER}" alt="${CLIENTE_NOMBRE}">
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-text" data-aos="fade-zoom-in" data-aos-duration="1200">
+            <p>${CLIENTE_NOMBRE}</p>
+            <h1>${CLIENTE_META_DESCRIPCION}</h1>
+        </div>
+    </section>
 
-<div class="category-nav" id="quick-cats"></div>
+    <div class="action-container">
+        <div class="emergency-block" style="display: flex; align-items: center; justify-content: center; gap: 15px; border-right: 1px solid #e2e8f0; padding: 10px;">
+            <div style="background: #f1f5f9; padding: 12px; border-radius: 50%; color: var(--secondary); font-size: 1.5rem;"><i class="fas id="ico-atencion" fa-couch"></i></div>
+            <div style="text-align: left;">
+                <h4 style="color: var(--secondary); font-size: 1rem; font-weight: 700;">RESERVACIONES</h4>
+                <p style="font-size: 0.85rem; color: #475569;">Servicios de Barbería Profesional</p>
+                <a href="tel:${CLIENTE_TELEFONO}" style="color: var(--secondary); font-weight: 800; font-size: 1.1rem; text-decoration: none;">${CLIENTE_TELEFONO}</a>
+            </div>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 10px;">
+            <p style="font-size: 0.9rem; font-weight: 600; color: var(--secondary);">¿Listo para un cambio?</p>
+            <a href="https://wa.me/${CLIENTE_WHATSAPP}" target="_blank" class="btn-agendar"><i class="fab fa-whatsapp"></i> Consultar</a>
+        </div>
+    </div>
 
-<!-- Generadores de confianza de la página -->
-<div style="padding: 20px 5% 0 5%;">
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; background: white; padding: 20px; border-radius: 15px; border: 1px solid #e5e7eb;">
+    <!-- SECCIÓN DE SERVICIOS CON ESTILO SLIDE (3 SERVICIOS Y FILAS ALTERNADAS) -->
+    <section id="servicios">
+        <div class="section-title">
+            <h2>Nuestros Muebles</h2> <!-- Título sección productos/servicios -->
+        </div>
         
-        <div style="display: flex; align-items: center; gap: 12px;">
-            <div style="font-size: 1.5rem;">🛡️</div>
-            <div>
-                <h4 style="font-size: 0.9rem; margin: 0;">Compra 100% Segura</h4>
-                <p style="font-size: 0.75rem; color: var(--gray); margin: 0;">Negocio local verificado.</p>
-            </div>
-        </div>
-
-        <div style="display: flex; align-items: center; gap: 12px;">
-            <div style="font-size: 1.5rem;">🚚</div>
-            <div>
-                <h4 style="font-size: 0.9rem; margin: 0;">Envíos a Nivel Nacional</h4>
-                <p style="font-size: 0.75rem; color: var(--gray); margin: 0;">Entrega rápida y rastreada.</p>
-            </div>
-        </div>
-
-        <div style="display: flex; align-items: center; gap: 12px;">
-            <div style="font-size: 1.5rem;">💬</div>
-            <div>
-                <h4 style="font-size: 0.9rem; margin: 0;">Soporte Real</h4>
-                <p style="font-size: 0.75rem; color: var(--gray); margin: 0;">Atención personalizada por WhatsApp.</p>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-<div id="grid-productos" class="product-grid"></div>
-
-<!-- Secciones añadidas: Horarios, Ubicación y Redes Sociales -->
-<section id="horarios">
-    <div class="section-title"><h2>Horarios de Atención</h2></div>
-    <div class="info-container"><ul id="scheduleListContainer" class="schedule-list"></ul></div>
-</section>
-
-<section id="ubicacion">
-    <div class="section-title"><h2>Nuestra Ubicación</h2></div>
-    <div class="info-container">
-        <p id="txt-direccion"></p>
-        <iframe class="map-responsive" id="iframe-mapa" src=""></iframe>
-    </div>
-</section>
-
-<section id="contacto">
-    <div class="section-title"><h2 style="color: white;">Nuestras Redes</h2></div>
-    <div id="social-icons" class="social-icons">
-        <a href="" target="_blank" rel="noopener" class="social-btn" id="link-wa"><i class="fab fa-whatsapp"></i></a>
-        <a href="" target="_blank" rel="noopener" class="social-btn" id="link-fb"><i class="fab fa-facebook"></i></a>
-        <a href="" target="_blank" rel="noopener" class="social-btn" id="link-ig"><i class="fab fa-instagram"></i></a>
-        <a href="" target="_blank" rel="noopener" class="social-btn" id="link-tk"><i class="fab fa-tiktok"></i></a>
-    </div>
-</section>
-
-<div id="modal-preview" class="modal" onclick="if(event.target == this) this.style.display='none'">
-    <div class="modal-content" style="max-width: 850px;">
-        <button class="close-modal" onclick="document.getElementById('modal-preview').style.display='none'">&times;</button>
-        <div id="preview-data" style="display:flex; gap:30px; flex-wrap:wrap;"></div>
-    </div>
-</div>
-
-<div id="modal-cart" class="modal">
-    <div class="modal-content" style="max-width: 600px;">
-        <button class="close-modal" onclick="cerrarCarrito()">&times;</button>
-        <div id="carrito-view">
-            <h2 style="margin-bottom:20px; color: var(--primary);">Tu Carrito</h2>
-            <div class="cart-table-header">
-                <div style="flex: 2; margin-left: 60px;">Producto</div>
-                <div style="flex: 1.5; text-align: center;">Cantidad</div>
-                <div style="flex: 0.5;"></div>
-                <div style="flex: 1.2; text-align: right;">Subtotal</div>
-            </div>
-            <div id="cart-list"></div>
-            <div style="margin-top:20px; background: var(--dark); color: white; padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; font-weight: 800;">
-                <span>Total:</span>
-                <span>${MONEDA} <span id="cart-total">0.00</span></span>
-            </div>
-            <button class="btn-main" style="background:var(--primary); color:white;" onclick="irAPagar()">Finalizar Compra</button>
-            <button class="btn-secondary" onclick="cerrarCarrito()">Seguir comprando</button>
-        </div>
-
-        <div id="pago-view" style="display:none;">
-            <h2 style="margin-bottom:15px;">Finalizar Compra</h2>
-            <div class="step-box">
-                <p><strong>Paso 1: Datos para Transferencia</strong></p>
-                <div style="margin-top: 10px;">
-                    <p style="font-size:0.85rem;">Banco: <strong id="lbl-banco"></strong></p>
-                    <p style="font-size:0.85rem;">Cuenta: <strong id="lbl-cuenta"></strong></p>
-                    <p style="font-size:0.85rem;">Nombre: <strong id="lbl-nombre"></strong></p>
-                    <p style="margin-top:5px; font-size:1rem;">Monto: <strong style="color:var(--primary);">${MONEDA} <span id="total-pago">0.00</span></strong></p>
+        <div class="services-container">
+            <!-- Servicio 1 -->
+            <div class="service-slide-card" data-aos="fade-up">
+                <img src="${CLIENTE_SERVICIOS_S1_IMG}" alt="${CLIENTE_SERVICIOS_S1_TITULO}" class="service-slide-img">
+                <div class="service-slide-content">
+                    <h3>${CLIENTE_SERVICIOS_S1_TITULO}</h3>
+                    <p>${CLIENTE_SERVICIOS_S1_DESC}</p>
+                    <a href="https://wa.me/${CLIENTE_WHATSAPP}" class="btn-agendar btn-servicio"><i class="fas fa-chair"></i> RESERVAR CITA</a>
                 </div>
             </div>
-            <div class="step-box" style="border-left-color: var(--success); display: flex; align-items: flex-start; gap: 15px;">
-                <div style="flex: 1;">
-                    <p><strong>Paso 2: Confirmar Pago</strong></p>
-                    <p style="font-size:0.85rem; margin-top: 5px;">Presiona el botón para enviar tu pedido y continuar.</p>
+
+            <!-- Servicio 2 (Invertido) -->
+            <div class="service-slide-card reverse" data-aos="fade-up" data-aos-delay="100">
+                <img src="${CLIENTE_SERVICIOS_S2_IMG}" alt="${CLIENTE_SERVICIOS_S2_TITULO}" class="service-slide-img">
+                <div class="service-slide-content">
+                    <h3>${CLIENTE_SERVICIOS_S2_TITULO}</h3>
+                    <p>${CLIENTE_SERVICIOS_S2_DESC}</p>
+                    <a href="https://wa.me/${CLIENTE_WHATSAPP}" class="btn-agendar btn-servicio"><i class="fas fa-utensils"></i> RESERVAR CITA</a>
                 </div>
             </div>
-            <button class="btn-main" style="background:var(--whatsapp); color:white;" onclick="enviarWhatsapp()">Enviar Pedido vía WhatsApp</button>
-            <button class="btn-secondary" onclick="volverAlCarrito()">← Volver al carrito</button>
-        </div>
-    </div>
-</div>
 
-<div id="toast">¡Producto añadido al carrito! 🛒</div>
-
-<script>
-    // Configuración y productos inyectados dinámicamente desde el KV
-    const CONFIG = {
-        telefono: "${CONFIG_TELEFONO}",
-        banco: "${CONFIG_BANCO}",
-        cuenta: "${CONFIG_CUENTA}",
-        nombre: "${CONFIG_NOMBRE}",
-        pais: "${CONFIG_PAIS}",
-        horario: "${CONFIG_HORARIO}",
-        direccion: "${CONFIG_DIRECCION}",
-        mapa_url: "${CONFIG_MAPA_URL}",
-        whatsapp_url: "${WHATSAPP_URL}",
-        facebook_url: "${FACEBOOK_URL}",
-        instagram_url: "${INSTAGRAM_URL}",
-        tiktok_url: "${TIKTOK_URL}"
-    };
-
-    const productos = ${PRODUCTOS_JSON};
-
-    let carrito = JSON.parse(localStorage.getItem('next_cart_v7')) || [];
-    let filtro = 'Todos';
-
-    const imgError = (e, nombre) => {
-        e.target.src = `https://placehold.co/400x400/f3f4f6/2563eb?text=${encodeURIComponent(nombre)}`;
-    };
-
-    function obtenerPrecioFinal(p) {
-        const dto = p.desc_porcentaje || 0;
-        return p.pre * (1 - dto);
-    }
-
-    function init() {
-        // Cargar datos de transferencia en la vista de pago
-        document.getElementById('lbl-banco').innerText = CONFIG.banco;
-        document.getElementById('lbl-cuenta').innerText = CONFIG.cuenta;
-        document.getElementById('lbl-nombre').innerText = CONFIG.nombre;
-
-        // Cargar datos dinámicos de las nuevas secciones
-        document.getElementById('scheduleListContainer').innerHTML = `<li>${CONFIG.horario}</li>`;
-        document.getElementById('txt-direccion').innerText = CONFIG.direccion;
-        document.getElementById('iframe-mapa').src = CONFIG.mapa_url;
-
-        document.getElementById('link-wa').href = CONFIG.whatsapp_url;
-        document.getElementById('link-fb').href = CONFIG.facebook_url;
-        document.getElementById('link-ig').href = CONFIG.instagram_url;
-        document.getElementById('link-tk').href = CONFIG.tiktok_url;
-
-        // Congelar los objetos para evitar modificaciones maliciosas en memoria (Protección Antitampering)
-        Object.freeze(CONFIG);
-        Object.freeze(productos);
-        productos.forEach(p => Object.freeze(p));
-
-        renderCategorias();
-        renderTienda();
-        actualizarContador();
-    }
-
-    function renderCategorias() {
-        const cats = ['Todos', ...new Set(productos.map(p => p.cat))];
-        const container = document.getElementById('quick-cats');
-        if(!container) return;
-        container.innerHTML = cats.map(c => `
-            <div class="cat-pill ${filtro === c ? 'active' : ''}" onclick="filtrar('${c}')">${c}</div>
-        `).join('');
-    }
-
-    function filtrar(c) { 
-        filtro = c; 
-        renderCategorias(); 
-        renderTienda(); 
-    }
-
-    function renderTienda() {
-        const grid = document.getElementById('grid-productos');
-        if(!grid) return;
-        
-        const filtrados = filtro === 'Todos' ? productos : productos.filter(p => p.cat === filtro);
-        
-        grid.innerHTML = filtrados.map(p => {
-            const final = obtenerPrecioFinal(p);
-            const tieneD = p.desc_porcentaje > 0;
-
-            return `
-                <div class="card">
-                    ${tieneD ? `<span class="badge-ahorro">${p.desc_porcentaje * 100}% OFF</span>` : ''}
-                    <img src="${p.img}" onerror="imgError(event, '${p.nom}')" onclick="abrirVistaPrevia(${p.id})">
-                    <p style="font-size:0.75rem; color:var(--primary); font-weight:800; margin-top:10px;">${p.cat}</p>
-                    <h3 style="margin:5px 0;">${p.nom}</h3>
-                    <p class="entrega-tag">🚚 Entrega: ${p.entrega}</p>
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
-                        <div>
-                            ${tieneD ? `<span style="font-size:0.8rem; text-decoration:line-through; color:var(--gray);">${MONEDA} ${p.pre}</span><br>` : ''}
-                            <span style="font-weight:800;">${MONEDA} ${final.toFixed(0)}</span>
-                        </div>
-                        <button onclick="agregar(${p.id})" style="background:var(--primary); color:white; border:none; padding:8px 12px; border-radius:8px; cursor:pointer;">Añadir</button>
-                    </div>
-                </div>`;
-        }).join('');
-    }
-
-    function abrirVistaPrevia(id) {
-        const p = productos.find(x => x.id === id);
-        const final = obtenerPrecioFinal(p);
-        const tieneD = p.desc_porcentaje > 0;
-
-        document.getElementById('preview-data').innerHTML = `
-            <img src="${p.img}" onerror="imgError(event, '${p.nom}')" style="flex:1.5; min-width:300px; height:550px; object-fit:contain; background:#f9fafb; border-radius:15px;">
-            <div style="flex:1; min-width:280px;">
-                <span style="color:var(--primary); font-weight:800;">${p.cat}</span>
-                <h2 style="margin:10px 0;">${p.nom}</h2>
-                <p style="color:var(--gray); font-size:0.9rem; margin-bottom:15px;">${p.desc}</p>
-                <div style="background:var(--light); padding:15px; border-radius:12px; margin-bottom:15px;">
-                    ${tieneD ? `<span style="text-decoration:line-through; color:var(--gray);">${MONEDA} ${p.pre}</span>` : ''}
-                    <h3 style="font-size:1.8rem; color:var(--primary);">${MONEDA} ${final.toFixed(0)}</h3>
+            <!-- Servicio 3 -->
+            <div class="service-slide-card" data-aos="fade-up" data-aos-delay="200">
+                <img src="${CLIENTE_SERVICIOS_S3_IMG}" alt="${CLIENTE_SERVICIOS_S3_TITULO}" class="service-slide-img">
+                <div class="service-slide-content">
+                    <h3>${CLIENTE_SERVICIOS_S3_TITULO}</h3>
+                    <p>${CLIENTE_SERVICIOS_S3_DESC}</p>
+                    <a href="https://wa.me/${CLIENTE_WHATSAPP}" class="btn-agendar btn-servicio"><i class="fas fa-bed"></i> RESERVAR CITA</a>
                 </div>
-                <button class="btn-main" style="background:var(--primary); color:white;" onclick="agregar(${p.id}); document.getElementById('modal-preview').style.display='none'">Añadir al Carrito</button>
-            </div>`;
-        document.getElementById('modal-preview').style.display = 'flex';
-    }
+            </div>
+        </div>
+    </section>
 
-    function agregar(id) {
-        const p = productos.find(x => x.id === id);
-        const item = carrito.find(x => x.id === id);
-        const pFinal = obtenerPrecioFinal(p);
+    <section id="horarios">
+        <div class="section-title"><h2>Horarios de Atención</h2></div>
+        <div class="info-container"><ul id="scheduleListContainer" class="schedule-list" data-raw-horario="${CLIENTE_HORARIO}"></ul></div>
+    </section>
 
-        if(item) item.cantidad++;
-        else carrito.push({ ...p, preFinal: pFinal, cantidad: 1 });
-        
-        save();
-        const t = document.getElementById('toast');
-        t.style.display = 'block'; 
-        setTimeout(() => { t.style.display = 'none'; }, 2000);
-    }
+    <section id="ubicacion">
+        <div class="section-title"><h2>Nuestra Ubicación</h2></div>
+        <div class="info-container">
+            <p>${CLIENTE_DIRECCION}</p>
+            <iframe class="map-responsive" src="${CLIENTE_MAPA_URL}"></iframe>
+        </div>
+    </section>
 
-    function save() {
-        localStorage.setItem('next_cart_v7', JSON.stringify(carrito));
-        actualizarContador();
-        if(document.getElementById('modal-cart').style.display === 'flex') renderCarrito();
-    }
+    <section id="contacto">
+        <div class="section-title"><h2 style="color: white;">Nuestras Redes</h2></div>
+        <div id="social-icons" class="social-icons">
+            <a href="${CLIENTE_WHATSAPP_URL}" target="_blank" rel="noopener" class="social-btn" data-url="${CLIENTE_WHATSAPP_URL}"><i class="fab fa-whatsapp"></i></a>
+            <a href="${CLIENTE_FACEBOOK_URL}" target="_blank" rel="noopener" class="social-btn" data-url="${CLIENTE_FACEBOOK_URL}"><i class="fab fa-facebook"></i></a>
+            <a href="${CLIENTE_INSTAGRAM_URL}" target="_blank" rel="noopener" class="social-btn" data-url="${CLIENTE_INSTAGRAM_URL}"><i class="fab fa-instagram"></i></a>
+            <a href="${CLIENTE_TIKTOK_URL}" target="_blank" rel="noopener" class="social-btn" data-url="${CLIENTE_TIKTOK_URL}"><i class="fab fa-tiktok"></i></a>
+        </div>
+    </section>
 
-    function actualizarContador() { 
-        document.getElementById('cart-counter').innerText = carrito.reduce((a, b) => a + b.cantidad, 0); 
-    }
+    <footer>
+        <p>Copyright © 2026 <strong>${CLIENTE_NOMBRE}</strong> | Creado por <a href="https://pixelsitepro.com" style="color:var(--primary); text-decoration: none; font-weight: bold;">PixelSitePro</a></p>
+    </footer>
 
-    function abrirCarrito() { 
-        document.getElementById('modal-cart').style.display = 'flex'; 
-        renderCarrito(); 
-    }
-
-    function cerrarCarrito() { 
-        document.getElementById('modal-cart').style.display = 'none'; 
-        volverAlCarrito(); 
-    }
-
-    function renderCarrito() {
-        const container = document.getElementById('cart-list');
-        let total = 0;
-        container.innerHTML = carrito.map(i => {
-            const sub = i.preFinal * i.cantidad;
-            total += sub;
-            return `
-                <div class="cart-row">
-                    <img src="${i.img}" onerror="imgError(event, '${i.nom}')" class="cart-img-min">
-                    <div class="col-name">${i.nom}</div>
-                    <div class="col-qty">
-                        <button class="qty-btn" onclick="cambiarCant(${i.id}, -1)">-</button>
-                        <span>${i.cantidad}</span>
-                        <button class="qty-btn" onclick="cambiarCant(${i.id}, 1)">+</button>
-                    </div>
-                    <div class="col-del"><button onclick="quitar(${i.id})" style="border:none; background:none; color:var(--danger); cursor:pointer;">🗑️</button></div>
-                    <div class="col-sub">${MONEDA} ${sub.toLocaleString()}</div>
-                </div>`;
-        }).join('');
-        document.getElementById('cart-total').innerText = total.toLocaleString();
-    }
-
-    function cambiarCant(id, d) {
-        const i = carrito.find(x => x.id === id);
-        if(i.cantidad === 1 && d === -1) quitar(id);
-        else { i.cantidad += d; save(); }
-    }
-
-    function quitar(id) {
-        if(confirm(`¿Quitar del pedido?`)) {
-            carrito = carrito.filter(x => x.id !== id);
-            save();
+    <script>
+        function toggleMobileMenu() { 
+            const menu = document.getElementById('main-menu'); 
+            menu.classList.toggle('active'); 
         }
-    }
+        function closeMobileMenu() {
+            const menu = document.getElementById('main-menu');
+            menu.classList.remove('active');
+        }
 
-    function generarTextoPedido() {
-        let texto = "*NUEVO PEDIDO - ${EMPRESA}*\n";
-        texto += "------------------------------\n";
-        carrito.forEach(i => {
-            texto += `• ${i.nom}\n  Cant: ${i.cantidad} | Sub: ${MONEDA} ${i.preFinal * i.cantidad}\n`;
+        document.addEventListener("DOMContentLoaded", () => {
+            const container = document.getElementById("scheduleListContainer");
+            if (container) {
+                let rawData = container.getAttribute("data-raw-horario") || "";
+                rawData.split("|").forEach(linea => {
+                    if(!linea.trim()) return;
+                    const partes = linea.split(":");
+                    const li = document.createElement("li");
+                    li.innerHTML = `<span>${partes[0].trim()}</span><span>${partes.slice(1).join(":").trim()}</span>`;
+                    container.appendChild(li);
+                });
+            }
+            
+            document.querySelectorAll('.btn-servicio').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const titulo = btn.closest('.service-slide-content').querySelector('h3').innerText;
+                    const mensaje = encodeURIComponent(`Hola, estoy interesado en el servicio: ${titulo}`);
+                    window.open(`https://wa.me/${"${CLIENTE_WHATSAPP}"}?text=${mensaje}`, '_blank');
+                });
+            });
+
+            document.querySelectorAll('#social-icons a').forEach(a => {
+                if (a.getAttribute('href').includes('undefined') || a.getAttribute('href') === '#') a.style.display = 'none';
+            });
         });
-        texto += "------------------------------\n";
-        texto += `*TOTAL: ${MONEDA} ${document.getElementById('cart-total').innerText}*`;
-        return texto;
-    }
-
-    function irAPagar() {
-        if(!carrito.length) return;
-        const totalStr = document.getElementById('cart-total').innerText;
-        document.getElementById('carrito-view').style.display = 'none';
-        document.getElementById('pago-view').style.display = 'block';
-        document.getElementById('total-pago').innerText = totalStr;
-    }
-
-    function volverAlCarrito() {
-        document.getElementById('carrito-view').style.display = 'block';
-        document.getElementById('pago-view').style.display = 'none';
-    }
-
-    function enviarWhatsapp() {
-        window.open(`https://wa.me/${CONFIG.telefono}?text=${encodeURIComponent(generarTextoPedido())}`, '_blank');
-        carrito = []; 
-        save(); 
-        location.reload();
-    }
-
-    window.onload = init;
-</script>
-
-<footer style="background-color: #f8f9fa; padding: 20px 0; text-align: center; border-top: 1px solid #e0e0e0; margin-top: 50px;">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-        <p style="color: #666; font-family: sans-serif; font-size: 14px; margin: 0;">
-            Derechos Reservados © | <strong>${EMPRESA} 2026</strong>
-        </p>
-        <div style="margin-top: 10px; font-size: 12px; color: #888;">
-            Optimizado para dispositivos móviles 📱
-        </div>
-    </div>
-</footer>
-
-<!-- Widget de chat -->
-<div id="whatsapp-widget" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; font-family: sans-serif;">
-    <div id="chat-window" style="display: none; width: 320px; background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.2); margin-bottom: 15px;">
-        <div style="background: #075e54; color: white; padding: 15px; display: flex; align-items: center; justify-content: space-between;">
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <div style="width: 40px; height: 40px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid white;">HP</div>
-                <div>
-                    <p style="margin: 0; font-weight: bold; font-size: 14px;">${EMPRESA}</p>
-                    <p style="margin: 0; font-size: 11px; opacity: 0.9;">Te responderemos en breve</p>
-                </div>
-            </div>
-            <span onclick="toggleChat()" style="cursor: pointer; font-size: 20px;">×</span>
-        </div>
-
-        <div style="padding: 20px; background: #e5ddd5; background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png'); height: 100px;">
-            <div style="background: white; padding: 10px; border-radius: 10px; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">
-                ¡Hola! 👋 Bienvenido a ${EMPRESA}. ¿En qué te podemos ayudar?
-            </div>
-        </div>
-
-        <div style="padding: 10px; background: #f0f0f0; display: flex; gap: 5px; align-items: center;">
-            <input type="text" id="wa-input" placeholder="Escribir mensaje..." style="flex: 1; border: none; padding: 10px; border-radius: 20px; outline: none; font-size: 14px;">
-            <button onclick="sendToWhatsApp()" style="background: #25d366; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center;">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg>
-            </button>
-        </div>
-    </div>
-
-    <div onclick="toggleChat()" class="whatsapp-pulse" style="width: 60px; height: 60px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative; z-index: 10; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
-        <svg viewBox="0 0 24 24" width="35" height="35" fill="white">
-            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217s.231.001.332.005c.101.004.241-.042.381.284.144.354.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.548-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"></path>
-        </svg>
-    </div>
-</div>
-
-<style>
-    @keyframes pulse-green {
-        0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-        70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-        100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-    }
-    .whatsapp-pulse {
-        animation: pulse-green 2s infinite;
-    }
-</style>
-
-<script>
-    function toggleChat() {
-        const chat = document.getElementById('chat-window');
-        chat.style.display = chat.style.display === 'none' ? 'block' : 'none';
-    }
-
-    function sendToWhatsApp() {
-        const input = document.getElementById('wa-input');
-        const number = CONFIG.telefono;
-        
-        if (input.value.trim() !== "") {
-            window.open(`https://wa.me/${number}?text=${encodeURIComponent(input.value)}`, '_blank');
-            input.value = "";
-            toggleChat();
-        }
-    }
-    
-    document.getElementById('wp-input')?.addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') {
-            sendToWhatsApp();
-        }
-    });
-</script>
+    </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init({ duration: 1000, once: true });</script>
 </body>
 </html>
