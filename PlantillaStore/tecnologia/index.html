@@ -195,6 +195,11 @@
         document.getElementById('lbl-cuenta').innerText = CONFIG.cuenta;
         document.getElementById('lbl-nombre').innerText = CONFIG.nombre;
 
+        // Congelar los objetos.
+        Object.freeze(CONFIG);
+        Object.freeze(productos);
+        productos.forEach(p => Object.freeze(p));
+
         renderCategorias();
         renderTienda();
         actualizarContador();
