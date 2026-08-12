@@ -1,1 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{EMPRESA}} | 2026</title>
+</head>
+<body>
+    <header>
+        <div class="logo">{{EMPRESA}} | Envíos a nivel nacional</div>
+        <button onclick="abrirCarrito()">🛒 <span id="cart-counter">0</span></button>
+    </header>
 
+    <script>
+        // La configuración completa se obtiene desde el endpoint del Worker
+        let STORE_DATA = {};
+        let productos = [];
+        let CONFIG = {};
+
+        async function init() {
+            try {
+                const response = await fetch('/api/data');
+                STORE_DATA = await response.json();
+                
+                productos = STORE_DATA.productos;
+                CONFIG = STORE_DATA.config;
+                
+                renderCategorias();
+                renderTienda();
+                actualizarContador();
+            } catch (e) { console.error("Error loading store data:", e); }
+        }
+        window.onload = init;
+    </script>
+</body>
+</html>
