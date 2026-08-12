@@ -49,7 +49,7 @@
         .badge-ahorro { position: absolute; top: 20px; left: 20px; background: var(--danger); color: white; padding: 4px 8px; border-radius: 5px; font-size: 0.7rem; font-weight: 800; z-index: 10; }
         .entrega-tag { font-size: 0.75rem; color: var(--success); font-weight: 700; margin-top: 5px; }
 
-        /* Estilos para las nuevas secciones (Horarios, Ubicación y Contacto) */
+        /* Estilos para las secciones (Horarios, Ubicación y Contacto) */
         section { padding: 40px 5%; }
         .section-title { text-align: center; margin-bottom: 25px; }
         .info-container { max-width: 800px; margin: 0 auto; background: var(--white); padding: 25px; border-radius: 15px; border: 1px solid #eee; text-align: center; }
@@ -129,27 +129,27 @@
 
 <div id="grid-productos" class="product-grid"></div>
 
-<!-- Secciones añadidas: Horarios, Ubicación y Redes Sociales -->
+<!-- Secciones añadidas -->
 <section id="horarios">
     <div class="section-title"><h2>Horarios de Atención</h2></div>
-    <div class="info-container"><ul id="scheduleListContainer" class="schedule-list"></ul></div>
+    <div class="info-container"><ul id="scheduleListContainer" class="schedule-list"><li>${CLIENTE_HORARIO}</li></ul></div>
 </section>
 
 <section id="ubicacion">
     <div class="section-title"><h2>Nuestra Ubicación</h2></div>
     <div class="info-container">
-        <p id="txt-direccion"></p>
-        <iframe class="map-responsive" id="iframe-mapa" src=""></iframe>
+        <p>${CLIENTE_DIRECCION}</p>
+        <iframe class="map-responsive" src="${CLIENTE_MAPA_URL}"></iframe>
     </div>
 </section>
 
 <section id="contacto">
     <div class="section-title"><h2 style="color: white;">Nuestras Redes</h2></div>
     <div id="social-icons" class="social-icons">
-        <a href="" target="_blank" rel="noopener" class="social-btn" id="link-wa"><i class="fab fa-whatsapp"></i></a>
-        <a href="" target="_blank" rel="noopener" class="social-btn" id="link-fb"><i class="fab fa-facebook"></i></a>
-        <a href="" target="_blank" rel="noopener" class="social-btn" id="link-ig"><i class="fab fa-instagram"></i></a>
-        <a href="" target="_blank" rel="noopener" class="social-btn" id="link-tk"><i class="fab fa-tiktok"></i></a>
+        <a href="${CLIENTE_WHATSAPP_URL}" target="_blank" rel="noopener" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+        <a href="${CLIENTE_FACEBOOK_URL}" target="_blank" rel="noopener" class="social-btn"><i class="fab fa-facebook"></i></a>
+        <a href="${CLIENTE_INSTAGRAM_URL}" target="_blank" rel="noopener" class="social-btn"><i class="fab fa-instagram"></i></a>
+        <a href="${CLIENTE_TIKTOK_URL}" target="_blank" rel="noopener" class="social-btn"><i class="fab fa-tiktok"></i></a>
     </div>
 </section>
 
@@ -212,14 +212,7 @@
         banco: "${CONFIG_BANCO}",
         cuenta: "${CONFIG_CUENTA}",
         nombre: "${CONFIG_NOMBRE}",
-        pais: "${CONFIG_PAIS}",
-        horario: "${CONFIG_HORARIO}",
-        direccion: "${CONFIG_DIRECCION}",
-        mapa_url: "${CONFIG_MAPA_URL}",
-        whatsapp_url: "${WHATSAPP_URL}",
-        facebook_url: "${FACEBOOK_URL}",
-        instagram_url: "${INSTAGRAM_URL}",
-        tiktok_url: "${TIKTOK_URL}"
+        pais: "${CONFIG_PAIS}"
     };
 
     const productos = ${PRODUCTOS_JSON};
@@ -241,16 +234,6 @@
         document.getElementById('lbl-banco').innerText = CONFIG.banco;
         document.getElementById('lbl-cuenta').innerText = CONFIG.cuenta;
         document.getElementById('lbl-nombre').innerText = CONFIG.nombre;
-
-        // Cargar datos dinámicos de las nuevas secciones
-        document.getElementById('scheduleListContainer').innerHTML = `<li>${CONFIG.horario}</li>`;
-        document.getElementById('txt-direccion').innerText = CONFIG.direccion;
-        document.getElementById('iframe-mapa').src = CONFIG.mapa_url;
-
-        document.getElementById('link-wa').href = CONFIG.whatsapp_url;
-        document.getElementById('link-fb').href = CONFIG.facebook_url;
-        document.getElementById('link-ig').href = CONFIG.instagram_url;
-        document.getElementById('link-tk').href = CONFIG.tiktok_url;
 
         // Congelar los objetos para evitar modificaciones maliciosas en memoria (Protección Antitampering)
         Object.freeze(CONFIG);
@@ -502,7 +485,7 @@
         }
     }
     
-    document.getElementById('wp-input')?.addEventListener('keypress', function (e) {
+    document.getElementById('wa-input')?.addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
             sendToWhatsApp();
         }
