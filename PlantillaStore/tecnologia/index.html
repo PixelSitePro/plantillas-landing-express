@@ -72,7 +72,7 @@
 <body>
 
 <header>
-    <div class="logo">${EMPRESA} | Envíos a todo Honduras | Precio en Lempiras.</div>
+    <div class="logo">${EMPRESA} | Envíos a todo Honduras | Precio Real.</div>
     <button onclick="abrirCarrito()" style="background:none; border:none; font-size:1.5rem; cursor:pointer; position:relative;">
         🛒 <span id="cart-counter" style="position:absolute; top:-5px; right:-5px; background:var(--danger); color:white; font-size:0.65rem; padding:2px 5px; border-radius:10px;">0</span>
     </button>
@@ -134,7 +134,7 @@
             <div id="cart-list"></div>
             <div style="margin-top:20px; background: var(--dark); color: white; padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; font-weight: 800;">
                 <span>Total:</span>
-                <span>L. <span id="cart-total">0.00</span></span>
+                <span>${MONEDA} <span id="cart-total">0.00</span></span>
             </div>
             <button class="btn-main" style="background:var(--primary); color:white;" onclick="irAPagar()">Finalizar Compra</button>
             <button class="btn-secondary" onclick="cerrarCarrito()">Seguir comprando</button>
@@ -234,8 +234,8 @@
                     <p class="entrega-tag">🚚 Entrega: ${p.entrega}</p>
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
                         <div>
-                            ${tieneD ? `<span style="font-size:0.8rem; text-decoration:line-through; color:var(--gray);">L. ${p.pre}</span><br>` : ''}
-                            <span style="font-weight:800;">L. ${final.toFixed(0)}</span>
+                            ${tieneD ? `<span style="font-size:0.8rem; text-decoration:line-through; color:var(--gray);">${MONEDA} ${p.pre}</span><br>` : ''}
+                            <span style="font-weight:800;">${MONEDA} ${final.toFixed(0)}</span>
                         </div>
                         <button onclick="agregar(${p.id})" style="background:var(--primary); color:white; border:none; padding:8px 12px; border-radius:8px; cursor:pointer;">Añadir</button>
                     </div>
@@ -313,7 +313,7 @@
                         <button class="qty-btn" onclick="cambiarCant(${i.id}, 1)">+</button>
                     </div>
                     <div class="col-del"><button onclick="quitar(${i.id})" style="border:none; background:none; color:var(--danger); cursor:pointer;">🗑️</button></div>
-                    <div class="col-sub">L. ${sub.toLocaleString()}</div>
+                    <div class="col-sub">${MONEDA} ${sub.toLocaleString()}</div>
                 </div>`;
         }).join('');
         document.getElementById('cart-total').innerText = total.toLocaleString();
@@ -336,10 +336,10 @@
         let texto = "*NUEVO PEDIDO - ${EMPRESA}*\n";
         texto += "------------------------------\n";
         carrito.forEach(i => {
-            texto += `• ${i.nom}\n  Cant: ${i.cantidad} | Sub: L. ${i.preFinal * i.cantidad}\n`;
+            texto += `• ${i.nom}\n  Cant: ${i.cantidad} | Sub: ${MONEDA} ${i.preFinal * i.cantidad}\n`;
         });
         texto += "------------------------------\n";
-        texto += `*TOTAL: L. ${document.getElementById('cart-total').innerText}*`;
+        texto += `*TOTAL: ${MONEDA} ${document.getElementById('cart-total').innerText}*`;
         return texto;
     }
 
