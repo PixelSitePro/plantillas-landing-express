@@ -3,34 +3,448 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{EMPRESA}} | 2026</title>
+    <title>${EMPRESA} | 2026 QR-WhatsApp Sync</title>
+
+    <link rel="icon" type="image/png" href="favicon-32x32.png">
+    <link rel="apple-touch-icon" href="favicon-32x32.png">
+
+    <meta name="description" content="${EMPRESA}: La mejor tienda en línea con envíos rápidos y pago por transferencia.">
+    <meta name="keywords" content="tienda, variedades, compras en línea Honduras">
+    <meta name="author" content="${EMPRESA}">
+
+    <meta property="og:title" content="${EMPRESA} | Tienda en Línea">
+    <meta property="og:description" content="Variedades para el hogar y uso personal con entrega rápida.">
+    <meta property="og:image" content="favicon.png">
+
+    <style>
+        :root {
+            --primary: #2563eb; --dark: #1f2937; --light: #f3f4f6;
+            --white: #ffffff; --gray: #6b7280; --danger: #ef4444;
+            --success: #10b981; --whatsapp: #25d366;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--light); color: var(--dark); }
+
+        header { 
+            background: var(--white); padding: 1rem 5%; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
+            position: sticky; top: 0; z-index: 1000; 
+            display: flex; justify-content: space-between; align-items: center; 
+        }
+        .logo { font-weight: 800; font-size: 1.5rem; color: var(--primary); }
+
+        .category-nav { background: var(--white); padding: 10px 5%; display: flex; gap: 10px; overflow-x: auto; border-bottom: 1px solid #eee; scrollbar-width: none; }
+        .cat-pill { padding: 8px 18px; background: var(--light); border-radius: 20px; white-space: nowrap; cursor: pointer; font-size: 0.85rem; font-weight: 600; color: var(--gray); transition: 0.3s; }
+        .cat-pill.active { background: var(--primary); color: var(--white); }
+
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding: 20px 5%; }
+        .card { background: var(--white); border-radius: 15px; padding: 15px; border: 1px solid #eee; position: relative; transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .card img { width: 100%; height: 200px; object-fit: contain; border-radius: 10px; cursor: zoom-in; }
+        
+        .badge-ahorro { position: absolute; top: 20px; left: 20px; background: var(--danger); color: white; padding: 4px 8px; border-radius: 5px; font-size: 0.7rem; font-weight: 800; z-index: 10; }
+        .entrega-tag { font-size: 0.75rem; color: var(--success); font-weight: 700; margin-top: 5px; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); z-index: 4000; justify-content: center; align-items: center; }
+        .modal-content { background: var(--white); padding: 25px; border-radius: 20px; width: 95%; max-width: 800px; position: relative; max-height: 90vh; overflow-y: auto; }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; border: none; background: none; color: var(--gray); }
+
+        .cart-table-header { display: flex; font-size: 0.7rem; font-weight: 800; color: var(--gray); padding-bottom: 10px; border-bottom: 2px solid var(--light); margin-bottom: 10px; text-transform: uppercase; }
+        .cart-row { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid #f1f1f1; gap: 10px; }
+        .cart-img-min { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; }
+        .col-name { flex: 2; font-weight: 600; font-size: 0.85rem; }
+        .col-qty { flex: 1.5; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .col-del { flex: 0.5; text-align: center; }
+        .col-sub { flex: 1.2; text-align: right; font-weight: 800; }
+        
+        .qty-btn { width: 22px; height: 22px; border: 1px solid #ddd; background: white; cursor: pointer; border-radius: 4px; font-size: 0.8rem; }
+        .btn-main { width: 100%; padding: 14px; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 15px; transition: 0.3s; }
+        .btn-secondary { width: 100%; padding: 14px; border: 1px solid #ddd; background: var(--white); border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 10px; color: var(--gray); transition: 0.3s; }
+
+        .step-box { background: #f9fafb; padding: 15px; border-radius: 12px; margin-bottom: 15px; border-left: 4px solid var(--primary); }
+        .qr-box { text-align: center; background: white; padding: 10px; border-radius: 10px; border: 1px solid #eee; width: 140px; margin: 10px auto 0; }
+        .qr-box img { width: 100%; display: block; }
+
+        #toast { display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--dark); color: white; padding: 12px 25px; border-radius: 30px; z-index: 5000; font-weight: 600; font-size: 0.9rem; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="logo">{{EMPRESA}} | Envíos a nivel nacional</div>
-        <button onclick="abrirCarrito()">🛒 <span id="cart-counter">0</span></button>
-    </header>
 
-    <script>
-        // La configuración completa se obtiene desde el endpoint del Worker
-        let STORE_DATA = {};
-        let productos = [];
-        let CONFIG = {};
+<header>
+    <div class="logo">${EMPRESA} | Envíos a todo Honduras | Precio en Lempiras.</div>
+    <button onclick="abrirCarrito()" style="background:none; border:none; font-size:1.5rem; cursor:pointer; position:relative;">
+        🛒 <span id="cart-counter" style="position:absolute; top:-5px; right:-5px; background:var(--danger); color:white; font-size:0.65rem; padding:2px 5px; border-radius:10px;">0</span>
+    </button>
+</header>
 
-        async function init() {
-            try {
-                const response = await fetch('/api/data');
-                STORE_DATA = await response.json();
-                
-                productos = STORE_DATA.productos;
-                CONFIG = STORE_DATA.config;
-                
-                renderCategorias();
-                renderTienda();
-                actualizarContador();
-            } catch (e) { console.error("Error loading store data:", e); }
+<div class="category-nav" id="quick-cats"></div>
+
+<!-- Generadores de confianza de la página -->
+<div style="padding: 20px 5% 0 5%;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; background: white; padding: 20px; border-radius: 15px; border: 1px solid #e5e7eb;">
+        
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="font-size: 1.5rem;">🛡️</div>
+            <div>
+                <h4 style="font-size: 0.9rem; margin: 0;">Compra 100% Segura</h4>
+                <p style="font-size: 0.75rem; color: var(--gray); margin: 0;">Negocio local verificado.</p>
+            </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="font-size: 1.5rem;">🚚</div>
+            <div>
+                <h4 style="font-size: 0.9rem; margin: 0;">Envíos a Nivel Nacional</h4>
+                <p style="font-size: 0.75rem; color: var(--gray); margin: 0;">Entrega rápida y rastreada.</p>
+            </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="font-size: 1.5rem;">💬</div>
+            <div>
+                <h4 style="font-size: 0.9rem; margin: 0;">Soporte Real</h4>
+                <p style="font-size: 0.75rem; color: var(--gray); margin: 0;">Atención personalizada por WhatsApp.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="grid-productos" class="product-grid"></div>
+
+<div id="modal-preview" class="modal" onclick="if(event.target == this) this.style.display='none'">
+    <div class="modal-content" style="max-width: 850px;">
+        <button class="close-modal" onclick="document.getElementById('modal-preview').style.display='none'">&times;</button>
+        <div id="preview-data" style="display:flex; gap:30px; flex-wrap:wrap;"></div>
+    </div>
+</div>
+
+<div id="modal-cart" class="modal">
+    <div class="modal-content" style="max-width: 600px;">
+        <button class="close-modal" onclick="cerrarCarrito()">&times;</button>
+        <div id="carrito-view">
+            <h2 style="margin-bottom:20px; color: var(--primary);">Tu Carrito</h2>
+            <div class="cart-table-header">
+                <div style="flex: 2; margin-left: 60px;">Producto</div>
+                <div style="flex: 1.5; text-align: center;">Cantidad</div>
+                <div style="flex: 0.5;"></div>
+                <div style="flex: 1.2; text-align: right;">Subtotal</div>
+            </div>
+            <div id="cart-list"></div>
+            <div style="margin-top:20px; background: var(--dark); color: white; padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; font-weight: 800;">
+                <span>Total:</span>
+                <span>L. <span id="cart-total">0.00</span></span>
+            </div>
+            <button class="btn-main" style="background:var(--primary); color:white;" onclick="irAPagar()">Finalizar Compra</button>
+            <button class="btn-secondary" onclick="cerrarCarrito()">Seguir comprando</button>
+        </div>
+
+        <div id="pago-view" style="display:none;">
+            <h2 style="margin-bottom:15px;">Finalizar Compra</h2>
+            <div class="step-box">
+                <p><strong>Paso 1: Datos para Transferencia</strong></p>
+                <div style="margin-top: 10px;">
+                    <p style="font-size:0.85rem;">Banco: <strong id="lbl-banco"></strong></p>
+                    <p style="font-size:0.85rem;">Cuenta: <strong id="lbl-cuenta"></strong></p>
+                    <p style="font-size:0.85rem;">Nombre: <strong id="lbl-nombre"></strong></p>
+                    <p style="margin-top:5px; font-size:1rem;">Monto: <strong style="color:var(--primary);">L. <span id="total-pago">0.00</span></strong></p>
+                </div>
+            </div>
+            <div class="step-box" style="border-left-color: var(--success); display: flex; align-items: flex-start; gap: 15px;">
+                <div style="flex: 1;">
+                    <p><strong>Paso 2: Confirmar Pago</strong></p>
+                    <p style="font-size:0.85rem; margin-top: 5px;">Presiona el botón para enviar tu pedido y continuar.</p>
+                </div>
+            </div>
+            <button class="btn-main" style="background:var(--whatsapp); color:white;" onclick="enviarWhatsapp()">Enviar Pedido vía WhatsApp</button>
+            <button class="btn-secondary" onclick="volverAlCarrito()">← Volver al carrito</button>
+        </div>
+    </div>
+</div>
+
+<div id="toast">¡Producto añadido al carrito! 🛒</div>
+
+<script>
+    // Configuración y productos inyectados dinámicamente desde el KV
+    const CONFIG = {
+        telefono: "${CONFIG_TELEFONO}",
+        banco: "${CONFIG_BANCO}",
+        cuenta: "${CONFIG_CUENTA}",
+        nombre: "${CONFIG_NOMBRE}",
+        pais: "${CONFIG_PAIS}"
+    };
+
+    const productos = ${PRODUCTOS_JSON};
+
+    let carrito = JSON.parse(localStorage.getItem('next_cart_v7')) || [];
+    let filtro = 'Todos';
+
+    const imgError = (e, nombre) => {
+        e.target.src = `https://placehold.co/400x400/f3f4f6/2563eb?text=${encodeURIComponent(nombre)}`;
+    };
+
+    function obtenerPrecioFinal(p) {
+        const dto = p.desc_porcentaje || 0;
+        return p.pre * (1 - dto);
+    }
+
+    function init() {
+        // Cargar datos de transferencia en la vista de pago
+        document.getElementById('lbl-banco').innerText = CONFIG.banco;
+        document.getElementById('lbl-cuenta').innerText = CONFIG.cuenta;
+        document.getElementById('lbl-nombre').innerText = CONFIG.nombre;
+
+        renderCategorias();
+        renderTienda();
+        actualizarContador();
+    }
+
+    function renderCategorias() {
+        const cats = ['Todos', ...new Set(productos.map(p => p.cat))];
+        const container = document.getElementById('quick-cats');
+        if(!container) return;
+        container.innerHTML = cats.map(c => `
+            <div class="cat-pill ${filtro === c ? 'active' : ''}" onclick="filtrar('${c}')">${c}</div>
+        `).join('');
+    }
+
+    function filtrar(c) { 
+        filtro = c; 
+        renderCategorias(); 
+        renderTienda(); 
+    }
+
+    function renderTienda() {
+        const grid = document.getElementById('grid-productos');
+        if(!grid) return;
+        
+        const filtrados = filtro === 'Todos' ? productos : productos.filter(p => p.cat === filtro);
+        
+        grid.innerHTML = filtrados.map(p => {
+            const final = obtenerPrecioFinal(p);
+            const tieneD = p.desc_porcentaje > 0;
+
+            return `
+                <div class="card">
+                    ${tieneD ? `<span class="badge-ahorro">${p.desc_porcentaje * 100}% OFF</span>` : ''}
+                    <img src="${p.img}" onerror="imgError(event, '${p.nom}')" onclick="abrirVistaPrevia(${p.id})">
+                    <p style="font-size:0.75rem; color:var(--primary); font-weight:800; margin-top:10px;">${p.cat}</p>
+                    <h3 style="margin:5px 0;">${p.nom}</h3>
+                    <p class="entrega-tag">🚚 Entrega: ${p.entrega}</p>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
+                        <div>
+                            ${tieneD ? `<span style="font-size:0.8rem; text-decoration:line-through; color:var(--gray);">L. ${p.pre}</span><br>` : ''}
+                            <span style="font-weight:800;">L. ${final.toFixed(0)}</span>
+                        </div>
+                        <button onclick="agregar(${p.id})" style="background:var(--primary); color:white; border:none; padding:8px 12px; border-radius:8px; cursor:pointer;">Añadir</button>
+                    </div>
+                </div>`;
+        }).join('');
+    }
+
+    function abrirVistaPrevia(id) {
+        const p = productos.find(x => x.id === id);
+        const final = obtenerPrecioFinal(p);
+        const tieneD = p.desc_porcentaje > 0;
+
+        document.getElementById('preview-data').innerHTML = `
+            <img src="${p.img}" onerror="imgError(event, '${p.nom}')" style="flex:1.5; min-width:300px; height:550px; object-fit:contain; background:#f9fafb; border-radius:15px;">
+            <div style="flex:1; min-width:280px;">
+                <span style="color:var(--primary); font-weight:800;">${p.cat}</span>
+                <h2 style="margin:10px 0;">${p.nom}</h2>
+                <p style="color:var(--gray); font-size:0.9rem; margin-bottom:15px;">${p.desc}</p>
+                <div style="background:var(--light); padding:15px; border-radius:12px; margin-bottom:15px;">
+                    ${tieneD ? `<span style="text-decoration:line-through; color:var(--gray);">L. ${p.pre}</span>` : ''}
+                    <h3 style="font-size:1.8rem; color:var(--primary);">L. ${final.toFixed(0)}</h3>
+                </div>
+                <button class="btn-main" style="background:var(--primary); color:white;" onclick="agregar(${p.id}); document.getElementById('modal-preview').style.display='none'">Añadir al Carrito</button>
+            </div>`;
+        document.getElementById('modal-preview').style.display = 'flex';
+    }
+
+    function agregar(id) {
+        const p = productos.find(x => x.id === id);
+        const item = carrito.find(x => x.id === id);
+        const pFinal = obtenerPrecioFinal(p);
+
+        if(item) item.cantidad++;
+        else carrito.push({ ...p, preFinal: pFinal, cantidad: 1 });
+        
+        save();
+        const t = document.getElementById('toast');
+        t.style.display = 'block'; 
+        setTimeout(() => { t.style.display = 'none'; }, 2000);
+    }
+
+    function save() {
+        localStorage.setItem('next_cart_v7', JSON.stringify(carrito));
+        actualizarContador();
+        if(document.getElementById('modal-cart').style.display === 'flex') renderCarrito();
+    }
+
+    function actualizarContador() { 
+        document.getElementById('cart-counter').innerText = carrito.reduce((a, b) => a + b.cantidad, 0); 
+    }
+
+    function abrirCarrito() { 
+        document.getElementById('modal-cart').style.display = 'flex'; 
+        renderCarrito(); 
+    }
+
+    function cerrarCarrito() { 
+        document.getElementById('modal-cart').style.display = 'none'; 
+        volverAlCarrito(); 
+    }
+
+    function renderCarrito() {
+        const container = document.getElementById('cart-list');
+        let total = 0;
+        container.innerHTML = carrito.map(i => {
+            const sub = i.preFinal * i.cantidad;
+            total += sub;
+            return `
+                <div class="cart-row">
+                    <img src="${i.img}" onerror="imgError(event, '${i.nom}')" class="cart-img-min">
+                    <div class="col-name">${i.nom}</div>
+                    <div class="col-qty">
+                        <button class="qty-btn" onclick="cambiarCant(${i.id}, -1)">-</button>
+                        <span>${i.cantidad}</span>
+                        <button class="qty-btn" onclick="cambiarCant(${i.id}, 1)">+</button>
+                    </div>
+                    <div class="col-del"><button onclick="quitar(${i.id})" style="border:none; background:none; color:var(--danger); cursor:pointer;">🗑️</button></div>
+                    <div class="col-sub">L. ${sub.toLocaleString()}</div>
+                </div>`;
+        }).join('');
+        document.getElementById('cart-total').innerText = total.toLocaleString();
+    }
+
+    function cambiarCant(id, d) {
+        const i = carrito.find(x => x.id === id);
+        if(i.cantidad === 1 && d === -1) quitar(id);
+        else { i.cantidad += d; save(); }
+    }
+
+    function quitar(id) {
+        if(confirm(`¿Quitar del pedido?`)) {
+            carrito = carrito.filter(x => x.id !== id);
+            save();
         }
-        window.onload = init;
-    </script>
+    }
+
+    function generarTextoPedido() {
+        let texto = "*NUEVO PEDIDO - ${EMPRESA}*\n";
+        texto += "------------------------------\n";
+        carrito.forEach(i => {
+            texto += `• ${i.nom}\n  Cant: ${i.cantidad} | Sub: L. ${i.preFinal * i.cantidad}\n`;
+        });
+        texto += "------------------------------\n";
+        texto += `*TOTAL: L. ${document.getElementById('cart-total').innerText}*`;
+        return texto;
+    }
+
+    function irAPagar() {
+        if(!carrito.length) return;
+        const totalStr = document.getElementById('cart-total').innerText;
+        document.getElementById('carrito-view').style.display = 'none';
+        document.getElementById('pago-view').style.display = 'block';
+        document.getElementById('total-pago').innerText = totalStr;
+    }
+
+    function volverAlCarrito() {
+        document.getElementById('carrito-view').style.display = 'block';
+        document.getElementById('pago-view').style.display = 'none';
+    }
+
+    function enviarWhatsapp() {
+        window.open(`https://wa.me/${CONFIG.telefono}?text=${encodeURIComponent(generarTextoPedido())}`, '_blank');
+        carrito = []; 
+        save(); 
+        location.reload();
+    }
+
+    window.onload = init;
+</script>
+
+<footer style="background-color: #f8f9fa; padding: 20px 0; text-align: center; border-top: 1px solid #e0e0e0; margin-top: 50px;">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+        <p style="color: #666; font-family: sans-serif; font-size: 14px; margin: 0;">
+            Derechos Reservados © | <strong>${EMPRESA} 2026</strong>
+        </p>
+        <div style="margin-top: 10px; font-size: 12px; color: #888;">
+            Optimizado para dispositivos móviles 📱
+        </div>
+    </div>
+</footer>
+
+<!-- Widget de chat -->
+<div id="whatsapp-widget" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; font-family: sans-serif;">
+    <div id="chat-window" style="display: none; width: 320px; background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.2); margin-bottom: 15px;">
+        <div style="background: #075e54; color: white; padding: 15px; display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="width: 40px; height: 40px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid white;">HP</div>
+                <div>
+                    <p style="margin: 0; font-weight: bold; font-size: 14px;">${EMPRESA}</p>
+                    <p style="margin: 0; font-size: 11px; opacity: 0.9;">Te responderemos en breve</p>
+                </div>
+            </div>
+            <span onclick="toggleChat()" style="cursor: pointer; font-size: 20px;">×</span>
+        </div>
+
+        <div style="padding: 20px; background: #e5ddd5; background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png'); height: 100px;">
+            <div style="background: white; padding: 10px; border-radius: 10px; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">
+                ¡Hola! 👋 Bienvenido a ${EMPRESA}. ¿En qué te podemos ayudar?
+            </div>
+        </div>
+
+        <div style="padding: 10px; background: #f0f0f0; display: flex; gap: 5px; align-items: center;">
+            <input type="text" id="wa-input" placeholder="Escribir mensaje..." style="flex: 1; border: none; padding: 10px; border-radius: 20px; outline: none; font-size: 14px;">
+            <button onclick="sendToWhatsApp()" style="background: #25d366; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg>
+            </button>
+        </div>
+    </div>
+
+    <div onclick="toggleChat()" class="whatsapp-pulse" style="width: 60px; height: 60px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative; z-index: 10; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+        <svg viewBox="0 0 24 24" width="35" height="35" fill="white">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217s.231.001.332.005c.101.004.241-.042.381.284.144.354.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.548-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"></path>
+        </svg>
+    </div>
+</div>
+
+<style>
+    @keyframes pulse-green {
+        0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+        70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    }
+    .whatsapp-pulse {
+        animation: pulse-green 2s infinite;
+    }
+</style>
+
+<script>
+    function toggleChat() {
+        const chat = document.getElementById('chat-window');
+        chat.style.display = chat.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function sendToWhatsApp() {
+        const input = document.getElementById('wa-input');
+        const number = CONFIG.telefono;
+        
+        if (input.value.trim() !== "") {
+            window.open(`https://wa.me/${number}?text=${encodeURIComponent(input.value)}`, '_blank');
+            input.value = "";
+            toggleChat();
+        }
+    }
+    
+    document.getElementById('wa-input')?.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            sendToWhatsApp();
+        }
+    });
+</script>
 </body>
 </html>
