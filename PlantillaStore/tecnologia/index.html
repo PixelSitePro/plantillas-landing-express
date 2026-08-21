@@ -223,6 +223,10 @@
 
 <div id="toast">¡Producto añadido al carrito! 🛒</div>
 
+<div id="modal-imagen-completa" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:6000; justify-content:center; align-items:center; cursor:zoom-out;" onclick="this.style.display='none'">
+    <img id="img-zoom-completa" src="" style="max-width:95vw; max-height:95vh; object-fit:contain; border-radius:10px;">
+</div>
+
 <script>
     // Configuración y productos inyectados dinámicamente desde el KV
     const CONFIG = {
@@ -312,7 +316,7 @@
         const tieneD = p.desc_porcentaje > 0;
 
         document.getElementById('preview-data').innerHTML = `
-            <img src="${p.img}" onerror="imgError(event, '${p.nom}')" onclick="this.classList.toggle('fullscreen')" style="flex:1.5; min-width:300px; height:550px; object-fit:contain; background:#f9fafb; border-radius:15px;">
+            <img src="${p.img}" onerror="imgError(event, '${p.nom}')" onclick="verImagenCompleta('${p.img}', '${p.nom}')" style="flex:1.5; min-width:300px; height:550px; object-fit:contain; background:#f9fafb; border-radius:15px; cursor:zoom-in;" title="Ampliar imagen">
             <div style="flex:1; min-width:280px;">
                 <span style="color:var(--primary); font-weight:800;">${p.cat}</span>
                 <h2 style="margin:10px 0;">${p.nom}</h2>
@@ -324,6 +328,14 @@
                 <button class="btn-main" style="background:var(--primary); color:white;" onclick="agregar(${p.id}); document.getElementById('modal-preview').style.display='none'">Añadir al Carrito</button>
             </div>`;
         document.getElementById('modal-preview').style.display = 'flex';
+    }
+
+        function verImagenCompleta(url, nombre) {
+        const modal = document.getElementById('modal-imagen-completa');
+        const img = document.getElementById('img-zoom-completa');
+        img.src = url;
+        img.alt = nombre;
+        modal.style.display = 'flex';
     }
 
     function agregar(id) {
