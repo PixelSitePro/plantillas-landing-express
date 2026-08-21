@@ -66,6 +66,24 @@
         .modal-content { background: var(--white); padding: 25px; border-radius: 20px; width: 95%; max-width: 800px; position: relative; max-height: 90vh; overflow-y: auto; }
         .close-modal { position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; border: none; background: none; color: var(--gray); }
 
+        /* Nuevo estilo para la imagen en el modal */
+        #preview-data img {
+            cursor: zoom-in;
+            transition: transform 0.3s ease;
+        }
+        
+        #preview-data img.fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: contain;
+            background: rgba(0,0,0,0.9);
+            z-index: 5000;
+            cursor: zoom-out;
+        }
+
         .cart-table-header { display: flex; font-size: 0.7rem; font-weight: 800; color: var(--gray); padding-bottom: 10px; border-bottom: 2px solid var(--light); margin-bottom: 10px; text-transform: uppercase; }
         .cart-row { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid #f1f1f1; gap: 10px; }
         .cart-img-min { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; }
@@ -294,7 +312,7 @@
         const tieneD = p.desc_porcentaje > 0;
 
         document.getElementById('preview-data').innerHTML = `
-            <img src="${p.img}" onerror="imgError(event, '${p.nom}')" style="flex:1.5; min-width:300px; height:550px; object-fit:contain; background:#f9fafb; border-radius:15px;">
+            <img src="${p.img}" onerror="imgError(event, '${p.nom}')" onclick="this.classList.toggle('fullscreen')" style="flex:1.5; min-width:300px; height:550px; object-fit:contain; background:#f9fafb; border-radius:15px;">
             <div style="flex:1; min-width:280px;">
                 <span style="color:var(--primary); font-weight:800;">${p.cat}</span>
                 <h2 style="margin:10px 0;">${p.nom}</h2>
