@@ -122,7 +122,7 @@
 
     <header id="landing_express">
         <h1>Catálogo - Landing Pages Express</h1>
-        <p>Selecciona un sistema y visualiza la potencia de nuestras soluciones.</p>
+        <p>Selecciona un sistema y visualiza la potencia de nuestras soluciones. Ideal para quienes inician su presencia digital.</p>
     </header>
 
     <main>
@@ -130,14 +130,24 @@
         <div class="grid" id="contenedor-express"></div>
     </main>
 
-    <!-- Sección Landing Pro corregida con su título estructurado -->
+    <!-- Sección Landing Pro con su título estructurado -->
     <section id="landing_pro">
         <div class="section-header">
             <h1>Catálogo - Landing Pages Pro</h1>
-            <p>Selecciona un sistema y visualiza la potencia de nuestras soluciones.</p>
+            <p>Selecciona un sistema y visualiza la potencia de nuestras soluciones. Diseñado para Profesionales y Empresas en expansión.</p>
         </div>
         <!-- Contenedor único para Landing Pro -->
         <div class="grid" id="contenedor-pro"></div>
+    </section>
+
+    <!-- Sección Landing Store con su título estructurado -->
+    <section id="landing_store">
+        <div class="section-header">
+            <h1>Catálogo - Landing Pages Store</h1>
+            <p>Selecciona un sistema y visualiza la potencia de nuestras soluciones. Diseñado para Profesionales y Empresas en expansión.</p>
+        </div>
+        <!-- Contenedor único para Landing Pro -->
+        <div class="grid" id="contenedor-store"></div>
     </section>
 
     <!-- Componente Modal para Pantalla Completa -->
@@ -184,6 +194,11 @@
             { nombre: "Mueblería", desc: "La calidad de tus trabajos merecen un espacio único y exclusivo en tu propia Página Web.", img: "https://pub-e9527e43ecbd44a6a30d6743b70ff3d9.r2.dev/muebleria/assets/muebleriapro.webp", url: "https://muebleriapro.PixelSitePro.com" },
             { nombre: "Taller mecánica", desc: "Creamos para ti, la página web que impulsará tu taller y convierte visitantes en clientes reales.", img: "https://pub-e9527e43ecbd44a6a30d6743b70ff3d9.r2.dev/tallermecanica/assets/tallermecanicapro.webp", url: "https://tallermecanicapro.PixelSitePro.com" }
         ];
+
+        const proyectos_store = [
+            { nombre: "Inmobiliaria", desc: "Tenemos la Página web perfecta enfocada en agendar citas y mostrar tus servicios de Bienes Raíces.", img: "https://pub-e9527e43ecbd44a6a30d6743b70ff3d9.r2.dev/inmobiliaria/assets/inmobiliariapro.webp", url: "https://inmobiliariapro.PixelSitePro.com" },
+            { nombre: "Taller mecánica", desc: "Creamos para ti, la página web que impulsará tu taller y convierte visitantes en clientes reales.", img: "https://pub-e9527e43ecbd44a6a30d6743b70ff3d9.r2.dev/tallermecanica/assets/tallermecanicapro.webp", url: "https://tallermecanicapro.PixelSitePro.com" }
+        ];
         
         const phoneNumber = "50498611270";
 
@@ -201,6 +216,16 @@
         const contenedorPro = document.getElementById('contenedor-pro');
         proyectos_pro.forEach(p => {
             const msg = encodeURIComponent(`Hola PixelSitePro, deseo comprar (Plan Pro): ${p.url}`);
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `<img src="${p.img}" alt="${p.nombre}" class="zoomable-img"><div class="card-body"><h3>${p.nombre}</h3><p>${p.desc}</p><div class="btn-container"><a href="${p.url}" target="_blank" class="btn-ver">Ver Sitio</a><a href="https://wa.me/${phoneNumber}?text=${msg}" target="_blank" class="btn-comprar">Comprar</a></div></div>`;
+            contenedorPro.appendChild(card);
+        });
+
+         // Renderizar Landing Store en su respectivo contenedor
+        const contenedorStore = document.getElementById('contenedor-store');
+        proyectos_pro.forEach(p => {
+            const msg = encodeURIComponent(`Hola PixelSitePro, deseo comprar (Plan Store): ${p.url}`);
             const card = document.createElement('div');
             card.className = 'card';
             card.innerHTML = `<img src="${p.img}" alt="${p.nombre}" class="zoomable-img"><div class="card-body"><h3>${p.nombre}</h3><p>${p.desc}</p><div class="btn-container"><a href="${p.url}" target="_blank" class="btn-ver">Ver Sitio</a><a href="https://wa.me/${phoneNumber}?text=${msg}" target="_blank" class="btn-comprar">Comprar</a></div></div>`;
