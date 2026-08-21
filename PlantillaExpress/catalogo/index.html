@@ -146,7 +146,7 @@
             <h1>Catálogo - Landing Pages Store</h1>
             <p>Selecciona un sistema y visualiza la potencia de nuestras soluciones. Diseñado para Profesionales y Empresas en expansión.</p>
         </div>
-        <!-- Contenedor único para Landing Pro -->
+        <!-- Contenedor único para Landing Store -->
         <div class="grid" id="contenedor-store"></div>
     </section>
 
@@ -229,7 +229,7 @@
             const card = document.createElement('div');
             card.className = 'card';
             card.innerHTML = `<img src="${p.img}" alt="${p.nombre}" class="zoomable-img"><div class="card-body"><h3>${p.nombre}</h3><p>${p.desc}</p><div class="btn-container"><a href="${p.url}" target="_blank" class="btn-ver">Ver Sitio</a><a href="https://wa.me/${phoneNumber}?text=${msg}" target="_blank" class="btn-comprar">Comprar</a></div></div>`;
-            contenedorPro.appendChild(card);
+            contenedorStore.appendChild(card);
         });
 
         // Lógica del Visor de Pantalla Completa (Lightbox)
