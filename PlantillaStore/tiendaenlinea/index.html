@@ -38,10 +38,12 @@
         }
         .logo { font-weight: 800; font-size: 1.5rem; color: var(--primary); }
 
-        /* Estilo para el contenedor del buscador */
-        .search-container { flex: 1; max-width: 400px; min-width: 200px; }
-        .search-input { width: 100%; padding: 8px 15px; border-radius: 20px; border: 1px solid #ddd; outline: none; font-size: 0.9rem; transition: 0.3s; }
+        /* Estilo para el contenedor del buscador con botón de limpiar */
+        .search-container { flex: 1; max-width: 400px; min-width: 200px; position: relative; display: flex; align-items: center; }
+        .search-input { width: 100%; padding: 8px 35px 8px 15px; border-radius: 20px; border: 1px solid #ddd; outline: none; font-size: 0.9rem; transition: 0.3s; }
         .search-input:focus { border-color: var(--primary); box-shadow: 0 0 5px rgba(37,99,235,0.2); }
+        .clear-search { position: absolute; right: 12px; background: none; border: none; font-size: 1rem; color: var(--gray); cursor: pointer; display: none; }
+        .clear-search:hover { color: var(--danger); }
 
         .category-nav { background: var(--primary); padding: 10px 5%; display: flex; gap: 10px; overflow-x: auto; border-bottom: 1px solid #eee; scrollbar-width: none; }
         .cat-pill { padding: 8px 18px; background: var(--light); border-radius: 20px; white-space: nowrap; cursor: pointer; font-size: 0.85rem; font-weight: 600; color: var(--gray); transition: 0.3s; }
@@ -119,9 +121,10 @@
 <header>
     <div class="logo">${EMPRESA} | Envíos a nivel nacional.</div>
     
-    <!-- Buscador en tiempo real integrado en el header -->
+    <!-- Buscador en tiempo real integrado en el header con botón para limpiar -->
     <div class="search-container">
-        <input type="text" id="input-busqueda" class="search-input" placeholder="Buscar productos..." oninput="buscarProductos(this.value)">
+        <input type="text" id="input-busqueda" class="search-input" placeholder="Buscar productos..." oninput="manejarBusqueda(this.value)">
+        <button id="btn-limpiar-busqueda" class="clear-search" onclick="limpiarBusqueda()">&times;</button>
     </div>
 
     <button onclick="abrirCarrito()" style="background:none; border:none; font-size:1.5rem; cursor:pointer; position:relative;">
@@ -323,9 +326,21 @@
         renderTienda(); 
     }
 
-    function buscarProductos(texto) {
+    function manejarBusqueda(texto) {
         busquedaTexto = texto.toLowerCase().trim();
+        const btnLimpiar = document.getElementById('btn-limpiar-busqueda');
+        if (btnLimpiar) {
+            btnLimpiar.style.display = busquedaTexto.length > 0 ? 'block' : 'none';
+        }
         renderTienda();
+    }
+
+    function limpiarBusqueda() {
+        const input = document.getElementById('input-busqueda');
+        if (input) {
+            input.value = '';
+            manejarBusqueda('');
+        }
     }
 
     function renderTienda() {
