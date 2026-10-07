@@ -32,11 +32,8 @@
         .btn-nav-contact { background: var(--whatsapp); color: white; padding: 8px 20px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 0.9rem; transition: background 0.2s; }
         .btn-nav-contact:hover { background: #16a34a; }
 
-        header { padding: 60px 5%; text-align: center; }
-        header h1 { color: white; font-size: 2.5rem; margin-bottom: 10px; }
-
         /* Grid Principal */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 0 5% 50px 5%; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 30px 5% 50px 5%; }
         .card { background: var(--card-bg); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.3); transition: transform 0.3s ease; }
         .card:hover { transform: translateY(-10px); background: rgba(30, 41, 59, 0.7); }
         .card img { width: 100%; height: 180px; object-fit: cover; opacity: 0.9; }
@@ -83,40 +80,24 @@
             <li><a href="https://pixelsitepro.com/">Inicio</a></li>
             <li><a href="#catalogo">Catálogo</a></li>
             <li><a href="#services-container">Servicios</a></li>
-            <li><a href="https://wa.me/50498611270" target="_blank" class="btn-nav-contact">CONTACTAR</a></li>
+            <li><a href="https://wa.me/50498611270" target="_blank" rel="noopener noreferrer" class="btn-nav-contact">CONTACTAR</a></li>
         </ul>
     </nav>
-
-    <header id="catalogo">
-        <h1>Catálogo - Landing Pages Express</h1>
-        <p>Selecciona un sistema y visualiza la potencia de nuestras soluciones.</p>
-    </header>
 
     <main>
         <div class="grid" id="contenedor-apps"></div>
         
         <div class="containerSAI" id="services-container">
-            <h1 style="text-align: center; color: white; margin-bottom: 30px;">Servicios Adicionales Integrados</h1>
+            <h2 style="text-align: center; color: white; margin-bottom: 30px;">Servicios Adicionales Integrados</h2>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2026 PixelSitePro. Todos los derechos reservados. | <a href="https://pixelsitepro.com" target="_blank">pixelsitepro.com</a></p>
+        <p>&copy; 2026 PixelSitePro. Todos los derechos reservados. | <a href="https://pixelsitepro.com" target="_blank" rel="noopener noreferrer">pixelsitepro.com</a></p>
     </footer>
 
     <script>
-        const proyectos = [
-            { nombre: "Belleza", desc: "Resalta la elegancia de tu salón con una plataforma enfocada en agendar citas y mostrar tus servicios.", img: "https://pub-e9527e43ecbd44a6a30d6743b70ff3d9.r2.dev/belleza/assets/img_hero.webp", url: "https://belleza.PixelSitePro.com" },
-            { nombre: "Nails Studio", desc: "La mejor manera de promover tu Profesionalismo y creatividad en el arte de las uñas, es una página web diseñada para satisfacer las necesidades de tu Negocio.", img: "https://pub-e9527e43ecbd44a6a30d6743b70ff3d9.r2.dev/nailstudio/assets/img_hero.webp", url: "https://nailstudio.PixelSitePro.com" },
-            { nombre: "Barbería", desc: "Renueva la imagen de tu barbería con una página web que permite agendar citas y mostrar tus servicios Profesionales.", img: "https://pub-e9527e43ecbd44a6a30d6743b70ff3d9.r2.dev/barberia/assets/img_hero.webp", url: "https://barberia.PixelSitePro.com" },
-            { nombre: "Clínica", desc: "Gestión médica profesional con acceso rápido a información de especialistas, especialidades y contacto directo.", img: "https://pub-e9527e43ecbd44a6a30d6743b70ff3d9.r2.dev/clinica/assets/img_hero.webp", url: "https://clinica.PixelSitePro.com" },
-            { nombre: "Floristería", desc: "Creamos para ti y para tu Negocio la página web que convierte visitas en clientes reales.", img: "https://pub-e9527e43ecbd44a6a30d6743b70ff3d9.r2.dev/floristeria/assets/img_hero.webp", url: "https://floristeria.PixelSitePro.com" },
-            { nombre: "Funeraria", desc: "Ofrece servicios con empatía y claridad, facilitando el contacto necesario en los momentos de mayor importancia.", img: "https://pub-e9527e43ecbd44a6a30d6743b70ff3d9.r2.dev/funeraria/assets/img_hero.webp", url: "https://funeraria.PixelSitePro.com" },
-            { nombre: "Turismo", desc: "Captura la atención de los viajeros con una landing visual impactante para reservas y paquetes de destinos.", img: "https://images.unsplash.com/photo-1662911136928-1068ba7be9e6?", url: "https://turismo.PixelSitePro.com" },
-            { nombre: "Veterinaria", desc: "Cuida el bienestar animal con un sitio optimizado para emergencias, vacunas y consultas personalizadas.", img: "https://pub-e9527e43ecbd44a6a30d6743b70ff3d9.r2.dev/veterinaria/assets/img_hero.webp", url: "https://veterinaria.PixelSitePro.com" }
-        ];
-
-const services = [
+        const services = [
             { 
                 title: "Gestión de Servicios (Landing Pro, Plan Starter, Plan Pro)", 
                 desc: "Adición o actualización de Servicios para asegurar que la página web esté siempre a medida y al día.", 
@@ -206,14 +187,6 @@ const services = [
         const containerSAI = document.getElementById('services-container');
         const phoneNumber = "50498611270";
 
-        proyectos.forEach(p => {
-            const msg = encodeURIComponent(`Hola PixelSitePro, deseo comprar: ${p.url}`);
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `<img src="${p.img}" alt="${p.nombre}"><div class="card-body"><h3>${p.nombre}</h3><p>${p.desc}</p><div class="btn-container"><a href="${p.url}" target="_blank" class="btn-ver">Ver Sitio</a><a href="https://wa.me/${phoneNumber}?text=${msg}" target="_blank" class="btn-comprar">Comprar</a></div></div>`;
-            contenedor.appendChild(card);
-        });
-
         services.forEach(cat => {
             let html = `<div class="service-category"><h2>${cat.title}</h2><p class="service-desc">${cat.desc}</p><ul class="price-list">`;
             cat.items.forEach(i => html += `<li class="price-item"><span>${i.name}</span><span class="price">${i.price}</span></li>`);
@@ -232,4 +205,3 @@ const services = [
     </script>
 </body>
 </html>
-
